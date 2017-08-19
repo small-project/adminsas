@@ -38,6 +38,8 @@
       </li>
       <li><a href="?p=history-karyawan"><i class="fa fa-history"></i> History </a>
       </li>
+      <li><a href="?p=pekerjaan"><i class="fa fa-gear"></i> CRUD Jenis Pekerjaan </a>
+      </li>
     </ul>
   </div>
   <div class="menu_section">
