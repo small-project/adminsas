@@ -21,7 +21,7 @@
       <div class="row">
         <div class="col-md-12">
           <strong id="nama"></strong>
-          <span>(jon.doe@gmail.com)</span> to
+           to
           <strong>me</strong>
           <a class="sender-dropdown"><i class="fa fa-chevron-down"></i></a>
         </div>
