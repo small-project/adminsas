@@ -150,24 +150,55 @@
       <div class="x_content">
         <div class="row">
 
-          <div id="listKiri" class="col-sm-3 mail_list_column">
-              <button id="compose" type="button" class="btn btn-sm btn-success btn-block">COMPOSE</button>
+          <div id="listKiri" class="col-sm-8 col-sm-offset-2">
+              <div class="row">
+                <div class="col-sm-4 col-sm-offset-4">
+                  <button id="compose" type="button" class="btn btn-sm btn-success btn-block">COMPOSE</button>
+                </div>
+              </div>
             <hr>
 
             <?php 
-              include_once 'ajx/tampil_push_left.php';
-            ?>
-            
-          </div>
-          
-          <div id="listKanan" class="col-sm-9 mail_view" style="display: none;">
-              <div class="inbox-body">
-    
+              $cek = new Admin();
+              $sql = 'SELECT tb_push.kd_push, tb_push.subject, tb_push.dari, tb_push.kepada, tb_push.create_date, tb_subject_push.nama_subject, tb_subject_push.isi, tb_subject_push.create_date, tb_admin.nama_admin, tb_karyawan.no_ktp, tb_karyawan.nama_depan, tb_karyawan.nama_belakang FROM tb_push
+            INNER JOIN tb_subject_push ON tb_subject_push.kd_subject=tb_push.subject
+            INNER JOIN tb_admin ON tb_admin.username = tb_push.dari
+            INNER JOIN tb_karyawan ON tb_karyawan.no_ktp = tb_push.kepada
+                ORDER BY tb_push.create_date DESC
+              ';
+              $stmt = $cek->runQuery($sql);
+              $stmt->execute();
 
-            <?php 
-              include_once 'ajx/tampil_push_right.php';
-            ?>
+            if ($stmt->rowCount() == '0') {
+              # code...
+              ?>
+
+            <div class="alert alert-info alert-dismissible fade in" role="alert">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+              </button>
+              <strong>Hore!</strong> belum ada push
             </div>
+
+              <?php
+            }else {
+              while ($row = $stmt->fetch(PDO::FETCH_LAZY)) {
+                 # code...
+              
+            ?>
+                <a  href="?p=detailPesan&pesan=<?=$row['kd_push']?>" data-id="<?php echo $row['kd_push']; ?>" data-jd="<?php echo $row['subject']; ?>" data-kd = "<?php echo $row['kd_detail']; ?>" data-in = "<?php echo $row['inisial']; ?>" data-ps = "<?php echo $row['pesan']; ?>" data-cd = "<?php echo $row['create_date']; ?>" data-nama = "<?php echo $row['nama_depan']; ?> <?php echo $row['nama_belakang']; ?>">
+                  <div class="mail_list">
+                    <div class="left">
+                      <i class="fa fa-circle"></i>
+                    </div>
+                    <div class="right">
+                      <h3><?php echo $row['nama_subject']; ?> <small><?php echo $row['create_date']; ?></small></h3>
+                      <p>Dari <?php echo $row['nama_admin']; ?> untuk <?php echo $row['nama_depan']; ?> <?php echo $row['nama_belakang']; ?></p>
+                    </div>
+                  </div>
+                </a>
+            <?php }
+            }?>
+            
           </div>
 
         </div>
