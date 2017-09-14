@@ -38,7 +38,6 @@
                                             <tr class="headings">
                                                 <th class="column-title">Nama Perusahaan </th>
                                                 <th class="column-title">Kebutuhan </th>
-                                                <th class="column-title">Jenis Pekerjaan </th>
                                                 <th class="column-title">Detail Request </th>
                                                 <th class="column-title">Add Karyawan </th>
                                                 <th class="column-title">List Pekerjaan </th>
@@ -88,7 +87,6 @@ ORDER BY tb_temporary_perusahaan.create_date DESC");
                                                     
                                                     <td class="col-md-2"><?php echo $row['nama_perusahaan']; ?></td>
                                                     <td class="col-md-1"><?php echo $row['nama_kategori']; ?></td>
-                                                    <td class="1"><?php echo $row['nama_pekerjaan']; ?></td>
                                                     <td class="col-md-2"><?php echo $st; ?></td>
                                                     <td class="col-md-2"><?php echo $st2; ?></td>
                                                     <td class="col-md-2"><?php echo $st3; ?></td>
@@ -116,7 +114,6 @@ ORDER BY tb_temporary_perusahaan.create_date DESC");
                                                 <th class="column-title">Handphone </th>
                                                 <th class="column-title">Email </th>
                                                 <th class="column-title">Kebutuhan </th>
-                                                <th class="column-title">Jenis Pekerjaan </th>
                                                 <th class="column-title">Bergabung Sejak </th>
                                                 <th class="column-title">Action </th>
                                             </tr>
@@ -152,7 +149,6 @@ ORDER BY tb_temporary_perusahaan.create_date DESC");
                                                     <td class="col-md-2"><?php echo $row['phone']; ?></td>
                                                     <td class="col-md-2"><?php echo $row['email']; ?></td>
                                                     <td class="col-md-1"><?php echo $row['nama_kategori']; ?></td>
-                                                    <td class="1"><?php echo $row['nama_pekerjaan']; ?></td>
                                                     <td class="col-md-2"><?php echo $row['create_date']; ?></td>
                                                     <td class="col-md-2">
                                                         <a href="?p=detail-entry&name=<?php echo $row['no_pendaftaran']; ?>">

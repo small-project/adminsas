@@ -46,6 +46,13 @@ $kd = $_GET['name'];
             $kec = $_POST['txt_kecamatan'];
             $kota = $_POST['txt_kota'];
 
+            $a = array($kodePerusahaan, $nama, $bidang, $npwp, $siup, $telp, $hp, $fax, $email, $web, $cp, $alamat, $kel, $kec, $kota);
+            // echo "<pre>";
+            // print_r($a);
+            // echo "</pre>";
+            $new_kode = explode('-', $kodePerusahaan);
+            $new_kode = implode($o);
+
             $query = "INSERT INTO tb_perusahaan (kode_perusahaan, nama_perusahaan, bidang_perusahaan, nomor_NPWP, nomor_SIUP, nomor_telp, nomor_hp, nomor_fax, email, website, contact_person, alamat, kelurahan, kecamatan, kota) VALUES (:kode, :nama, :bidang, :npwp, :siup, :telp, :hp, :fax, :email, :web, :cp, :alamat, :kel, :kec, :kota)";
             $input = $cek->runQuery($query);
             $input->execute(array(
@@ -69,16 +76,39 @@ $kd = $_GET['name'];
                 # code...
                 echo "DATA TIDAK MASUK KE DB.";
             }else{
+                //will be generate password and usualy like 'admin123'
+                $new_password = password_hash($new_kode, PASSWORD_DEFAULT);
 
-                $statuss = "0";
-                $sql = "UPDATE tb_temporary_perusahaan SET kode_perusahaan = :id, status = :st WHERE no_pendaftaran = :kode";
-                $stmt = $cek->runQuery($sql);
-                $stmt->execute(array(
-                    ':id'   => $kodePerusahaan,
-                    ':st'   => $statuss,
-                    ':kode' => $kd
+                $key = "INSERT INTO tb_login_perusahaan (kd_perusahaan, password) VALUES (:idPerusahaan, :pwd)";
+                $pwd = $cek->runQuery($key);
+                $pwd->execute(array(
+                    ':idPerusahaan' => $kodePerusahaan,
+                    ':pwd'          => $new_password
                     ));
-                print "<script>window.location='?p=entry-data';</script>";
+                if (!$pwd) {
+                    # code...
+                    echo "TIDAK BERHASIL GENERATE CODE PASSWD";
+                }else{
+
+                        $statuss = "0";
+                        $sql = "UPDATE tb_temporary_perusahaan SET kode_perusahaan = :id, status = :st WHERE no_pendaftaran = :kode";
+                        $stmt = $cek->runQuery($sql);
+                        $stmt->execute(array(
+                            ':id'   => $kodePerusahaan,
+                            ':st'   => $statuss,
+                            ':kode' => $kd
+                            ));
+                        if (!$stmt) {
+                               # code...
+                            echo "tidak berhasil update tb_temporary_perusahaan";
+                           }else{
+                            //kirim id perusahaan dan password
+                            print "<script>window.location='index.php?p=password';</script>";
+                            session_start();
+                            $_SESSION['kode'] = $kodePerusahaan;
+                            $_SESSION['pwd']  = $new_password;
+                           }   
+                }
 
             }
 
