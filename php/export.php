@@ -1,28 +1,14 @@
 <?php
 		/* include autoloader */
 		require_once 'dompdf/autoload.inc.php';
+		include_once '../config/api.php';
 
-		// Konfigurasi database anda
-		$host = "localhost";
-		$dbname = "sinergiadhi_staging";
-		$username = "root";
-		$password = "anggaadityas";
-
-		try {
-			// Buat Object PDO baru dan simpan ke variable $db
-			$db = new PDO("mysql:host={$host};dbname={$dbname}", $username, $password);
-			// Mengatur Error Mode di PDO untuk segera menampilkan exception ketika ada kesalahan
-			$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		} catch (PDOException $exception){
-			die("Connection error: " . $exception->getMessage());
-		}
-
+		$db = new Admin();
 
 		$no_ktp = $_GET['id'];
 
-		$stmt = $db->prepare('SELECT * FROM tb_karyawan where no_ktp = :no_ktp');
-		$stmt->bindParam(":no_ktp",$no_ktp);
-		$stmt->execute();
+		$stmt = $db->runQuery('SELECT * FROM tb_karyawan where no_ktp = :no_ktp');
+		$stmt->execute(array(":no_ktp" => $no_ktp));
 
 		$row = $stmt->fetch(PDO::FETCH_LAZY);
 
@@ -33,7 +19,7 @@
 		$dompdf = new Dompdf();
 
 		$html = '<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-		<style>	
+		<style>
 		.name{
 			margin-top:10px;
 		}
@@ -41,16 +27,15 @@
 			margin-top:-80px;
 		}
 		</style>
-		<div>	
+		<div>
 		<img src="'.$row['foto'].'" width="150" height="200"/>
 		<h2 class="name">'.$row['nama_depan'] . ' ' .$row['nama_belakang'].'</h2>
-		<span class="noktp">'.$row['no_ktp'].'</span>	
+		<span class="noktp">'.$row['no_ktp'].'</span>
 		</div>';
 
-		$stmtpendidikan = $db->prepare('SELECT * FROM tb_info_pendidikan where no_ktp = :no_ktp');
-		$stmtpendidikan->bindParam(":no_ktp",$no_ktp);
-		$stmtpendidikan->execute();
-		
+		$stmtpendidikan = $db->runQuery('SELECT * FROM tb_info_pendidikan where no_ktp = :no_ktp');
+		$stmtpendidikan->execute(array(":no_ktp" => $no_ktp));
+
 		$html .= "
 		 <style>
 		table {
@@ -59,13 +44,13 @@
 			width: 100%;
 			margin-top:10px;
 		}
-		
+
 		td, th {
 			border: 1px solid #dddddd;
 			text-align: left;
 			padding: 8px;
 		}
-		
+
 		tr:nth-child(even) {
 			background-color: #dddddd;
 		}
@@ -97,12 +82,11 @@
 		  </tr>
 		 ';
 		}
-		
+
 		$html .= '</table></div>';
 
-		$stmtbahasa = $db->prepare('SELECT * FROM tb_info_bahasa where no_ktp = :no_ktp');
-		$stmtbahasa->bindParam(":no_ktp",$no_ktp);
-		$stmtbahasa->execute();
+		$stmtbahasa = $db->runQuery('SELECT * FROM tb_info_bahasa where no_ktp = :no_ktp');
+		$stmtbahasa->execute(array(':no_ktp' => $no_ktp));
 
 		$html .= "
 		<style>
@@ -112,13 +96,13 @@
 		   width: 100%;
 		   margin-top:10px;
 	   }
-	   
+
 	   td, th {
 		   border: 1px solid #dddddd;
 		   text-align: left;
 		   padding: 8px;
 	   }
-	   
+
 	   tr:nth-child(even) {
 		   background-color: #dddddd;
 	   }
@@ -146,12 +130,11 @@
 		 </tr>
 		';
 	   }
-	   
+
 	   $html .= '</table></div>';
 
-	   $stmtbahasa = $db->prepare('SELECT * FROM tb_info_bahasa where no_ktp = :no_ktp');
-	   $stmtbahasa->bindParam(":no_ktp",$no_ktp);
-	   $stmtbahasa->execute();
+	   $stmtbahasa = $db->runQuery('SELECT * FROM tb_info_bahasa where no_ktp = :no_ktp');
+	   $stmtbahasa->execute(array(":no_ktp" => $no_ktp));
 
 	   $html .= "
 	   <style>
@@ -161,13 +144,13 @@
 		  width: 100%;
 		  margin-top:10px;
 	  }
-	  
+
 	  td, th {
 		  border: 1px solid #dddddd;
 		  text-align: left;
 		  padding: 8px;
 	  }
-	  
+
 	  tr:nth-child(even) {
 		  background-color: #dddddd;
 	  }
@@ -195,12 +178,11 @@
 		</tr>
 	   ';
 	  }
-	  
+
 	  $html .= '</table></div>';
 
-	  $stmtkursus = $db->prepare('SELECT * FROM tb_info_kursus where no_ktp = :no_ktp');
-	  $stmtkursus->bindParam(":no_ktp",$no_ktp);
-	  $stmtkursus->execute();
+	  $stmtkursus = $db->runQuery('SELECT * FROM tb_info_kursus where no_ktp = :no_ktp');
+	  $stmtkursus->execute(array(":no_ktp" => $no_ktp));
 
 	  $html .= "
 	  <style>
@@ -210,13 +192,13 @@
 		 width: 100%;
 		 margin-top:10px;
 	 }
-	 
+
 	 td, th {
 		 border: 1px solid #dddddd;
 		 text-align: left;
 		 padding: 8px;
 	 }
-	 
+
 	 tr:nth-child(even) {
 		 background-color: #dddddd;
 	 }
@@ -244,12 +226,11 @@
 	   </tr>
 	  ';
 	 }
-	 
+
 	 $html .= '</table></div>';
 
-	 $stmtpenghargaan = $db->prepare('SELECT * FROM tb_info_penghargaan where no_ktp = :no_ktp');
-	 $stmtpenghargaan->bindParam(":no_ktp",$no_ktp);
-	 $stmtpenghargaan->execute();
+	 $stmtpenghargaan = $db->runQuery('SELECT * FROM tb_info_penghargaan where no_ktp = :no_ktp');
+	 $stmtpenghargaan->execute(array(":no_ktp" => $no_ktp));
 
 	 $html .= "
 	 <style>
@@ -259,13 +240,13 @@
 		width: 100%;
 		margin-top:10px;
 	}
-	
+
 	td, th {
 		border: 1px solid #dddddd;
 		text-align: left;
 		padding: 8px;
 	}
-	
+
 	tr:nth-child(even) {
 		background-color: #dddddd;
 	}
@@ -291,12 +272,11 @@
 	  </tr>
 	 ';
 	}
-	
+
 	$html .= '</table></div>';
 
-	$stmtpenyakit = $db->prepare('SELECT * FROM tb_info_penyakit where no_ktp = :no_ktp');
-	$stmtpenyakit->bindParam(":no_ktp",$no_ktp);
-	$stmtpenyakit->execute();
+	$stmtpenyakit = $db->runQuery('SELECT * FROM tb_info_penyakit where no_ktp = :no_ktp');
+	$stmtpenyakit->execute(array(":no_ktp" => $no_ktp));
 
 	$html .= "
 	<style>
@@ -306,13 +286,13 @@
 	   width: 100%;
 	   margin-top:10px;
    }
-   
+
    td, th {
 	   border: 1px solid #dddddd;
 	   text-align: left;
 	   padding: 8px;
    }
-   
+
    tr:nth-child(even) {
 	   background-color: #dddddd;
    }
@@ -336,12 +316,11 @@
 	 </tr>
 	';
    }
-   
+
    $html .= '</table></div>';
 
-   $stmtkeluarga = $db->prepare('SELECT * FROM tb_info_keluarga where no_ktp = :no_ktp');
-   $stmtkeluarga->bindParam(":no_ktp",$no_ktp);
-   $stmtkeluarga->execute();
+   $stmtkeluarga = $db->runQuery('SELECT * FROM tb_info_keluarga where no_ktp = :no_ktp');
+   $stmtkeluarga->execute(array(":no_ktp" => $no_ktp));
 
    $html .= "
    <style>
@@ -351,13 +330,13 @@
 	  width: 100%;
 	  margin-top:10px;
   }
-  
+
   td, th {
 	  border: 1px solid #dddddd;
 	  text-align: left;
 	  padding: 8px;
   }
-  
+
   tr:nth-child(even) {
 	  background-color: #dddddd;
   }
@@ -393,12 +372,11 @@
 	</tr>
    ';
   }
-  
+
   $html .= '</table></div>';
 
-  $stmtpekerjaan = $db->prepare('SELECT * FROM tb_info_pekerjaan where no_ktp = :no_ktp');
-  $stmtpekerjaan->bindParam(":no_ktp",$no_ktp);
-  $stmtpekerjaan->execute();
+  $stmtpekerjaan = $db->runQuery('SELECT * FROM tb_info_pekerjaan where no_ktp = :no_ktp');
+  $stmtpekerjaan->execute(array(":no_ktp" => $no_ktp));
 
   $html .= "
   <style>
@@ -408,13 +386,13 @@
 	 width: 100%;
 	 margin-top:10px;
  }
- 
+
  td, th {
 	 border: 1px solid #dddddd;
 	 text-align: left;
 	 padding: 8px;
  }
- 
+
  tr:nth-child(even) {
 	 background-color: #dddddd;
  }
@@ -448,12 +426,11 @@
    </tr>
   ';
  }
- 
+
  $html .= '</table></div>';
 
- $stmtreferensi = $db->prepare('SELECT * FROM tb_info_referensi where no_ktp = :no_ktp');
- $stmtreferensi->bindParam(":no_ktp",$no_ktp);
- $stmtreferensi->execute();
+ $stmtreferensi = $db->runQuery('SELECT * FROM tb_info_referensi where no_ktp = :no_ktp');
+ $stmtreferensi->execute(array(":no_ktp" => $no_ktp));
 
  $html .= "
  <style>
@@ -500,9 +477,8 @@ while ($rowreferensi = $stmtreferensi->fetch(PDO::FETCH_LAZY)) {
 
 $html .= '</table></div>';
 
-$stmtpekerjaan = $db->prepare('SELECT * FROM tb_info_pekerjaan where no_ktp = :no_ktp');
-$stmtpekerjaan->bindParam(":no_ktp",$no_ktp);
-$stmtpekerjaan->execute();
+$stmtpekerjaan = $db->runQuery('SELECT * FROM tb_info_pekerjaan where no_ktp = :no_ktp');
+$stmtpekerjaan->execute(array(":no_ktp" => $no_ktp));
 
 $html .= "
 <style>
@@ -555,9 +531,8 @@ $html .= '
 
 $html .= '</table></div>';
 
-$stmtreferensi = $db->prepare('SELECT * FROM tb_info_referensi where no_ktp = :no_ktp');
-$stmtreferensi->bindParam(":no_ktp",$no_ktp);
-$stmtreferensi->execute();
+$stmtreferensi = $db->runQuery('SELECT * FROM tb_info_referensi where no_ktp = :no_ktp');
+$stmtreferensi->execute(array(":no_ktp" => $no_ktp));
 
 $html .= "
 <style>
@@ -605,9 +580,8 @@ $html .= '
 $html .= '</table></div>';
 
 
-$stmtpsikotes = $db->prepare('SELECT tb_info_test.kode_test, tb_info_test.no_ktp, tb_hasil_test.nama_penilaian, tb_hasil_test.nilai, tb_hasil_test.tgl_input, tb_hasil_test.kd_admin FROM tb_info_test INNER JOIN tb_hasil_test ON tb_hasil_test.kd_test = tb_info_test.kode_test WHERE tb_info_test.no_ktp = :no_ktp');
-$stmtpsikotes->bindParam(":no_ktp",$no_ktp);
-$stmtpsikotes->execute();
+$stmtpsikotes = $db->runQuery('SELECT tb_info_test.kode_test, tb_info_test.no_ktp, tb_hasil_test.nama_penilaian, tb_hasil_test.nilai, tb_hasil_test.tgl_input, tb_hasil_test.kd_admin FROM tb_info_test INNER JOIN tb_hasil_test ON tb_hasil_test.kd_test = tb_info_test.kode_test WHERE tb_info_test.no_ktp = :no_ktp');
+$stmtpsikotes->execute(array(":no_ktp" => $no_ktp));
 
 $html .= "
 <style>
@@ -697,9 +671,8 @@ $html .='<tr style="background-color: #055294; color: #fff;">
 <td colspan="2">GRADE Total: '.$grade.'</td>
 </tr></table></div>';
 
-$stmtinterview = $db->prepare('SELECT tb_info_interview.kd_interview, tb_info_interview.no_ktp, tb_hasil_interview.nama_penilaian, tb_hasil_interview.nilai, tb_hasil_interview.tgl_input, tb_hasil_interview.kd_admin FROM tb_info_interview INNER JOIN tb_hasil_interview ON tb_hasil_interview.kd_interview = tb_info_interview.kd_interview WHERE tb_info_interview.no_ktp = :no_ktp');
-$stmtinterview->bindParam(":no_ktp",$no_ktp);
-$stmtinterview->execute();
+$stmtinterview = $db->runQuery('SELECT tb_info_interview.kd_interview, tb_info_interview.no_ktp, tb_hasil_interview.nama_penilaian, tb_hasil_interview.nilai, tb_hasil_interview.tgl_input, tb_hasil_interview.kd_admin FROM tb_info_interview INNER JOIN tb_hasil_interview ON tb_hasil_interview.kd_interview = tb_info_interview.kd_interview WHERE tb_info_interview.no_ktp = :no_ktp');
+$stmtinterview->execute(array(":no_ktp" => $no_ktp));
 
 $html .= "
 <style>
@@ -782,7 +755,7 @@ if($sum != "0" && $total != "0"){
 		$grade = "null";
 	}
 	}
-	
+
 	$html .='<tr style="background-color: #055294; color: #fff;">
 	<td colspan="3">Total Nilai: '.$sum.'</td>
 	<td colspan="2">GRADE Total: '.$grade.'</td>
@@ -790,7 +763,7 @@ if($sum != "0" && $total != "0"){
 
 
 
-	 
+
 
 $dompdf->loadHtml($html);
 

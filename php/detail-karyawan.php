@@ -411,7 +411,7 @@ if ($nik == "") {
                   ?>
                     <tbody>
                       <tr class="even pointer">
-                        <td colspan="3">Data Belum Ada</td>
+                        <td colspan="5">Data Belum Ada</td>
                       </tr>
                     </tbody>
                   <?php } ?>
@@ -500,7 +500,7 @@ if ($nik == "") {
                   ?>
                     <tbody>
                       <tr class="even pointer">
-                        <td colspan="3">Data Belum Ada</td>
+                        <td colspan="5">Data Belum Ada</td>
                       </tr>
                     </tbody>
                   <?php } ?>

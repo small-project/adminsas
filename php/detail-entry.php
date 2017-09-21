@@ -11,19 +11,19 @@ $kd = $_GET['name'];
 
     $status = $row['status'];
 
-    if ($status == '0')
-    { 
-        print "<script>window.location='index.php?p=detail-request';</script>";
+    if ($status == '1')
+    {
+        print "<script>window.location='index.php?p=entrydata&name=".$row['kebutuhan']."/".$row['no_pendaftaran']."';</script>";
 
         $_SESSION['kodePendaftaran'] = $row['no_pendaftaran'];
     }
-    elseif ($status == '1')
-    {   
+    elseif ($status == '0')
+    {
         $id = "kode_perusahaan";
         $tbName = 'tb_perusahaan';
         $kode = "CUS-$kd-";
 
-    
+
         $gen = new Perusahaan();
         $new = $gen->Generate($id, $kode, $tbName);
 
@@ -51,7 +51,7 @@ $kd = $_GET['name'];
             // print_r($a);
             // echo "</pre>";
             $new_kode = explode('-', $kodePerusahaan);
-            $new_kode = implode($o);
+            $new_kode = implode($new_kode);
 
             $query = "INSERT INTO tb_perusahaan (kode_perusahaan, nama_perusahaan, bidang_perusahaan, nomor_NPWP, nomor_SIUP, nomor_telp, nomor_hp, nomor_fax, email, website, contact_person, alamat, kelurahan, kecamatan, kota) VALUES (:kode, :nama, :bidang, :npwp, :siup, :telp, :hp, :fax, :email, :web, :cp, :alamat, :kel, :kec, :kota)";
             $input = $cek->runQuery($query);
@@ -77,13 +77,13 @@ $kd = $_GET['name'];
                 echo "DATA TIDAK MASUK KE DB.";
             }else{
                 //will be generate password and usualy like 'admin123'
-                $new_password = password_hash($new_kode, PASSWORD_DEFAULT);
+                $new_pass = password_hash($new_kode, PASSWORD_DEFAULT);
 
                 $key = "INSERT INTO tb_login_perusahaan (kd_perusahaan, password) VALUES (:idPerusahaan, :pwd)";
                 $pwd = $cek->runQuery($key);
                 $pwd->execute(array(
                     ':idPerusahaan' => $kodePerusahaan,
-                    ':pwd'          => $new_password
+                    ':pwd'          => $new_pass
                     ));
                 if (!$pwd) {
                     # code...
@@ -106,8 +106,8 @@ $kd = $_GET['name'];
                             print "<script>window.location='index.php?p=password';</script>";
                             session_start();
                             $_SESSION['kode'] = $kodePerusahaan;
-                            $_SESSION['pwd']  = $new_password;
-                           }   
+                            $_SESSION['pwd']  = $new_kode;
+                           }
                 }
 
             }
@@ -236,7 +236,7 @@ $kd = $_GET['name'];
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Kecamatan <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                            <input id="name" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="txt_kecamatan" type="text" required> 
+                            <input id="name" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="txt_kecamatan" type="text" required>
                         </div>
                     </div>
 
@@ -263,8 +263,7 @@ $kd = $_GET['name'];
 </div>
 </div>
 </div>
-        
+
     <?php
 }
 ?>
-

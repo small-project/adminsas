@@ -15,7 +15,7 @@
     <div class="x_content">
 
             <div class="col-md-12">
-                
+
 
                 <br/>
 
@@ -45,7 +45,7 @@
                                         </thead>
                                     <?php
                                     $calon = new Karyawan();
-                                    $stmt = $calon->runQuery("SELECT tb_temporary_perusahaan.no_pendaftaran, tb_temporary_perusahaan.kode_perusahaan, tb_temporary_perusahaan.nama_perusahaan, tb_temporary_perusahaan.cp, tb_temporary_perusahaan.phone, tb_temporary_perusahaan.email, tb_temporary_perusahaan.create_date, tb_temporary_perusahaan.status, tb_jenis_pekerjaan.nama_pekerjaan, tb_kategori_pekerjaan.nama_kategori, tb_kerjasama_perusahan.nomor_kontrak
+                                    $stmt = $calon->runQuery("SELECT tb_temporary_perusahaan.no_pendaftaran, tb_temporary_perusahaan.kode_perusahaan, tb_temporary_perusahaan.nama_perusahaan, tb_temporary_perusahaan.cp, tb_temporary_perusahaan.phone, tb_temporary_perusahaan.email, tb_temporary_perusahaan.create_date, tb_temporary_perusahaan.status, tb_jenis_pekerjaan.nama_pekerjaan, tb_kategori_pekerjaan.kode_kategori, tb_kategori_pekerjaan.nama_kategori, tb_kerjasama_perusahan.nomor_kontrak
 FROM tb_temporary_perusahaan
 LEFT JOIN tb_jenis_pekerjaan ON tb_jenis_pekerjaan.kd_pekerjaan=tb_temporary_perusahaan.kode_pekerjaan
 LEFT JOIN tb_kategori_pekerjaan ON tb_kategori_pekerjaan.kode_kategori=tb_temporary_perusahaan.kebutuhan
@@ -77,14 +77,14 @@ ORDER BY tb_temporary_perusahaan.create_date DESC");
                                                 $st3 = '<a href="?p=add-list-job&name='.$row['nomor_kontrak'].'"><button type="button" class="btn btn-success btn-xs"> <i class="fa fa-edit"></i>  List Pekerjaan</button></a>';
                                             }
                                             else{
-                                                $st = '<a href="?p=entrydata&name='.$row['no_pendaftaran'].'"><button type="button" class="btn btn-success btn-xs"> <i class="fa fa-edit"></i>  Detail Request </button></a>';
+                                                $st = '<a href="?p=entrydata&name='.$row['kode_kategori'].'/'.$row['no_pendaftaran'].'"><button type="button" class="btn btn-success btn-xs"> <i class="fa fa-edit"></i>  Detail Request </button></a>';
                                                 $st2 = '<span class="label label-default">not sett</span>';
                                                 $st3 = '<span class="label label-default">not sett</span>';
                                             }
                                             ?>
                                                 <tr class="even pointer">
 
-                                                    
+
                                                     <td class="col-md-2"><?php echo $row['nama_perusahaan']; ?></td>
                                                     <td class="col-md-1"><?php echo $row['nama_kategori']; ?></td>
                                                     <td class="col-md-2"><?php echo $st; ?></td>
@@ -103,7 +103,7 @@ ORDER BY tb_temporary_perusahaan.create_date DESC");
                         <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
 
                             <!-- start user projects -->
-                      
+
                             <ul class="messages">
                                 <div class="table-responsive">
                                     <table class="table table-striped jambo_table bulk_action">
@@ -120,7 +120,7 @@ ORDER BY tb_temporary_perusahaan.create_date DESC");
                                         </thead>
                                     <?php
                                     $calon = new Karyawan();
-                                    $stmt = $calon->runQuery("SELECT tb_temporary_perusahaan.no_pendaftaran, tb_temporary_perusahaan.kode_perusahaan, tb_temporary_perusahaan.nama_perusahaan, tb_temporary_perusahaan.cp, tb_temporary_perusahaan.phone, tb_temporary_perusahaan.email, tb_temporary_perusahaan.create_date, tb_temporary_perusahaan.status, tb_jenis_pekerjaan.nama_pekerjaan, tb_kategori_pekerjaan.nama_kategori 
+                                    $stmt = $calon->runQuery("SELECT tb_temporary_perusahaan.no_pendaftaran, tb_temporary_perusahaan.kode_perusahaan, tb_temporary_perusahaan.nama_perusahaan, tb_temporary_perusahaan.cp, tb_temporary_perusahaan.phone, tb_temporary_perusahaan.email, tb_temporary_perusahaan.create_date, tb_temporary_perusahaan.status, tb_jenis_pekerjaan.nama_pekerjaan, tb_kategori_pekerjaan.nama_kategori
                                         FROM tb_temporary_perusahaan
                                         LEFT JOIN tb_jenis_pekerjaan ON tb_jenis_pekerjaan.kd_pekerjaan=tb_temporary_perusahaan.kode_pekerjaan
                                         LEFT JOIN tb_kategori_pekerjaan ON tb_kategori_pekerjaan.kode_kategori=tb_temporary_perusahaan.kebutuhan
@@ -143,7 +143,7 @@ ORDER BY tb_temporary_perusahaan.create_date DESC");
                                             ?>
                                                 <tr class="even pointer">
 
-                                                    
+
                                                     <td class="col-md-2"><?php echo $row['nama_perusahaan']; ?></td>
                                                     <td class="col-md-2"><?php echo $row['cp']; ?></td>
                                                     <td class="col-md-2"><?php echo $row['phone']; ?></td>
@@ -169,12 +169,12 @@ ORDER BY tb_temporary_perusahaan.create_date DESC");
                                     </table>
                                 </div>
                             </ul>
-                                
+
 
                             <!-- end user projects -->
 
                         </div>
-                       
+
 
                     </div>
                 </div>
@@ -184,6 +184,3 @@ ORDER BY tb_temporary_perusahaan.create_date DESC");
     </div>
 
 </div>
-
-
-

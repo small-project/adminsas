@@ -10,7 +10,16 @@ $delete = new Perusahaan();
 		# code...
 		echo "Data Tidak berhasil di hapus.";
 	}else{
-		header('Location: ../index.php?p=entry-data');
+		$query ="DELETE FROM tb_list_perkerjaan_perusahaan WHERE code = :id";
+		$stmt = $delete->runQuery($query);
+		$stmt->execute(array(':id' => $id));
+		if (!$stmt) {
+			# code...
+			echo " Data list tidak terhapuskan!";
+		}else{
+			header('Location: ../index.php?p=new-request');
+		}
+
 	}
 
 
