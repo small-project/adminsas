@@ -1,5 +1,6 @@
 <!-- conth -->
 <?php
+  
   include_once 'config/session.php';
   include_once 'config/api.php';
   $user_admin = new Login();
@@ -9,10 +10,10 @@
 
   $stmt = $user_admin->runQuery("SELECT * FROM tb_admin WHERE username=:user_id");
   $stmt->execute(array(":user_id"=>$admin_id));
-  
+
   $rowAdmin=$stmt->fetch(PDO::FETCH_ASSOC);
   $kd_admin = $rowAdmin['username'];
-  
+
   include_once 'php/header.php';
   include_once 'php/side-navbar.php';
   include_once 'php/top-navbar.php';

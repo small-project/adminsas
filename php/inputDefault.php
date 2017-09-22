@@ -17,11 +17,11 @@
             </label>
             <div class="col-md-9 col-sm-9 col-xs-12">
               <input type="number" name="txt_total" class="form-control" placeholder="total karyawan" required>
-              <input type="text" name="txt_kode" class="form-control" value="<?php echo $row['kode_perusahaan']; ?>">
-              <input type="text" name="txt_kontrak" class="form-control" value="<?php echo $nomor; ?>">
-              <input type="text" name="txt_req" class="form-control" value="<?php echo $row['no_pendaftaran']; ?>">
-                <input type="text" name="txt_plan" class="form-control" value="<?=$type?>">
-                <input type="text" name="txt_admin" class="form-control" value="<?php echo $admin_id; ?>">
+              <input type="hidden" name="txt_kode" class="form-control" value="<?php echo $row['kode_perusahaan']; ?>">
+              <input type="hidden" name="txt_kontrak" class="form-control" value="<?php echo $nomor; ?>">
+              <input type="hidden" name="txt_req" class="form-control" value="<?php echo $row['no_pendaftaran']; ?>">
+                <input type="hidden" name="txt_plan" class="form-control" value="<?=$type?>">
+                <input type="hidden" name="txt_admin" class="form-control" value="<?php echo $admin_id; ?>">
             </div>
           </div>
 

@@ -25,9 +25,9 @@
       $row = $stmt->fetch(PDO::FETCH_LAZY);
 
       $n = array($row);
-      echo "<pre>";
-      print_r($n);
-      echo "</pre>";
+      // echo "<pre>";
+      // print_r($n);
+      // echo "</pre>";
       include 'inputMPO.php';
     }
     elseif ($type == 'BPO01') #BPO
@@ -41,9 +41,9 @@
       $row = $stmt->fetch(PDO::FETCH_LAZY);
 
       $n = array($row);
-      echo "<pre>";
-      print_r($n);
-      echo "</pre>";
+      // echo "<pre>";
+      // print_r($n);
+      // echo "</pre>";
       include 'inputBPO.php';
 
     }
@@ -58,9 +58,9 @@
       $row = $stmt->fetch(PDO::FETCH_LAZY);
 
       $n = array($row);
-      echo "<pre>";
-      print_r($n);
-      echo "</pre>";
+      // echo "<pre>";
+      // print_r($n);
+      // echo "</pre>";
       include 'inputDefault.php';
     }
 
@@ -119,14 +119,13 @@
       // echo "</pre>";
       //
 
-      $query = "INSERT INTO tb_kerjasama_perusahan (nomor_kontrak, kode_perusahaan, kode_plan, total_karyawan, deskripsi, tugas, tanggung_jwb, penempatan, kontrak_start, kontrak_end, nilai_kontrak, kode_admin) VALUES (:kontrak, :kode, :plan, :jmlh, :deskripsi, :tgs, :tgjwb, :tmpt, :start, :ends, :nilai, :admin)";
+      $query = "INSERT INTO tb_kerjasama_perusahan (nomor_kontrak, kode_perusahaan, kode_plan, deskripsi, tugas, tanggung_jwb, penempatan, kontrak_start, kontrak_end, nilai_kontrak, kode_admin) VALUES (:kontrak, :kode, :plan, :deskripsi, :tgs, :tgjwb, :tmpt, :start, :ends, :nilai, :admin)";
 
       $stmt = $cek->runQuery($query);
       $stmt->execute(array(
         ':kontrak'  =>$no_kontrak,
         ':kode'     =>$req,
         ':plan'     =>$plan,
-        ':jmlh'     =>$jmlh,
         ':deskripsi'=>$deskripsi,
         ':tgs'      =>$tugas,
         ':tgjwb'    =>$tanggung,
@@ -179,9 +178,23 @@
                   if (!$stmt) {
                     # code...
                     echo "data time tidak masuk";
-                  }else{
-                    print "<script>window.location='index.php?p=entry-data';</script>";
-                  }
+                      }else{
+                        echo "<script>
+                                alert('DATA Berhasil di Input!');
+                                window.location.href='index.php?p=entry-data';
+                                </script>";
+                        //print "<script>window.location='index.php?p=entry-data';</script>";
+                      }
+                  if (!$stmt) {
+                    # code...
+                    echo "data time tidak masuk";
+                      }else{
+                        echo "<script>
+                                alert('DATA Berhasil di Input!');
+                                window.location.href='index.php?p=entry-data';
+                                </script>";
+                        //print "<script>window.location='index.php?p=entry-data';</script>";
+                      }
                 }else{
                   echo "you should better select one of them.";
                 }
@@ -287,6 +300,16 @@
                     ':jumat' => $fri,
                     ':sabtu' => $sat
                   ));
+                  if (!$stmt) {
+                    # code...
+                    echo "data time tidak masuk";
+                      }else{
+                        echo "<script>
+                                alert('DATA Berhasil di Input!');
+                                window.location.href='index.php?p=entry-data';
+                                </script>";
+                        //print "<script>window.location='index.php?p=entry-data';</script>";
+                      }
                 }elseif ($time_select == "2"){
                   $query = "INSERT INTO tb_time_fleksible (nomor_spk, minggu, senin, selasa, rabu, kamis, jumat, sabtu) VALUES (:nomor, :minggu, :senin, :selasa, :rabu, :kamis, :jumat, :sabtu)";
                   $stmt = $cek->runQuery($query);
@@ -303,9 +326,13 @@
                   if (!$stmt) {
                     # code...
                     echo "data time tidak masuk";
-                  }else{
-                    print "<script>window.location='index.php?p=entry-data';</script>";
-                  }
+                      }else{
+                        echo "<script>
+                                alert('DATA Berhasil di Input!');
+                                window.location.href='index.php?p=entry-data';
+                                </script>";
+                        //print "<script>window.location='index.php?p=entry-data';</script>";
+                      }
                 }else{
                   echo "you should better select one of them.";
                 }
@@ -410,6 +437,17 @@
                     ':jumat' => $fri,
                     ':sabtu' => $sat
                   ));
+                  if (!$stmt) {
+                    # code...
+                    echo "data time tidak masuk";
+                      }else{
+                        echo "<script>
+                                alert('DATA Berhasil di Input!');
+                                window.location.href='index.php?p=entry-data';
+                                </script>";
+                        //print "<script>window.location='index.php?p=entry-data';</script>";
+                      }
+
                 }elseif ($time_select == "2"){
                   $query = "INSERT INTO tb_time_fleksible (nomor_spk, minggu, senin, selasa, rabu, kamis, jumat, sabtu) VALUES (:nomor, :minggu, :senin, :selasa, :rabu, :kamis, :jumat, :sabtu)";
                   $stmt = $cek->runQuery($query);
@@ -427,7 +465,11 @@
                     # code...
                     echo "data time tidak masuk";
                   }else{
-                    print "<script>window.location='index.php?p=entry-data';</script>";
+                    echo "<script>
+                            alert('DATA Berhasil di Input!');
+                            window.location.href='index.php?p=entry-data';
+                            </script>";
+                    //print "<script>window.location='index.php?p=entry-data';</script>";
                   }
                 }else{
                   echo "you should better select one of them.";
@@ -436,7 +478,7 @@
       }
 
     }else{
-      echo "Edit Mode";
+      // echo "Edit Mode";
     }
 
 
