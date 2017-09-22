@@ -1,5 +1,88 @@
 <?php
 $id = $_GET['id'];
+$data = new Admin();
+$id = "kode_list_karyawan";
+$inisial = "KRYLS";
+$tbName = "tb_kerjasama_perusahan";
+
+$kode2 = $data->Generate($id, $inisial, $tbName);
+echo $kode2;
+if (isset($_POST['addGenerate'])) {
+	# code...
+	$kode = $_POST['txt_id'];
+
+	$query = "SELECT * FROM tb_kerjasama_perusahan WHERE tb_kerjasama_perusahan.nomor_kontrak = :nomor_kontrak";
+	$stmt  = $config->runQuery($query);
+	$stmt->execute(array(':nomor_kontrak'	=> $kode));
+	$row = $stmt->fetch(PDO::FETCH_LAZY);
+	$kd_list_karyawan = $row['kode_list_karyawan'];
+	if ($kd_list_karyawan == "") {
+
+		$data = new Admin();
+
+	  $id = "kode_list_karyawan";
+	  $inisial = "KRYLS";
+	  $tbName = "tb_kerjasama_perusahan";
+
+	  $generate = $data->Generate($id, $inisial, $tbName);
+
+		$sql = "UPDATE tb_kerjasama_perusahan SET kode_list_karyawan = :kode WHERE nomor_kontrak = :nomor ";
+		$stmt = $config->runQuery($sql);
+		$stmt->execute(array(
+			":kode" => $generate,
+			":nomor"=> $kode
+		));
+
+		if ($stmt) {
+			# code...
+			echo "data berhasil masuk";
+			// echo "<script>
+	    //         alert('CODE Berhasil di Generate!');
+	    //         window.location.href='?p=select-karyawan&id=".$kode."';
+	    //         </script>";
+		}else{
+			echo "Data Tidak Masuk";
+		}
+	}else{
+		echo "halaman input";
+	}
+
+
+}
+
+	$query = "SELECT * FROM tb_kerjasama_perusahan WHERE tb_kerjasama_perusahan.nomor_kontrak = :nomor_kontrak";
+	$stmt  = $config->runQuery($query);
+	$stmt->execute(array(':nomor_kontrak'	=> $id));
+
+	$row = $stmt->fetch(PDO::FETCH_LAZY);
+	$kd_list_karyawan = $row['kode_list_karyawan'];
+	if ($kd_list_karyawan == "") { ?>
+		<div class="col-md-6 col-lg-offset-3">
+				<div class="well">
+						<p>
+							<form class="" action="" method="post">
+								<input type="hidden" name="txt_id" value="<?=$id?>">
+									<input type="hidden" name="txt_id" value="<?=$id?>">
+									<button type="submit" class="btn btn-block btn-info" name="addGenerate">Generate Code Karyawan</button>
+							</form>
+						</p>
+				</div>
+		</div>
+	<?php } else { ?>
+		<div class="col-md-6 col-lg-offset-3">
+				<div class="well">
+						<h4 class="text-danger">INFORMATION</h4>
+						<p>Nomor SPK <?=$id?> tidak ada dalam data penyimpanan!</p>
+						<hr>
+
+				</div>
+		</div>
+	<?php }
+
+ ?>
+
+<?php
+$id = $_GET['id'];
 
 $data  = new Admin();
 $sql = "SELECT tb_kerjasama_perusahan.nomor_kontrak, tb_kerjasama_perusahan.total_karyawan, tb_temporary_perusahaan.nama_perusahaan, tb_temporary_perusahaan.kode_perusahaan, tb_temporary_perusahaan.nama_perusahaan, tb_temporary_perusahaan.kebutuhan, tb_temporary_perusahaan.kode_pekerjaan, tb_jenis_pekerjaan.nama_pekerjaan, tb_kategori_pekerjaan.nama_kategori FROM tb_kerjasama_perusahan LEFT JOIN tb_temporary_perusahaan ON tb_temporary_perusahaan.no_pendaftaran=tb_kerjasama_perusahan.kode_perusahaan LEFT JOIN tb_jenis_pekerjaan ON tb_jenis_pekerjaan.kd_pekerjaan=tb_temporary_perusahaan.kode_pekerjaan LEFT JOIN tb_kategori_pekerjaan ON tb_kategori_pekerjaan.kode_kategori=tb_temporary_perusahaan.kebutuhan WHERE tb_kerjasama_perusahan.nomor_kontrak = :kode";
@@ -36,7 +119,7 @@ while ($row = $stmt->fetch(PDO::FETCH_LAZY)) {
         //cek untuk available calon karyawan
 
         $kodePekerjaan = $row['kode_pekerjaan'];
-        $dt = "SELECT tb_karyawan.no_ktp, tb_karyawan.no_NIK, tb_karyawan.nama_depan, tb_karyawan.nama_belakang,tb_karyawan.status, tb_apply_pekerjaan.kd_pekerjaan, tb_jenis_pekerjaan.nama_pekerjaan, tb_info_test.kode_test, tb_info_interview.kd_interview, tb_karyawan.nilai FROM tb_karyawan 
+        $dt = "SELECT tb_karyawan.no_ktp, tb_karyawan.no_NIK, tb_karyawan.nama_depan, tb_karyawan.nama_belakang,tb_karyawan.status, tb_apply_pekerjaan.kd_pekerjaan, tb_jenis_pekerjaan.nama_pekerjaan, tb_info_test.kode_test, tb_info_interview.kd_interview, tb_karyawan.nilai FROM tb_karyawan
 LEFT JOIN tb_apply_pekerjaan ON tb_apply_pekerjaan.no_ktp=tb_karyawan.no_ktp
 LEFT JOIN tb_jenis_pekerjaan ON tb_jenis_pekerjaan.kd_pekerjaan=tb_apply_pekerjaan.kd_pekerjaan
 LEFT JOIN tb_info_test ON tb_info_test.no_ktp = tb_karyawan.no_ktp
@@ -79,7 +162,7 @@ LEFT JOIN tb_info_interview ON tb_info_interview.no_ktp = tb_karyawan.no_ktp WHE
                     <tbody>
                     <?php
 
-                    $query = "SELECT tb_karyawan.no_ktp, tb_karyawan.no_NIK, tb_karyawan.nama_depan, tb_karyawan.nama_belakang,tb_karyawan.status, tb_apply_pekerjaan.kd_pekerjaan, tb_jenis_pekerjaan.nama_pekerjaan, tb_info_test.kode_test, tb_info_interview.kd_interview, tb_karyawan.nilai FROM tb_karyawan 
+                    $query = "SELECT tb_karyawan.no_ktp, tb_karyawan.no_NIK, tb_karyawan.nama_depan, tb_karyawan.nama_belakang,tb_karyawan.status, tb_apply_pekerjaan.kd_pekerjaan, tb_jenis_pekerjaan.nama_pekerjaan, tb_info_test.kode_test, tb_info_interview.kd_interview, tb_karyawan.nilai FROM tb_karyawan
 LEFT JOIN tb_apply_pekerjaan ON tb_apply_pekerjaan.no_ktp=tb_karyawan.no_ktp
 LEFT JOIN tb_jenis_pekerjaan ON tb_jenis_pekerjaan.kd_pekerjaan=tb_apply_pekerjaan.kd_pekerjaan
 LEFT JOIN tb_info_test ON tb_info_test.no_ktp = tb_karyawan.no_ktp

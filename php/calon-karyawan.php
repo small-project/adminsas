@@ -4,7 +4,7 @@
   <div class="x_panel">
     <div class="x_title">
       <h2>List Pelamar </h2>
-      
+
       <div class="clearfix"></div>
     </div>
 
@@ -34,11 +34,11 @@
             </tr>
           </thead>
           <?php
-         
+
             $calon = new Karyawan();
             $stmt = $calon->runQuery("SELECT tb_karyawan.no_ktp, no_NIK, nama_depan, nama_belakang, jenis_kelamin, tb_karyawan.email, nomor_hp, tb_login_karyawan.joining_date FROM tb_karyawan
               LEFT JOIN tb_login_karyawan ON tb_login_karyawan.no_ktp = tb_karyawan.no_ktp
-              WHERE no_NIK = ''");
+              WHERE no_NIK = '' ORDER BY tb_login_karyawan.joining_date DESC");
             $stmt->execute();
           ?>
           <tbody>
@@ -75,7 +75,7 @@
               </td>
             </tr>
             <?php } } ?>
-        
+
           </tbody>
         </table>
       </div>
