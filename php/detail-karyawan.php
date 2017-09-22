@@ -64,7 +64,7 @@ if ($nik == "") {
         <li class="m-top-xs">
           <i class="fa fa-envelope user-profile-icon"></i>
           <?php echo $row['email']; ?>
-        </li>   
+        </li>
       </ul>
 
       <a class="btn btn-danger"><i class="fa fa-qrcode m-right-xs"></i> <?php echo $nik; ?></a>
@@ -735,7 +735,7 @@ if ($nik == "") {
                        ?>
                       <tr class="even pointer">
 
-                        <td class=" " style="text-transform: uppercase;"><a href="../Pendaftaran/Upload/?php echo $row['nama_file']; ?>"><?php echo $row['nama_file']; ?></a></td>
+                        <td class=" " style="text-transform: uppercase;"><a href="../Pendaftaran/Upload/<?=$row['nama_file'];?>"><?=$row['nama_file']; ?></a></td>
                         <td class=" "><?php echo $row['type_file']; ?></td>
                         <td class=" "><?php echo $row['paths']; ?></td>
                         <td class=" "><?php echo $row['create_date']; ?></td>
