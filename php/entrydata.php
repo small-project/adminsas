@@ -124,7 +124,7 @@
       $stmt = $cek->runQuery($query);
       $stmt->execute(array(
         ':kontrak'  =>$no_kontrak,
-        ':kode'     =>$req,
+        ':kode'     =>$kd_perusahaan,
         ':plan'     =>$plan,
         ':deskripsi'=>$deskripsi,
         ':tgs'      =>$tugas,
@@ -261,7 +261,7 @@
       $stmt = $cek->runQuery($query);
       $stmt->execute(array(
         ':kontrak'  =>$no_kontrak,
-        ':kode'     =>$req,
+        ':kode'     =>$kd_perusahaan,
         ':plan'     =>$plan,
         ':jmlh'     =>$jmlh,
         ':deskripsi'=>$deskripsi,
@@ -398,7 +398,7 @@
       $stmt = $cek->runQuery($query);
       $stmt->execute(array(
         ':kontrak'  =>$no_kontrak,
-        ':kode'     =>$req,
+        ':kode'     =>$kd_perusahaan,
         ':plan'     =>$plan,
         ':jmlh'     =>$jmlh,
         ':deskripsi'=>$deskripsi,

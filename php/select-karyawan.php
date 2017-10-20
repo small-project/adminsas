@@ -1,12 +1,7 @@
 <?php
 $id = $_GET['id'];
 $data = new Admin();
-$id = "kode_list_karyawan";
-$inisial = "KRYLS";
-$tbName = "tb_kerjasama_perusahan";
 
-$kode2 = $data->Generate($id, $inisial, $tbName);
-echo $kode2;
 if (isset($_POST['addGenerate'])) {
 	# code...
 	$kode = $_POST['txt_id'];
@@ -17,8 +12,6 @@ if (isset($_POST['addGenerate'])) {
 	$row = $stmt->fetch(PDO::FETCH_LAZY);
 	$kd_list_karyawan = $row['kode_list_karyawan'];
 	if ($kd_list_karyawan == "") {
-
-		$data = new Admin();
 
 	  $id = "kode_list_karyawan";
 	  $inisial = "KRYLS";
@@ -35,7 +28,11 @@ if (isset($_POST['addGenerate'])) {
 
 		if ($stmt) {
 			# code...
-			echo "data berhasil masuk";
+			echo "<script>
+			alert('Input Data Success!');
+			window.location.href='?p=addJabatan';
+			</script>";
+			// echo "data berhasil masuk";
 			// echo "<script>
 	    //         alert('CODE Berhasil di Generate!');
 	    //         window.location.href='?p=select-karyawan&id=".$kode."';
@@ -68,15 +65,51 @@ if (isset($_POST['addGenerate'])) {
 						</p>
 				</div>
 		</div>
-	<?php } else { ?>
-		<div class="col-md-6 col-lg-offset-3">
-				<div class="well">
-						<h4 class="text-danger">INFORMATION</h4>
-						<p>Nomor SPK <?=$id?> tidak ada dalam data penyimpanan!</p>
-						<hr>
+	<?php } else {
+		$dt = "SELECT * FROM tb_karyawan WHERE status= ''";
+		$stmt = $data->runQuery($dt);
+		$stmt->execute();
 
-				</div>
-		</div>
+		?>
+		<div class="x_content">
+    <h3>List karyawan untuk BPO</h3>
+		<hr>
+      <div class="table-responsive">
+        <table class="table table-striped jambo_table bulk_action">
+          <thead>
+            <tr class="headings">
+              <th class="column-title">#</th>
+              <th class="column-title">NIK </th>
+              <th class="column-title">Nama Lengkap</th>
+              <th class="column-title">Email</th>
+              <th class="column-title no-link last"><span class="nobr">Action</span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+          <?php
+          $i = 1;
+          while ($row = $stmt->fetch(PDO::FETCH_LAZY)) {
+              ?>
+            <tr class="even pointer">
+              <td class=" "><?= $i++; ?></td>
+              <td class=" "><?= $row['no_ktp']; ?></td>
+              <td class=" "><?= $row['nama_depan']; ?> <?=$row['nama_belakang']?></td>
+              <td class=" "><?= $row['email']; ?></td>
+              <td>
+                <a href="?p=addKaryawan&id=<?= $row['no_ktp']; ?>&kode=<?=$kd_list_karyawan?>">
+                <button type="button" data-toggle="tooltip" data-placement="right" title="Add" class="btn btn-info btn-xs" onclick="return confirm('Are you sure you want to add?');">
+                    <i class="fa fa-fw fa-plus-square"> </i>
+                  </button>
+                </a>
+              </td>
+              </td>
+            </tr>
+            <?php } ?>
+          </tbody>
+        </table>
+      </div>
+      </div>
 	<?php }
 
  ?>

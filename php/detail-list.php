@@ -1,33 +1,81 @@
 <?php
 $kode = $_GET['id'];
 
-$query = "SELECT tb_job.nomor_kontrak, tb_list_karyawan.no_nip, tb_karyawan.nama_depan, tb_karyawan.nama_belakang FROM tb_job INNER JOIN tb_list_karyawan ON tb_list_karyawan.kode_list_karyawan=tb_job.nomor_kontrak INNER JOIN tb_karyawan ON tb_karyawan.no_NIK=tb_list_karyawan.no_nip WHERE tb_job.nomor_kontrak = ':nomor_kontrak'";
+$query = "SELECT tb_perusahaan.kode_perusahaan, tb_temporary_perusahaan.no_pendaftaran, tb_perusahaan.nama_perusahaan, tb_kerjasama_perusahan.nomor_kontrak, tb_kerjasama_perusahan.kode_plan, tb_kerjasama_perusahan.total_karyawan, tb_kerjasama_perusahan.deskripsi, tb_kerjasama_perusahan.tugas, tb_kerjasama_perusahan.tanggung_jwb, tb_kerjasama_perusahan.penempatan, tb_kerjasama_perusahan.kontrak_start, tb_kerjasama_perusahan.kontrak_end FROM tb_perusahaan
+INNER JOIN tb_temporary_perusahaan ON tb_temporary_perusahaan.kode_perusahaan=tb_perusahaan.kode_perusahaan
+INNER JOIN tb_kerjasama_perusahan ON tb_kerjasama_perusahan.kode_perusahaan=tb_temporary_perusahaan.kode_perusahaan
+WHERE tb_perusahaan.kode_perusahaan = :nomor_kontrak";
 $conn = new Karyawan();
 $stmt = $conn->runQuery($query);
 $stmt->execute(array(
     ':nomor_kontrak' => $kode
 ));
-while ($col = $stmt->fetch(PDO::FETCH_LAZY)){
-    echo $col['no_nip'];
-};
 ?>
 <br/>
-<h4 class="page-header">List berdasarkan Karyawan</h4>
+<h4 class="page-header">List Data</h4>
 
+<?php while ($col = $stmt->fetch(PDO::FETCH_LAZY)) {
+$type = $col['kode_plan'];
+switch ($type) {
+  case 'BPO01':
+    $name = "BPO";
+    break;
+  case 'MPO01':
+      $name = "MPO";
+    break;
+  case 'SYG01':
+      $name = "System Integrator";
+    break;
+  case 'KST01':
+      $name = "Konsultan";
+    break;
 
+  default:
+    # code...
+    $name ="";
+    break;
+}
+  ?>
 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
     <div class="panel panel-default">
         <div class="panel-heading" role="tab" id="headingOne">
             <h4 class="panel-title">
-                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#1" aria-expanded="true" aria-controls="1">
-                    Collapsible Group Item #1
+                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#<?=$col['nomor_kontrak']?>" aria-expanded="true" aria-controls="1">
+                    Type Plan: <?=$name?>
                 </a>
+                <span class="pull-right" style="font-size:12px;">Start Date: <?=$col['kontrak_start']?> ~ End Date: <?=$col['kontrak_end']?></span>
             </h4>
         </div>
-        <div id="1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+        <div id="<?=$col['nomor_kontrak']?>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
             <div class="panel-body">
-                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                <div class="row">
+                  <div class="col-md-4">
+                    <h5 class="page-header">Deskripsi</h5>
+                    <br>
+                    <p><?=$col['deskripsi']?></p>
+                  </div>
+                  <div class="col-md-4">
+                    <h5 class="page-header">Tugas</h5>
+                    <br>
+                    <p><?=$col['tugas']?></p>
+                  </div>
+                  <div class="col-md-4">
+                    <h5 class="page-header">Tanggung Jawab</h5>
+                    <br>
+                    <p><?=$col['tanggung_jwb']?></p>
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <hr>
+                  <p style="font-weight: 600;">Penempatan Kerja: <?=$col['penempatan']?>
+                    <span class="pull-right">
+                      <button type="button" class="btn btn-sm btn-primary" name="button">List Karyawan</button>
+                    </span>
+                  </p>
+
+                </div>
             </div>
         </div>
     </div>
 </div>
+<?php } ?>

@@ -7,6 +7,9 @@
     <script src="vendors/ckeditor/styles.js"></script>
     <!-- Bootstrap -->
     <script src="vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- DataTables -->
+    <script src="vendors/DataTables/media/js/jquery.dataTables.min.js"></script>
+    <script src="vendors/DataTables/media/js/dataTables.bootstrap.min.js"></script>
     <!-- FastClick -->
     <script src="vendors/fastclick/lib/fastclick.js"></script>
     <!-- NProgress -->
@@ -204,7 +207,63 @@
         });
 
     });
+       /* Custom filtering function which will search data in column four between two values */
+        $.fn.dataTable.ext.search.push(
+            function( settings, data, dataIndex ) {
+                var min = parseInt( $('#min').val(), 10 );
+                var max = parseInt( $('#max').val(), 10 );
+                var age = parseFloat( data[6] ) || 0; // use data for the age column
+        
+                if ( ( isNaN( min ) && isNaN( max ) ) ||
+                    ( isNaN( min ) && age <= max ) ||
+                    ( min <= age   && isNaN( max ) ) ||
+                    ( min <= age   && age <= max ) )
+                {
+                    return true;
+                }
+                return false;
+            }
+        );
+        
+        function filterGlobal () {
+    $('#example').DataTable().search(
+        $('#global_filter').val('option:selected')
+    ).draw();
+}
 
+    $(document).ready(function() {
+                var table = $('#list_pelamar').DataTable({
+                        "scrollY": "500px",
+                        "paging": true
+                    });
+
+                // Event listener to the two range filtering inputs to redraw on input
+                $('#min, #max').keyup( function() {
+                    table.draw();
+                });
+                
+                
+                $('.dataTables_filter input').unbind().bind('keyup', function() {
+                  var colIndex = document.querySelector('#select').selectedIndex;
+                  table.column( colIndex).search( this.value ).draw();
+                });
+                
+                $('select.global_filter').on( 'keyup click', function () {
+                    filterGlobal();
+                });
+
+                $('a.toggle-vis').on( 'click', function (e) {
+                e.preventDefault();
+        
+                // Get the column API object
+                var column = table.column( $(this).attr('data-column') );
+        
+                // Toggle the visibility
+                column.visible( ! column.visible());
+                
+        });
+        
+    });
     </script>
 
 	
