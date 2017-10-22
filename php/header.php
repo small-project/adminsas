@@ -18,7 +18,8 @@
     <link href="vendors/nprogress/nprogress.css" rel="stylesheet">
     <!-- iCheck -->
     <link href="vendors/iCheck/skins/flat/green.css" rel="stylesheet">
-	
+	<!-- Datatables -->
+    <link href="vendors/DataTables/media/css/dataTables.bootstrap.min.css" rel="stylesheet">
     <!-- bootstrap-progressbar -->
     <link href="vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
     <!-- JQVMap -->

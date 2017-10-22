@@ -69,7 +69,7 @@ if ($nik == "") {
 
       <a class="btn btn-danger"><i class="fa fa-qrcode m-right-xs"></i> <?php echo $nik; ?></a>
       <a class="btn <?=$color?>"><i class="fa fa-qrcode m-right-xs"></i> <?php echo $st; ?></a>
-      <a class="btn btn-success" href="php/export.php?id=<?php echo $row['no_ktp']; ?>"><i class="fa fa-qrcode m-right-xs"></i> Export Data Karyawan</a>
+      <a class="btn btn-success" target="_blank" href="php/export.php?id=<?php echo $row['no_ktp']; ?>"><i class="fa fa-qrcode m-right-xs"></i> Export Data Karyawan</a>
       <br/>
 
       <!-- start skills -->

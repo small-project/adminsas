@@ -69,7 +69,7 @@ if($cekLogin->is_loggedin()!="")
       }
     ?>
               <div>
-                <input name="txt_username" type="text" class="form-control" placeholder="Username" required />
+                <input name="txt_username" type="text" class="form-control" placeholder="Username" autofocus="autofocus" required />
               </div>
               <div>
                 <input name="txt_password" type="password" class="form-control" placeholder="Password" required />

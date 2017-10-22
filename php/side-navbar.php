@@ -15,6 +15,8 @@
       </li>
       <li><a href="?p=add-job"><i class="fa fa-th"></i> Add Job </a>
       </li>
+      <li><a href="?p=addJabatan"><i class="fa fa-user-md"></i> Jabatan </a>
+      </li>
       <li><a href="?p=history"><i class="fa fa-history"></i> History </a>
       </li>
     </ul>
@@ -66,7 +68,7 @@
 
 <br />
 
-            
+
 
     <!-- /menu footer buttons -->
     <div class="sidebar-footer hidden-small">

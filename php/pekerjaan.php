@@ -8,7 +8,7 @@ if (isset($_POST['addPekerjaan'])) {
     # code...
     $kd = $_POST['txt_kode'];
     $nm = $_POST['txt_nama'];
-    
+
     $query = "INSERT INTO tb_jenis_pekerjaan (kd_pekerjaan, nama_pekerjaan) VALUES (:kd, :nm)";
     $set = $config->runQuery($query);
     $set->execute(array(
@@ -30,7 +30,7 @@ if (isset($_POST['addPekerjaan'])) {
 } else {
 
 
-  
+
 
 ?>
 
@@ -41,7 +41,7 @@ if (isset($_POST['addPekerjaan'])) {
   <div class="x_panel">
     <div class="x_title">
       <h2>Daftar List Pekerjaan yang tersedia </h2>
-      
+
       <div class="clearfix"></div>
     </div>
 
@@ -61,7 +61,7 @@ if (isset($_POST['addPekerjaan'])) {
           <tbody>
           <?php
           $i = 1;
-          while ($row = $stmt->fetch(PDO::FETCH_LAZY)) { 
+          while ($row = $stmt->fetch(PDO::FETCH_LAZY)) {
               ?>
             <tr class="even pointer">
               <td class=" "><?= $i++; ?></td>
@@ -105,7 +105,7 @@ if (isset($_POST['addPekerjaan'])) {
                </div>
                <div class="form-group">
                   <label class="control-label col-sm-4" for="pwd">Nama Pekerjaan</label>
-                  <div class="col-sm-8">          
+                  <div class="col-sm-8">
                      <input type="text" class="form-control" id="pwd" placeholder="nama untuk jenis pekerjaan" name="txt_nama" required>
                   </div>
                </div>
