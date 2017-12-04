@@ -1,6 +1,5 @@
 <!-- conth -->
 <?php
-  
   include_once 'config/session.php';
   include_once 'config/api.php';
   $user_admin = new Login();

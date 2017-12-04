@@ -118,87 +118,73 @@
       // print_r($day);
       // echo "</pre>";
       //
-
-      $query = "INSERT INTO tb_kerjasama_perusahan (nomor_kontrak, kode_perusahaan, kode_plan, deskripsi, tugas, tanggung_jwb, penempatan, kontrak_start, kontrak_end, nilai_kontrak, kode_admin) VALUES (:kontrak, :kode, :plan, :deskripsi, :tgs, :tgjwb, :tmpt, :start, :ends, :nilai, :admin)";
-
-      $stmt = $cek->runQuery($query);
-      $stmt->execute(array(
-        ':kontrak'  =>$no_kontrak,
-        ':kode'     =>$kd_perusahaan,
-        ':plan'     =>$plan,
-        ':deskripsi'=>$deskripsi,
-        ':tgs'      =>$tugas,
-        ':tgjwb'    =>$tanggung,
-        ':tmpt'     =>$penempatan,
-        ':start'    =>$start,
-        ':ends'     =>$ends,
-        ':nilai'    =>$total,
-        ':admin'    =>$admin));
-      if (!$stmt) {
+      if ($time_select == "1") {
         # code...
-        echo "data tidak masuk";
-      } else{
-          //bahwa nama perusahaan dengan request tersebut telah melalui tahap "entry detail Project"
-        $sql = "UPDATE tb_temporary_perusahaan SET status = '3' WHERE tb_temporary_perusahaan.no_pendaftaran = :id";
-        $stmt = $cek->runQuery($sql);
-          $stmt->execute(array(
-              ':id'   =>$noReg));
-              if (!$stmt) {
-                # code...
-                echo "data tidak update di tb_temporary_perusahaan";
-              }else{
+        $query = "INSERT INTO tb_time_fix (nomor_spk, minggu, senin, selasa, rabu, kamis, jumat, sabtu) VALUES (:nomor, :minggu, :senin, :selasa, :rabu, :kamis, :jumat, :sabtu)";
+        $stmt = $cek->runQuery($query);
+        $stmt->execute(array(
+          ':nomor' => $no_kontrak,
+          ':minggu'=> $sun,
+          ':senin' => $mon,
+          ':selasa'=> $tue,
+          ':rabu'  => $wen,
+          ':kamis' => $thu,
+          ':jumat' => $fri,
+          ':sabtu' => $sat
+        ));
+      }elseif ($time_select == "2"){
+        $query = "INSERT INTO tb_time_fleksible (nomor_spk, minggu, senin, selasa, rabu, kamis, jumat, sabtu) VALUES (:nomor, :minggu, :senin, :selasa, :rabu, :kamis, :jumat, :sabtu)";
+        $stmt = $cek->runQuery($query);
+        $stmt->execute(array(
+          ':nomor' => $no_kontrak,
+          ':minggu'=> $minggu,
+          ':senin' => $senin,
+          ':selasa'=> $selasa,
+          ':rabu'  => $rabu,
+          ':kamis' => $kamis,
+          ':jumat' => $jumat,
+          ':sabtu' => $sabtu
+        ));
+      }else{
+        echo "you should better select one of them.";
+      }
 
-                if ($time_select == "1") {
+      if (!empty($time_select)) {
+        # code...
+        $query = "INSERT INTO tb_kerjasama_perusahan (nomor_kontrak, kode_perusahaan, kode_plan, deskripsi, tugas, tanggung_jwb, penempatan, kontrak_start, kontrak_end, nilai_kontrak, kode_admin) VALUES (:kontrak, :kode, :plan, :deskripsi, :tgs, :tgjwb, :tmpt, :start, :ends, :nilai, :admin)";
+
+        $stmt = $cek->runQuery($query);
+        $stmt->execute(array(
+          ':kontrak'  =>$no_kontrak,
+          ':kode'     =>$kd_perusahaan,
+          ':plan'     =>$plan,
+          ':deskripsi'=>$deskripsi,
+          ':tgs'      =>$tugas,
+          ':tgjwb'    =>$tanggung,
+          ':tmpt'     =>$penempatan,
+          ':start'    =>$start,
+          ':ends'     =>$ends,
+          ':nilai'    =>$total,
+          ':admin'    =>$admin));
+        if (!$stmt) {
+          # code...
+          echo "data tidak masuk";
+        } else{
+            //bahwa nama perusahaan dengan request tersebut telah melalui tahap "entry detail Project"
+          $sql = "UPDATE tb_temporary_perusahaan SET status = '3' WHERE tb_temporary_perusahaan.no_pendaftaran = :id";
+          $stmt = $cek->runQuery($sql);
+            $stmt->execute(array(
+                ':id'   =>$noReg));
+                if (!$stmt) {
                   # code...
-                  $query = "INSERT INTO tb_time_fix (nomor_spk, minggu, senin, selasa, rabu, kamis, jumat, sabtu) VALUES (:nomor, :minggu, :senin, :selasa, :rabu, :kamis, :jumat, :sabtu)";
-                  $stmt = $cek->runQuery($query);
-                  $stmt->execute(array(
-                    ':nomor' => $no_kontrak,
-                    ':minggu'=> $sun,
-                    ':senin' => $mon,
-                    ':selasa'=> $tue,
-                    ':rabu'  => $wen,
-                    ':kamis' => $thu,
-                    ':jumat' => $fri,
-                    ':sabtu' => $sat
-                  ));
-                }elseif ($time_select == "2"){
-                  $query = "INSERT INTO tb_time_fleksible (nomor_spk, minggu, senin, selasa, rabu, kamis, jumat, sabtu) VALUES (:nomor, :minggu, :senin, :selasa, :rabu, :kamis, :jumat, :sabtu)";
-                  $stmt = $cek->runQuery($query);
-                  $stmt->execute(array(
-                    ':nomor' => $no_kontrak,
-                    ':minggu'=> $minggu,
-                    ':senin' => $senin,
-                    ':selasa'=> $selasa,
-                    ':rabu'  => $rabu,
-                    ':kamis' => $kamis,
-                    ':jumat' => $jumat,
-                    ':sabtu' => $sabtu
-                  ));
-                  if (!$stmt) {
-                    # code...
-                    echo "data time tidak masuk";
-                      }else{
-                        echo "<script>
-                                alert('DATA Berhasil di Input!');
-                                window.location.href='index.php?p=entry-data';
-                                </script>";
-                        //print "<script>window.location='index.php?p=entry-data';</script>";
-                      }
-                  if (!$stmt) {
-                    # code...
-                    echo "data time tidak masuk";
-                      }else{
-                        echo "<script>
-                                alert('DATA Berhasil di Input!');
-                                window.location.href='index.php?p=entry-data';
-                                </script>";
-                        //print "<script>window.location='index.php?p=entry-data';</script>";
-                      }
+                  echo "data tidak update di tb_temporary_perusahaan";
                 }else{
-                  echo "you should better select one of them.";
+                  echo "<script>
+                          alert('DATA Berhasil di Input!');
+                          window.location.href='index.php?p=entry-data';
+                          </script>";
                 }
-              }
+        }
       }
 
     }elseif (isset($_POST['addDataBPO'])) { #for case BPO
@@ -255,88 +241,77 @@
       // print_r($day);
       // echo "</pre>";
       //
-
-      $query = "INSERT INTO tb_kerjasama_perusahan (nomor_kontrak, kode_perusahaan, kode_plan, total_karyawan, deskripsi, tugas, tanggung_jwb, penempatan, kontrak_start, kontrak_end, nilai_kontrak, kode_admin) VALUES (:kontrak, :kode, :plan, :jmlh, :deskripsi, :tgs, :tgjwb, :tmpt, :start, :ends, :nilai, :admin)";
-
-      $stmt = $cek->runQuery($query);
-      $stmt->execute(array(
-        ':kontrak'  =>$no_kontrak,
-        ':kode'     =>$kd_perusahaan,
-        ':plan'     =>$plan,
-        ':jmlh'     =>$jmlh,
-        ':deskripsi'=>$deskripsi,
-        ':tgs'      =>$tugas,
-        ':tgjwb'    =>$tanggung,
-        ':tmpt'     =>$penempatan,
-        ':start'    =>$start,
-        ':ends'     =>$ends,
-        ':nilai'    =>$total,
-        ':admin'    =>$admin));
-      if (!$stmt) {
+      if ($time_select == "1") {
         # code...
-        echo "data tidak masuk";
-      } else{
-          //bahwa nama perusahaan dengan request tersebut telah melalui tahap "entry detail Project"
-        $sql = "UPDATE tb_temporary_perusahaan SET status = '3' WHERE tb_temporary_perusahaan.no_pendaftaran = :id";
-        $stmt = $cek->runQuery($sql);
-          $stmt->execute(array(
-              ':id'   =>$noReg));
-              if (!$stmt) {
-                # code...
-                echo "data tidak update di tb_temporary_perusahaan";
-              }else{
+        $query = "INSERT INTO tb_time_fix (nomor_spk, minggu, senin, selasa, rabu, kamis, jumat, sabtu) VALUES (:nomor, :minggu, :senin, :selasa, :rabu, :kamis, :jumat, :sabtu)";
+        $stmt = $cek->runQuery($query);
+        $stmt->execute(array(
+          ':nomor' => $no_kontrak,
+          ':minggu'=> $sun,
+          ':senin' => $mon,
+          ':selasa'=> $tue,
+          ':rabu'  => $wen,
+          ':kamis' => $thu,
+          ':jumat' => $fri,
+          ':sabtu' => $sat
+        ));
+      }elseif ($time_select == "2"){
+        $query = "INSERT INTO tb_time_fleksible (nomor_spk, minggu, senin, selasa, rabu, kamis, jumat, sabtu) VALUES (:nomor, :minggu, :senin, :selasa, :rabu, :kamis, :jumat, :sabtu)";
+        $stmt = $cek->runQuery($query);
+        $stmt->execute(array(
+          ':nomor' => $no_kontrak,
+          ':minggu'=> $minggu,
+          ':senin' => $senin,
+          ':selasa'=> $selasa,
+          ':rabu'  => $rabu,
+          ':kamis' => $kamis,
+          ':jumat' => $jumat,
+          ':sabtu' => $sabtu
+        ));
+      }else{
+        echo "you should better select one of them.";
+      }
 
-                if ($time_select == "1") {
+      if (!empty($time_select)) {
+        # code...
+        $query = "INSERT INTO tb_kerjasama_perusahan (nomor_kontrak, kode_perusahaan, kode_plan, total_karyawan, deskripsi, tugas, tanggung_jwb, penempatan, kontrak_start, kontrak_end, nilai_kontrak, kode_admin) VALUES (:kontrak, :kode, :plan, :jmlh, :deskripsi, :tgs, :tgjwb, :tmpt, :start, :ends, :nilai, :admin)";
+
+        $stmt = $cek->runQuery($query);
+        $stmt->execute(array(
+          ':kontrak'  =>$no_kontrak,
+          ':kode'     =>$kd_perusahaan,
+          ':plan'     =>$plan,
+          ':jmlh'     =>$jmlh,
+          ':deskripsi'=>$deskripsi,
+          ':tgs'      =>$tugas,
+          ':tgjwb'    =>$tanggung,
+          ':tmpt'     =>$penempatan,
+          ':start'    =>$start,
+          ':ends'     =>$ends,
+          ':nilai'    =>$total,
+          ':admin'    =>$admin));
+        if (!$stmt) {
+          # code...
+          echo "data tidak masuk";
+        } else{
+            //bahwa nama perusahaan dengan request tersebut telah melalui tahap "entry detail Project"
+          $sql = "UPDATE tb_temporary_perusahaan SET status = '3' WHERE tb_temporary_perusahaan.no_pendaftaran = :id";
+          $stmt = $cek->runQuery($sql);
+            $stmt->execute(array(
+                ':id'   =>$noReg));
+                if (!$stmt) {
                   # code...
-                  $query = "INSERT INTO tb_time_fix (nomor_spk, minggu, senin, selasa, rabu, kamis, jumat, sabtu) VALUES (:nomor, :minggu, :senin, :selasa, :rabu, :kamis, :jumat, :sabtu)";
-                  $stmt = $cek->runQuery($query);
-                  $stmt->execute(array(
-                    ':nomor' => $no_kontrak,
-                    ':minggu'=> $sun,
-                    ':senin' => $mon,
-                    ':selasa'=> $tue,
-                    ':rabu'  => $wen,
-                    ':kamis' => $thu,
-                    ':jumat' => $fri,
-                    ':sabtu' => $sat
-                  ));
-                  if (!$stmt) {
-                    # code...
-                    echo "data time tidak masuk";
-                      }else{
-                        echo "<script>
-                                alert('DATA Berhasil di Input!');
-                                window.location.href='index.php?p=entry-data';
-                                </script>";
-                        //print "<script>window.location='index.php?p=entry-data';</script>";
-                      }
-                }elseif ($time_select == "2"){
-                  $query = "INSERT INTO tb_time_fleksible (nomor_spk, minggu, senin, selasa, rabu, kamis, jumat, sabtu) VALUES (:nomor, :minggu, :senin, :selasa, :rabu, :kamis, :jumat, :sabtu)";
-                  $stmt = $cek->runQuery($query);
-                  $stmt->execute(array(
-                    ':nomor' => $no_kontrak,
-                    ':minggu'=> $minggu,
-                    ':senin' => $senin,
-                    ':selasa'=> $selasa,
-                    ':rabu'  => $rabu,
-                    ':kamis' => $kamis,
-                    ':jumat' => $jumat,
-                    ':sabtu' => $sabtu
-                  ));
-                  if (!$stmt) {
-                    # code...
-                    echo "data time tidak masuk";
-                      }else{
-                        echo "<script>
-                                alert('DATA Berhasil di Input!');
-                                window.location.href='index.php?p=entry-data';
-                                </script>";
-                        //print "<script>window.location='index.php?p=entry-data';</script>";
-                      }
+                  echo "data tidak update di tb_temporary_perusahaan";
                 }else{
-                  echo "you should better select one of them.";
+
+                  echo "<script>
+                          alert('DATA Berhasil di Input!');
+                          window.location.href='index.php?p=entry-data';
+                          </script>";
+
+
                 }
-              }
+        }
       }
     } elseif (isset($_POST['addDataDefault'])) { #for case Default
       # code...
@@ -392,93 +367,78 @@
       // print_r($day);
       // echo "</pre>";
       //
-
-      $query = "INSERT INTO tb_kerjasama_perusahan (nomor_kontrak, kode_perusahaan, kode_plan, total_karyawan, deskripsi, tugas, tanggung_jwb, penempatan, kontrak_start, kontrak_end, nilai_kontrak, kode_admin) VALUES (:kontrak, :kode, :plan, :jmlh, :deskripsi, :tgs, :tgjwb, :tmpt, :start, :ends, :nilai, :admin)";
-
-      $stmt = $cek->runQuery($query);
-      $stmt->execute(array(
-        ':kontrak'  =>$no_kontrak,
-        ':kode'     =>$kd_perusahaan,
-        ':plan'     =>$plan,
-        ':jmlh'     =>$jmlh,
-        ':deskripsi'=>$deskripsi,
-        ':tgs'      =>$tugas,
-        ':tgjwb'    =>$tanggung,
-        ':tmpt'     =>$penempatan,
-        ':start'    =>$start,
-        ':ends'     =>$ends,
-        ':nilai'    =>$total,
-        ':admin'    =>$admin));
-      if (!$stmt) {
+      if ($time_select == "1") {
         # code...
-        echo "data tidak masuk";
-      } else{
-          //bahwa nama perusahaan dengan request tersebut telah melalui tahap "entry detail Project"
-        $sql = "UPDATE tb_temporary_perusahaan SET status = '3' WHERE tb_temporary_perusahaan.no_pendaftaran = :id";
-        $stmt = $cek->runQuery($sql);
-          $stmt->execute(array(
-              ':id'   =>$noReg));
-              if (!$stmt) {
-                # code...
-                echo "data tidak update di tb_temporary_perusahaan";
-              }else{
+        $query = "INSERT INTO tb_time_fix (nomor_spk, minggu, senin, selasa, rabu, kamis, jumat, sabtu) VALUES (:nomor, :minggu, :senin, :selasa, :rabu, :kamis, :jumat, :sabtu)";
+        $stmt = $cek->runQuery($query);
+        $stmt->execute(array(
+          ':nomor' => $no_kontrak,
+          ':minggu'=> $sun,
+          ':senin' => $mon,
+          ':selasa'=> $tue,
+          ':rabu'  => $wen,
+          ':kamis' => $thu,
+          ':jumat' => $fri,
+          ':sabtu' => $sat
+        ));
+      }elseif ($time_select == "2"){
+        $query = "INSERT INTO tb_time_fleksible (nomor_spk, minggu, senin, selasa, rabu, kamis, jumat, sabtu) VALUES (:nomor, :minggu, :senin, :selasa, :rabu, :kamis, :jumat, :sabtu)";
+        $stmt = $cek->runQuery($query);
+        $stmt->execute(array(
+          ':nomor' => $no_kontrak,
+          ':minggu'=> $minggu,
+          ':senin' => $senin,
+          ':selasa'=> $selasa,
+          ':rabu'  => $rabu,
+          ':kamis' => $kamis,
+          ':jumat' => $jumat,
+          ':sabtu' => $sabtu
+        ));
+      }else{
+        echo "you should better select one of them.";
+      }
 
-                if ($time_select == "1") {
+      if (!empty($time_select)) {
+        # code...
+        $query = "INSERT INTO tb_kerjasama_perusahan (nomor_kontrak, kode_perusahaan, kode_plan, total_karyawan, deskripsi, tugas, tanggung_jwb, penempatan, kontrak_start, kontrak_end, nilai_kontrak, kode_admin) VALUES (:kontrak, :kode, :plan, :jmlh, :deskripsi, :tgs, :tgjwb, :tmpt, :start, :ends, :nilai, :admin)";
+
+        $stmt = $cek->runQuery($query);
+        $stmt->execute(array(
+          ':kontrak'  =>$no_kontrak,
+          ':kode'     =>$kd_perusahaan,
+          ':plan'     =>$plan,
+          ':jmlh'     =>$jmlh,
+          ':deskripsi'=>$deskripsi,
+          ':tgs'      =>$tugas,
+          ':tgjwb'    =>$tanggung,
+          ':tmpt'     =>$penempatan,
+          ':start'    =>$start,
+          ':ends'     =>$ends,
+          ':nilai'    =>$total,
+          ':admin'    =>$admin));
+        if (!$stmt) {
+          # code...
+          echo "data tidak masuk";
+        } else{
+            //bahwa nama perusahaan dengan request tersebut telah melalui tahap "entry detail Project"
+          $sql = "UPDATE tb_temporary_perusahaan SET status = '3' WHERE tb_temporary_perusahaan.no_pendaftaran = :id";
+          $stmt = $cek->runQuery($sql);
+            $stmt->execute(array(
+                ':id'   =>$noReg));
+                if (!$stmt) {
                   # code...
-                  $query = "INSERT INTO tb_time_fix (nomor_spk, minggu, senin, selasa, rabu, kamis, jumat, sabtu) VALUES (:nomor, :minggu, :senin, :selasa, :rabu, :kamis, :jumat, :sabtu)";
-                  $stmt = $cek->runQuery($query);
-                  $stmt->execute(array(
-                    ':nomor' => $no_kontrak,
-                    ':minggu'=> $sun,
-                    ':senin' => $mon,
-                    ':selasa'=> $tue,
-                    ':rabu'  => $wen,
-                    ':kamis' => $thu,
-                    ':jumat' => $fri,
-                    ':sabtu' => $sat
-                  ));
-                  if (!$stmt) {
-                    # code...
-                    echo "data time tidak masuk";
-                      }else{
-                        echo "<script>
-                                alert('DATA Berhasil di Input!');
-                                window.location.href='index.php?p=entry-data';
-                                </script>";
-                        //print "<script>window.location='index.php?p=entry-data';</script>";
-                      }
-
-                }elseif ($time_select == "2"){
-                  $query = "INSERT INTO tb_time_fleksible (nomor_spk, minggu, senin, selasa, rabu, kamis, jumat, sabtu) VALUES (:nomor, :minggu, :senin, :selasa, :rabu, :kamis, :jumat, :sabtu)";
-                  $stmt = $cek->runQuery($query);
-                  $stmt->execute(array(
-                    ':nomor' => $no_kontrak,
-                    ':minggu'=> $minggu,
-                    ':senin' => $senin,
-                    ':selasa'=> $selasa,
-                    ':rabu'  => $rabu,
-                    ':kamis' => $kamis,
-                    ':jumat' => $jumat,
-                    ':sabtu' => $sabtu
-                  ));
-                  if (!$stmt) {
-                    # code...
-                    echo "data time tidak masuk";
-                  }else{
-                    echo "<script>
-                            alert('DATA Berhasil di Input!');
-                            window.location.href='index.php?p=entry-data';
-                            </script>";
-                    //print "<script>window.location='index.php?p=entry-data';</script>";
-                  }
+                  echo "data tidak update di tb_temporary_perusahaan";
                 }else{
-                  echo "you should better select one of them.";
+                  echo "<script>
+                          alert('DATA Berhasil di Input!');
+                          window.location.href='index.php?p=entry-data';
+                          </script>";
                 }
-              }
+        }
       }
 
     }else{
-      // echo "Edit Mode";
+      // echo "you should better select one of them.";
     }
 
 

@@ -3,10 +3,10 @@
 require_once('db.php');
 
 class Login
-{	
+{
 
 	private $conn;
-	
+
 	public function __construct()
 	{
 		$database = new Database();
@@ -26,7 +26,7 @@ class Login
 					if(password_verify($password, $userRow['password']))
 					{
 						$_SESSION['user_session'] = $userRow['username'];
-						
+
 						return true;
 					}
 					else
@@ -40,7 +40,7 @@ class Login
 				echo $e->getMessage();
 			}
 		}
-	//session data	
+	//session data
 	public function is_loggedin()
 	{
 		if(isset($_SESSION['user_session']))
@@ -68,10 +68,10 @@ class Login
 }
 
 class Admin
-{	
+{
 
 	private $conn;
-	
+
 	public function __construct()
 	{
 		$database = new Database();
@@ -102,18 +102,18 @@ class Admin
 	 public function paginglink($query,$records_per_page)
 
 	 {
-	  
+
 	  //$self = $_SERVER['PHP_SELF'];
 	 	//$self = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 	 	$self = "$_SERVER[REQUEST_URI]";
         $self = explode('&', $self);
         $self = $self['0'];
-	  
+
 	  $stmt = $this->conn->prepare($query);
 	  $stmt->execute();
-	  
+
 	  $total_no_of_records = $stmt->rowCount();
-	  
+
 	  if($total_no_of_records > 0)
 	  {
 	   ?><ul class="pagination"><?php
@@ -234,10 +234,10 @@ class Perusahaan
 	}
 }
 class Karyawan
-{	
+{
 
 	private $conn;
-	
+
 	public function __construct()
 	{
 		$database = new Database();
@@ -285,7 +285,7 @@ class Karyawan
 
   		return $new_code;
 	}
-	
+
 }
 
 

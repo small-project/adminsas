@@ -63,8 +63,12 @@ while ($row = $stmt->fetch(PDO::FETCH_LAZY)) {
           <td>
               <a href="?p=detail-perusahaan&name=<?php echo $row['kode_perusahaan']; ?>">
               <button type="button" class="btn btn-success btn-xs"> <i class="fa fa-eye">
-                </i>  Detail </button>
+              </i>  Info </button>
                 </a>
+                <a href="?p=list-job&id=<?php echo $row['kode_perusahaan']; ?>">
+                <button type="button" class="btn btn-success btn-xs"> <i class="fa fa-eye">
+                </i>  List Job </button>
+                  </a>
           </td>
 
       </tr>

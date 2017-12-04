@@ -17,13 +17,13 @@
         <th>Team Members</th>
         <th>Total Pekerjaan</th>
         <th>Status</th>
-        <th style="width: 20%">#Edit</th>
+        <th style="width: 20%">Edit</th>
       </tr>
     </thead>
     <tbody>
 
     <?php
-      $sql = "SELECT tb_kerjasama_perusahan.nomor_kontrak, tb_temporary_perusahaan.no_pendaftaran, tb_temporary_perusahaan.kode_perusahaan, tb_temporary_perusahaan.nama_perusahaan, tb_kerjasama_perusahan.tgl_input, tb_job.kode_detail_job FROM `tb_kerjasama_perusahan` LEFT JOIN tb_temporary_perusahaan ON tb_temporary_perusahaan.kode_perusahaan = tb_kerjasama_perusahan.kode_perusahaan LEFT JOIN tb_job ON tb_job.nomor_kontrak=tb_kerjasama_perusahan.nomor_kontrak ";
+      $sql = "SELECT tb_kerjasama_perusahan.nomor_kontrak, tb_kerjasama_perusahan.kode_perusahaan, tb_kerjasama_perusahan.kode_plan, tb_kerjasama_perusahan.kode_list_karyawan, tb_kerjasama_perusahan.total_karyawan, tb_kerjasama_perusahan.tgl_input, tb_perusahaan.nama_perusahaan, tb_kategori_pekerjaan.nama_kategori FROM tb_kerjasama_perusahan INNER JOIN tb_perusahaan ON tb_perusahaan.kode_perusahaan = tb_kerjasama_perusahan.kode_perusahaan INNER JOIN tb_kategori_pekerjaan ON tb_kategori_pekerjaan.kode_kategori = tb_kerjasama_perusahan.kode_plan";
       $stmt = $config->runQuery($sql);
       $stmt->execute();
 
@@ -34,15 +34,14 @@
           $md->execute(array(
                   ':list'   => $total2
           ));
-          $totalData = $md->rowCount();
-
-
           //end of total list karyawan
+          $total = $row['total_karyawan'];
+          if ($total > 0) {$nilai = $row['total_karyawan'];} else {$nilai = '0';}
     ?>
       <tr>
         <td>#</td>
         <td>
-          <a style="text-transform: uppercase;"><?php echo $row['nama_perusahaan']; ?></a>
+          <a style="text-transform: uppercase;"><?= $row['nama_kategori']; ?> ~ <?= $row['nama_perusahaan']; ?></a>
           <br>
           <small>Created <?php echo $row['tgl_input']; ?></small>
         </td>
@@ -56,15 +55,13 @@
           </ul>
         </td>
         <td class="project_progress">
-            <span class="label label-danger"><?php echo $totalData; ?></span> list Pekerjaan
+            <span class="label label-danger"><?=$nilai?></span> list Pekerjaan
         </td>
         <td>
           <button type="button" class="btn btn-success btn-xs">a</button>
         </td>
         <td>
-          <a href="?p=detail-list&id=<?php echo $row['kode_perusahaan'] ?>" class="btn btn-primary btn-xs"><i class="fa fa-folder"></i> View </a>
-          <a href="#" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>
-          <a href="#" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete </a>
+          <a href="?p=detailProject&id=<?php echo $row['nomor_kontrak'] ?>" class="btn btn-primary btn-xs"><i class="fa fa-folder"></i> View </a>
         </td>
       </tr>
       <?php } ?>
