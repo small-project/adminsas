@@ -9,8 +9,6 @@
       </li>
       <li><a href="?p=list-customer"><i class="fa fa-sitemap"></i> List Customer </a>
       </li>
-      <li><a href="?p=insert-koordinat"><i class="fa fa-map-marker"></i> Insert Koordinat </a>
-      </li>
       <li><a href="?p=list-job"><i class="fa fa-th"></i> List Job </a>
       </li>
       <li><a href="?p=add-job"><i class="fa fa-th"></i> Add Job </a>

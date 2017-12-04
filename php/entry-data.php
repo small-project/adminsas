@@ -45,13 +45,7 @@
                                         </thead>
                                     <?php
                                     $calon = new Karyawan();
-                                    $stmt = $calon->runQuery("SELECT tb_temporary_perusahaan.no_pendaftaran, tb_temporary_perusahaan.kode_perusahaan, tb_temporary_perusahaan.nama_perusahaan, tb_temporary_perusahaan.cp, tb_temporary_perusahaan.phone, tb_temporary_perusahaan.email, tb_temporary_perusahaan.create_date, tb_temporary_perusahaan.status, tb_jenis_pekerjaan.nama_pekerjaan, tb_kategori_pekerjaan.kode_kategori, tb_kategori_pekerjaan.nama_kategori, tb_kerjasama_perusahan.nomor_kontrak
-FROM tb_temporary_perusahaan
-LEFT JOIN tb_jenis_pekerjaan ON tb_jenis_pekerjaan.kd_pekerjaan=tb_temporary_perusahaan.kode_pekerjaan
-LEFT JOIN tb_kategori_pekerjaan ON tb_kategori_pekerjaan.kode_kategori=tb_temporary_perusahaan.kebutuhan
-LEFT JOIN tb_kerjasama_perusahan ON tb_kerjasama_perusahan.kode_perusahaan=tb_temporary_perusahaan.kode_perusahaan
-WHERE tb_temporary_perusahaan.kode_perusahaan != ''
-ORDER BY tb_temporary_perusahaan.create_date DESC");
+                                    $stmt = $calon->runQuery("SELECT tb_temporary_perusahaan.no_pendaftaran, tb_temporary_perusahaan.kode_perusahaan, tb_temporary_perusahaan.kebutuhan, tb_temporary_perusahaan.nama_project, tb_temporary_perusahaan.status,tb_kategori_pekerjaan.nama_kategori, tb_perusahaan.nama_perusahaan, tb_kerjasama_perusahan.nomor_kontrak FROM tb_temporary_perusahaan INNER JOIN tb_kategori_pekerjaan ON tb_kategori_pekerjaan.kode_kategori = tb_temporary_perusahaan.kebutuhan INNER JOIN tb_perusahaan ON tb_perusahaan.kode_perusahaan = tb_temporary_perusahaan.kode_perusahaan INNER JOIN tb_kerjasama_perusahan ON tb_kerjasama_perusahan.kode_request = tb_temporary_perusahaan.no_pendaftaran ORDER BY tb_temporary_perusahaan.tanggal ASC");
                                     $stmt->execute(array());
                                     ?>
                                         <tbody>
@@ -85,7 +79,7 @@ ORDER BY tb_temporary_perusahaan.create_date DESC");
                                                 <tr class="even pointer">
 
 
-                                                    <td class="col-md-2"><?php echo $row['nama_perusahaan']; ?></td>
+                                                    <td class="col-md-2" style="text-transform: uppercase;"><?php echo $row['nama_perusahaan']; ?></td>
                                                     <td class="col-md-1"><?php echo $row['nama_kategori']; ?></td>
                                                     <td class="col-md-2"><?php echo $st; ?></td>
                                                     <td class="col-md-2"><?php echo $st2; ?></td>

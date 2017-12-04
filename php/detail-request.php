@@ -74,12 +74,13 @@
           } else {
           while ($row = $stmt->fetch(PDO::FETCH_LAZY)) {
             # code...
-            if ($row['status'] == "0") {
+            if (empty($row['kode_perusahaan'])) {
               # code...
-              $st = '<span class="label label-default">Old Company</span>';
+              $st = '<span class="label label-success">New Company</span>';
+              
               $label = 'Details';
             }else{
-              $st = '<span class="label label-success">New Company</span>';
+              $st = '<span class="label label-default">Old Company</span>';
               $label = 'Entry';
 
             }

@@ -26,8 +26,14 @@ $pwd = $_SESSION['pwd'];
 					</div>
 				</form>
 				<hr>
-				<button class="btn btn-sm btn-info pull-right"  tooltip="print halaman"><span class="fa fa-fw fa-print"></span></button>
+				<button class="btn btn-sm btn-info pull-right" onclick="myFunction()"  tooltip="print halaman"><span class="fa fa-fw fa-print"></span></button>
 			</div>
 		</div>
 	</div>
 </div>
+
+<script>
+function myFunction() {
+    window.print();
+}
+</script>

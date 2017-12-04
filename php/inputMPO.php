@@ -13,26 +13,29 @@
           <h2>List Request</h2>
         </div>
         <div class="x_content">
-          <table class="table table-bordered table-hover">
-            <thead>
-              <th>Nama Kategori Pekerjaan</th>
-              <th>Total</th>
-            </thead>
-            <tbody>
-              <?php
-              $query = "SELECT tb_list_perkerjaan_perusahaan.code, tb_list_perkerjaan_perusahaan.name_list, tb_list_perkerjaan_perusahaan.total,tb_jenis_pekerjaan.nama_pekerjaan FROM tb_list_perkerjaan_perusahaan
-INNER JOIN tb_jenis_pekerjaan ON tb_jenis_pekerjaan.kd_pekerjaan = tb_list_perkerjaan_perusahaan.name_list WHERE tb_list_perkerjaan_perusahaan.code = :kode";
-$stmt = $cek->runQuery($query);
-$stmt->execute(array(':kode' => $noReg));
-while ($col = $stmt->fetch(PDO::FETCH_LAZY)) {
-               ?>
-              <tr>
-                <td><?=$col['nama_pekerjaan']?></td>
-                <td><?=$col['total']?></td>
-              </tr>
-            <?php } ?>
-            </tbody>
-          </table>
+          <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+              <table class="table table-bordered table-hover">
+                <thead>
+                  <th>Nama Kategori Pekerjaan</th>
+                  <th>Total</th>
+                </thead>
+                <tbody>
+                  <?php
+                  $query = "SELECT tb_temporary_perusahaan.no_pendaftaran, tb_list_perkerjaan_perusahaan.code, tb_list_perkerjaan_perusahaan.name_list, tb_list_perkerjaan_perusahaan.total,tb_jenis_pekerjaan.nama_pekerjaan FROM tb_list_perkerjaan_perusahaan INNER JOIN tb_temporary_perusahaan ON tb_temporary_perusahaan.kode_pekerjaan = tb_list_perkerjaan_perusahaan.code INNER JOIN tb_jenis_pekerjaan ON tb_jenis_pekerjaan.kd_pekerjaan = tb_list_perkerjaan_perusahaan.name_list WHERE tb_temporary_perusahaan.no_pendaftaran = :kode";
+    $stmt = $cek->runQuery($query);
+    $stmt->execute(array(':kode' => $noReg));
+    while ($col = $stmt->fetch(PDO::FETCH_LAZY)) {
+                   ?>
+                  <tr>
+                    <td><?=$col['nama_pekerjaan']?></td>
+                    <td><?=$col['total']?></td>
+                  </tr>
+                <?php } ?>
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
       </div>
       <div class="clearfix"></div>

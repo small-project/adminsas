@@ -22,6 +22,8 @@ if($cekLogin->is_loggedin()!="")
       $error = "your information is't valid!";
     }
   }
+  $pass = password_verify('hello', 'makan');
+  echo $pass;
 ?>
 <!DOCTYPE html>
 <html lang="en">
