@@ -7,10 +7,35 @@
 
       <div class="clearfix"></div>
     </div>
-
+    <div class="row tile_count">
+        <div class="col-md-2 col-sm-4 col-xs-6">
+          
+        </div>
+        <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+          <span class="count_top"><i class="fa fa-user"></i> Total Pelamar</span>
+          <div class="count"><?=$totalCalonKaryawan?></div>
+          <!-- <span class="count_bottom"><i class="green">4% </i> From last Week</span> -->
+        </div>
+        <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+          <span class="count_top"><i class="fa fa-user-md"></i> Total Karyawan</span>
+          <div class="count"><?=$totalKaryawan?></div>
+          <span class="count_bottom">Dari total <b><?=$totalKaryawan?></b></span>
+        </div>
+        <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+          <span class="count_top"><i class="fa fa-pencil"></i> Total Psikotes</span>
+          <div class="count"><?=$totalTest?></div>
+          <span class="count_bottom">Dari total <b><?=$totalCalonKaryawan?></b></span>
+        </div>
+        <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+          <span class="count_top"><i class="fa fa-certificate"></i> Total Interview</span>
+          <div class="count"><?=$totalInterview?></div>
+          <span class="count_bottom">Dari total <b><?=$totalCalonKaryawan?></b></span>
+        </div>
+        
+      </div>
     <div class="x_content">
 
-         <div>
+        <!--  <div>
          <span style=font-size:18px;><strong> Hide Column : </strong></span>
                 <a class="toggle-vis" data-column="1">Nomor KTP</a> -
                 <a class="toggle-vis" data-column="2">Nama Lengkap</a> -
@@ -19,7 +44,7 @@
                 <a class="toggle-vis" data-column="5">Nomor Telphone</a> -
                 <a class="toggle-vis" data-column="6">Age</a> -
                 <a class="toggle-vis" data-column="7">Tanggal Daftar</a>
-		</div>
+		</div> -->
 
         <tr>
             <td>Minimum age:</td>

@@ -159,6 +159,7 @@
             <hr>
 
             <?php 
+            $row_per_page = '10';
               $cek = new Admin();
               $sql = 'SELECT tb_push.kd_push, tb_push.subject, tb_push.dari, tb_push.kepada, tb_push.create_date, tb_subject_push.nama_subject, tb_subject_push.isi, tb_subject_push.create_date, tb_admin.nama_admin, tb_karyawan.no_ktp, tb_karyawan.nama_depan, tb_karyawan.nama_belakang FROM tb_push
             INNER JOIN tb_subject_push ON tb_subject_push.kd_subject=tb_push.subject
@@ -166,7 +167,8 @@
             INNER JOIN tb_karyawan ON tb_karyawan.no_ktp = tb_push.kepada
                 ORDER BY tb_push.create_date DESC
               ';
-              $stmt = $cek->runQuery($sql);
+              $sql2 = $config->paging($sql, $row_per_page);
+              $stmt = $cek->runQuery($sql2);
               $stmt->execute();
 
             if ($stmt->rowCount() == '0') {
@@ -198,7 +200,12 @@
                 </a>
             <?php }
             }?>
-            
+            <?php
+        
+        $stmt = $config->paginglink($sql, $row_per_page);
+
+        
+        ?>
           </div>
 
         </div>
