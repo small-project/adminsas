@@ -34,6 +34,12 @@ if ($nik == "") {
   $pesan = "Detail Karyawan";
   $nik = $row['no_NIK'];
 }
+if ($row['foto'] != "") {
+  # code...
+  $dataFoto = $row['foto'];
+}else{
+  $dataFoto = "https://renderman.pixar.com/assets/camaleon_cms/image-not-found-4a963b95bf081c3ea02923dceaeb3f8085e1a654fc54840aac61a57a60903fef.png";
+}
 ?>
 
 
@@ -48,7 +54,7 @@ if ($nik == "") {
       <div class="profile_img">
         <div id="crop-avatar">
           <!-- Current avatar -->
-          <img class="img-responsive avatar-view" src="<?php echo $row['foto']; ?>" alt="Avatar" title="Change the avatar">
+          <img class="img-responsive avatar-view" src="<?=$dataFoto?>" alt="Avatar" title="Change the avatar">
         </div>
       </div>
       <h3><?php echo $row['nama_depan']; ?> <?php echo $row['nama_belakang']; ?> <button class="btn btn-success btn-sm"><?php echo $row['jenis_kelamin']; ?></button></h3>

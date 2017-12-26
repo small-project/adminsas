@@ -23,6 +23,7 @@ if (isset($_POST['addJadwal'])) {
         # code...
     echo "data tidak masuk";
   }else{
+    
     echo "<script>
     alert('Input Data Success!');
     window.location.href='?p=schedule-test';

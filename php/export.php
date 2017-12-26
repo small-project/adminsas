@@ -3,7 +3,7 @@ require '../config/api.php';
 
 $no_ktp = $_GET['id'];
 
-$sql = "SELECT year(curdate()) - year(str_to_date(tgl_lahir,'%d-%m-%Y')) as age, no_ktp, no_NIK, nama_depan, nama_belakang, jenis_kelamin, email, nomor_hp, nomor_telp, tempat_lahir, tgl_lahir, nama_suku, agama, tinggi_badan, berat_badan, no_NPWP, no_BPJS, nomor_sim, jenis_sim, status_perkawinan, status_tempat_tinggal, foto, hobi, kelurahan, kecamatan, kota, keperibadian, menghire, status, nilai FROM tb_karyawan WHERE no_ktp = :ktp";
+$sql = "SELECT year(curdate()) - year(str_to_date(tgl_lahir,'%d-%m-%Y')) as age, no_ktp, no_NIK, nama_depan, nama_belakang, jenis_kelamin, email, nomor_hp, nomor_telp, tempat_lahir, tgl_lahir, nama_suku, agama, tinggi_badan, berat_badan, no_NPWP, no_BPJS, nomor_sim, jenis_sim, status_perkawinan, status_tempat_tinggal, foto, hobi, alamat, kelurahan, kecamatan, kota, keperibadian, menghire, status, nilai FROM tb_karyawan WHERE no_ktp = :ktp";
 $config = new Admin();
 
 $stmt = $config->runQuery($sql);
@@ -11,6 +11,13 @@ $stmt->execute(array(':ktp' => $no_ktp));
 
 $info = $stmt->fetch(PDO::FETCH_LAZY);
 
+
+if ($info['foto'] != "") {
+  # code...
+  $dataFoto = $info['foto'];
+}else{
+  $dataFoto = "https://renderman.pixar.com/assets/camaleon_cms/image-not-found-4a963b95bf081c3ea02923dceaeb3f8085e1a654fc54840aac61a57a60903fef.png";
+}
 ?>
 <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 <style type="text/css">
@@ -18,7 +25,7 @@ body{
 	text-transform: capitalize;
 }
 </style>
-
+<!-- onload="window.print()" -->
 <body onload="window.print()">
 
 	<div class="panel panel-body">
@@ -29,7 +36,7 @@ body{
 				</tr>
 				<tr>
 					<td width="30%" rowspan="6">
-						<img class="img-responsive img-rounded" width="40%" style="margin-left: 50%;" src="<?=$info['foto']?>">
+						<img class="img-responsive img-rounded" width="40%" style="margin-left: 50%;" src="<?=$dataFoto?>">
 					</td>
 				</tr>
 				<tr width="70%">

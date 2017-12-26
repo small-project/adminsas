@@ -26,24 +26,6 @@
     $url = explode('/', $url);
     $urltype = explode('=', $url[2]);
     // endread
-
-  // total calon karyawan
-    $calon = "SELECT * FROM tb_karyawan";
-    $test = "SELECT * FROM tb_info_test";
-    $interview = "SELECT * FROM tb_info_interview";
-    $karyawan = 'SELECT * FROM tb_karyawan WHERE tb_karyawan.no_NIK != ""';
-    $calon = $config->CountQuery($calon);
-    $karyawan = $config->CountQuery($karyawan);
-    $test = $config->CountQuery($test);
-    $interview = $config->CountQuery($interview);
-    
-
-    $totalCalonKaryawan = $calon->rowCount();
-    $totalKaryawan = $karyawan->rowCount();
-    $totalTest = $test->rowCount();
-    $totalInterview = $interview->rowCount();
-  // 
-
   include_once 'php/header.php';
   include_once 'php/side-navbar.php';
   include_once 'php/top-navbar.php';
