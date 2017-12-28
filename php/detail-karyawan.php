@@ -9,6 +9,7 @@ $stmt->bindParam(':id', $no_ktp);
 $stmt->execute();
 
 $row = $stmt->fetch(PDO::FETCH_LAZY);
+
 $nik = $row['no_NIK'];
 $nilai = $row['nilai'];
 
@@ -46,7 +47,14 @@ if ($row['foto'] != "") {
 <div class="x_panel">
   <div class="x_title">
     <h2><?php echo $pesan; ?></h2>
-
+    <ul class="nav navbar-right panel_toolbox">
+      <li>
+        <a href="?p=send-push&ktp=<?=$row['no_ktp']?>" data-toggle="tooltip" data-placement="top" title="" data-original-title="Send Push">
+          <span class="fa fa-fw fa-bullseye"></span> Push
+        </a>
+      </li>
+    </ul>
+    
     <div class="clearfix"></div>
   </div>
   <div class="x_content">
@@ -759,6 +767,69 @@ if ($row['foto'] != "") {
 
         </div>
       </div>
+    </div>
+
+    <div class="col-md-12">
+      <div class="profile_title">
+        <div class="col-md-6">
+          <h2>Informasi Lainnya</h2>
+        </div>
+        <div class="col-md-6">
+          <?php 
+            $detail = new Karyawan();
+
+            $conn = $detail->runQuery("SELECT * FROM tb_karyawan WHERE no_ktp = :id");
+            $conn->bindParam(':id', $no_ktp);
+            $conn->execute();
+
+            $karyawan = $conn->fetch(PDO::FETCH_LAZY);
+
+          ?>
+
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 profile_details">
+          <dl class="dl-horizontal">
+              <dt style="text-align: left;">TTL</dt>
+              <dd> : <?=$karyawan['tempat_lahir']?> <?=$karyawan['tgl_lahir']?></dd>
+              <dt style="text-align: left;">Nomor HP</dt>
+              <dd> : <?=$karyawan['nomor_hp']?> </dd>
+              <dt style="text-align: left;">Nomor Telp</dt>
+              <dd> : <?=$karyawan['nomor_telp']?> </dd>
+              <dt style="text-align: left;">Nama Suku</dt>
+              <dd> : <?=$karyawan['nama_suku']?> </dd>
+              <dt style="text-align: left;">Agama</dt>
+              <dd> : <?=$karyawan['agama']?> </dd>
+              <dt style="text-align: left;">Tinggi Badan</dt>
+              <dd> : <?=$karyawan['tinggi_badan']?> </dd>
+              <dt style="text-align: left;">Berat Badan</dt>
+              <dd> : <?=$karyawan['berat_badan']?> </dd>
+              <dt style="text-align: left;">Nomor BPJS</dt>
+              <dd> : <?=$karyawan['no_BPJS']?> </dd>
+              <dt style="text-align: left;">Nomor NPWP</dt>
+              <dd> : <?=$karyawan['no_NPWP']?> </dd>
+              <dt style="text-align: left;">Nomor SIM</dt>
+              <dd> : <b><?=$karyawan['jenis_sim']?></b> <?=$karyawan['nomor_sim']?> </dd>
+              <dt style="text-align: left;">Status Perkawinan</dt>
+              <dd> : <?=$karyawan['status_perkawinan']?> </dd>
+              <dt style="text-align: left;">Status Tempat Tinggal</dt>
+              <dd> : <?=$karyawan['status_tempat_tinggal']?> </dd>
+            </dl>
+            <dl>
+              <dt>HOBI</dt>
+              <dd> : <?=$karyawan['hobi']?> </dd>
+              <br>
+              <dt>Keperibadian</dt>
+              <dd> : <?=$karyawan['keperibadian']?> </dd>
+              <br>
+              <dt>Alasan Harus Menghire</dt>
+              <dd> : <?=$karyawan['menghire']?> </dd>
+            </dl>
+        </div>
+      </div>
+
     </div>
 
     </div>
