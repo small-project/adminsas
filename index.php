@@ -13,6 +13,19 @@
   $rowAdmin=$stmt->fetch(PDO::FETCH_ASSOC);
   $kd_admin = $rowAdmin['username'];
 
+  // sidebarquery
+    $category = "SELECT * FROM  tb_category INNER JOIN tb_staff ON tb_staff.id_category = tb_category.id_category WHERE tb_staff.id_roles = :idstaff";
+    $cat = $config->runQuery($category);
+    $cat->execute(array(
+      ':idstaff'  => $rowAdmin['id_role']
+      ));
+  // endsidebar
+
+    // readurl
+    $url = "$_SERVER[REQUEST_URI]";
+    $url = explode('/', $url);
+    $urltype = explode('=', $url[2]);
+    // endread
   include_once 'php/header.php';
   include_once 'php/side-navbar.php';
   include_once 'php/top-navbar.php';
@@ -27,17 +40,7 @@
         </div>
         <!-- /page content -->
 
-        <!-- footer content -->
-        </div>
-        <footer>
-          <div class="pull-right">
-            <span class="fa fa-copyright"></span> <a href="www.sinergiadhikarya.co.id">Website</a>
-          </div>
-          <div class="clearfix"></div>
-        </footer>
-        <!-- /footer content -->
-      </div>
-    </div>
+       
     <?php
       include_once 'php/footer.php';
     ?>

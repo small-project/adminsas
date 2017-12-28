@@ -1,66 +1,41 @@
+<br/>
 <!-- sidebar menu -->
 <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-  <div class="menu_section">
-    <h3>Customer</h3>
-    <ul class="nav side-menu">
-      <li><a href="?p=new-request"><i class="fa fa-home"></i> Request </a>
-      </li>
-      <li><a href="?p=entry-data"><i class="fa fa-list-alt"></i> Entry Data </a>
-      </li>
-      <li><a href="?p=list-customer"><i class="fa fa-sitemap"></i> List Customer </a>
-      </li>
-      <li><a href="?p=list-job"><i class="fa fa-th"></i> List Job </a>
-      </li>
-      <li><a href="?p=add-job"><i class="fa fa-th"></i> Add Job </a>
-      </li>
-      <li><a href="?p=addJabatan"><i class="fa fa-user-md"></i> Jabatan </a>
-      </li>
-      <li><a href="?p=history"><i class="fa fa-history"></i> History </a>
-      </li>
-    </ul>
-  </div>
-  <div class="menu_section">
-    <h3>Karyawan</h3>
-    <ul class="nav side-menu">
-      <li><a href="?p=push"><i class="fa fa-bullseye"></i> Push </a>
-      </li>
-      <li><a href="?p=calon-karyawan"><i class="fa fa-user"></i> Calon Karyawan </a>
-      </li>
-      <li><a href="?p=schedule-test"><i class="fa fa-calendar"></i> Schedule-test </a>
-      </li><li><a href="?p=schedule-interview"><i class="fa fa-calendar-o"></i> Schedule-interview </a>
-        </li>
-      <li><a href="?p=soal-psikolog"><i class="fa fa-pencil-square-o"></i> Hasil Test & Interview </a>
-      </li>
+<?php while ($category = $cat->fetch(PDO::FETCH_LAZY)) {
+  
+  $idcat = $category['id_category'];
 
-      <li><a href="?p=list-karyawan"><i class="fa fa-users"></i> List Karyawan </a>
-      </li>
-      <li><a href="?p=absen"><i class="fa fa-calendar"></i> Absen </a>
-      </li>
-      <li><a href="?p=history-karyawan"><i class="fa fa-history"></i> History </a>
-      </li>
-      <li><a href="?p=pekerjaan"><i class="fa fa-gear"></i> CRUD Jenis Pekerjaan </a>
-      </li>
-    </ul>
-  </div>
+  $querysub = "SELECT * FROM tb_subcategory INNER JOIN tb_category ON tb_category.id_category = tb_subcategory.id_category WHERE tb_category.id_category = :id";
+  $sub = $config->runQuery($querysub);
+  $sub->execute(array(
+    ':id' => $idcat
+  ));
+  ?>
   <div class="menu_section">
-    <h3>Corporate</h3>
-    <ul class="nav side-menu">
-      <li><a href="?p=update-slider"><i class="fa fa-barcode"></i> Update Slider </a>
-      </li>
-      <li><a href="?p=update-galery"><i class="fa fa-image"></i> Update Galery </a>
-      </li>
-      <li><a href="?p=update-artikel"><i class="fa fa-newspaper-o"></i> Update Artikel </a>
-      </li>
-      <li><a href="?p=complain"><i class="fa fa-frown-o"></i> Complain </a>
-      </li>
-      <li><a href="?p=list-loker"><i class="fa fa-pie-chart"></i> List Loker </a>
-      </li>
-      </li>
-      <li><a href="?p=admin"><i class="fa fa-history"></i> Admin </a>
-      </li>
-    </ul>
-  </div>
+    <h3 style="text-transform: uppercase;"><?=$category['name']?></h3>
 
+    <ul class="nav side-menu">
+      <?php while ( $subcat = $sub->fetch(PDO::FETCH_LAZY)) {
+        if (!empty($urltype[1]) ) {
+          if ($urltype[1] == $subcat['link']) {
+            # code...
+          $active = "current-page";
+          }
+          else{
+            $active = "";
+          }
+        }else{
+          $active = "";
+        }
+        ?>
+      <li class="<?=$active?>" style="text-transform: capitalize;">
+        <a href="?p=<?=$subcat['link']?>" ><i class="fa <?=$subcat['icon']?>"></i> <?=$subcat['name_sub']?> </a>
+      </li>
+      <?php } ?>
+    </ul>
+  
+  </div>
+<?php } ?>
 </div>
 <!-- /sidebar menu -->
 

@@ -1,4 +1,14 @@
-
+ <!-- footer content -->
+        </div>
+        <footer>
+          <div class="pull-right">
+            <span class="fa fa-copyright"></span> <a href="www.sinergiadhikarya.co.id">Website</a>
+          </div>
+          <div class="clearfix"></div>
+        </footer>
+        <!-- /footer content -->
+      </div>
+    </div>
 <!-- jQuery -->
     <script src="vendors/js/jquery-1.10.2.js"></script>
     <script src="vendors/js/jquery-ui.js"></script>

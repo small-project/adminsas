@@ -80,10 +80,10 @@
   </div>
   <div class="modal-body">
 
-    <form>
+    <form method="post" action="php/add-admin.php">
   <div class="form-group">
-    <label for="exampleInputEmail1">Kode Admin</label>
-    <input name="txt_kode" type="minimal 10 karakter" class="form-control" id="exampleInputEmail1" placeholder="kode admin" required>
+    <label for="exampleInputEmail1">Jabatan</label>
+    <input name="txt_kode" type="minimal 10 karakter" class="form-control" id="exampleInputEmail1" minlength="3" placeholder="jabatan admin" required>
   </div>
   <div class="form-group">
     <label for="exampleInputPassword1">Username</label>
@@ -91,26 +91,36 @@
   </div>
   <div class="form-group">
     <label for="exampleInputPassword1">Password</label>
-    <input name="txt_password" type="password" class="form-control" id="exampleInputPassword1" placeholder="password" required>
+    <input name="txt_password" type="password" class="form-control" id="exampleInputPassword1" minlength="3" placeholder="password" required>
   </div>
   <div class="form-group">
     <label for="exampleInputPassword1">Nama Admin</label>
-    <input name="txt_nama" type="text" class="form-control" id="exampleInputPassword1" placeholder="nama lengkap" required>
+    <input name="txt_nama" type="text" class="form-control" id="exampleInputPassword1" minlength="3" placeholder="nama lengkap" required>
   </div>
   <div class="form-group">
     <select name="jabatan" class="form-control">
       <option value="0" selected>--role--</option>
-      <option value="SA0">Super Admin</option>
-      <option value="AS0">Admin SALES</option>
-      <option value="AH0">Admin HRD</option>
-      <option value="AU0">Admin User</option>
+      <?php
+            $admin = new Admin();
+
+            $stmt = $admin->runQuery("SELECT * FROM roles");
+            $stmt->execute();
+            // $upass = "admin";
+            // $new_password = password_hash($upass, PASSWORD_DEFAULT);
+
+            // echo $new_password;
+            while ($row = $stmt->fetch(PDO::FETCH_LAZY)) {
+              # code...
+              ?>
+      <option value="<?=$row['id']?>"><?=$row['name']?> <i><?=$row['description']?></i></option>
+      <?php } ?>
     </select>
   </div>
-  <div class="form-group">
+  <!-- <div class="form-group">
     <label for="exampleInputFile">Picture</label>
     <input name="txt_picture" type="file" id="exampleInputFile">
     <p class="help-block">File jenis .jpeg, .jpg</p>
-  </div>
+  </div> -->
   
   <button type="submit" class="btn btn-default">Submit</button>
 </form>

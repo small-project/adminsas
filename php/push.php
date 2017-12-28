@@ -26,6 +26,20 @@
         ':kd' =>$kd,
         ':nama' =>$subject,
         ':isi'  =>$isi));
+
+      if (!$stmt) {
+        # code...
+        echo "<script>
+        alert('Push Fail Send!');
+        window.location.href='index.php?p=push';
+        </script>";
+      }
+      else{
+        echo "<script>
+        alert('Push Has Send!');
+        window.location.href='index.php?p=push';
+        </script>";
+      }
     }
 
     $nama = explode(',', $kepada);
@@ -122,6 +136,8 @@
     //   }
     // }
   }
+
+  
 ?>
 
 <div class="page-title">
@@ -159,15 +175,22 @@
             <hr>
 
             <?php 
+            $row_per_page = '10';
               $cek = new Admin();
-              $sql = 'SELECT tb_push.kd_push, tb_push.subject, tb_push.dari, tb_push.kepada, tb_push.create_date, tb_subject_push.nama_subject, tb_subject_push.isi, tb_subject_push.create_date, tb_admin.nama_admin, tb_karyawan.no_ktp, tb_karyawan.nama_depan, tb_karyawan.nama_belakang FROM tb_push
+              $sql = 'SELECT tb_push.kd_push, tb_push.subject, tb_push.dari, tb_push.kepada, tb_push.create_date, tb_subject_push.nama_subject, tb_detail_push.inisial,
+tb_subject_push.isi, tb_subject_push.create_date, tb_admin.nama_admin, tb_karyawan.no_ktp, tb_karyawan.nama_depan, 
+tb_karyawan.nama_belakang, tb_detail_push.read_date FROM tb_push
             INNER JOIN tb_subject_push ON tb_subject_push.kd_subject=tb_push.subject
             INNER JOIN tb_admin ON tb_admin.username = tb_push.dari
             INNER JOIN tb_karyawan ON tb_karyawan.no_ktp = tb_push.kepada
+            INNER JOIN tb_detail_push ON tb_detail_push.kd_push = tb_push.kd_push
+            WHERE tb_push.dari = :adminID AND tb_detail_push.inisial = :adminID
                 ORDER BY tb_push.create_date DESC
               ';
               $stmt = $cek->runQuery($sql);
-              $stmt->execute();
+              $stmt->execute(array(
+                ':adminID' => $admin_id
+              ));
 
             if ($stmt->rowCount() == '0') {
               # code...
@@ -181,14 +204,25 @@
 
               <?php
             }else {
+
               while ($row = $stmt->fetch(PDO::FETCH_LAZY)) {
-                 # code...
+
+              
+                $count = $row['read_date'];
+
+
+                if ($count == NULL) {
+    # code...
+                 $label = '<i class="fa fa-circle"></i>';
+                   }else{
+                    $label = '<i class="fa fa-circle-o"></i>';
+                  }
               
             ?>
                 <a  href="?p=detailPesan&pesan=<?=$row['kd_push']?>" data-id="<?php echo $row['kd_push']; ?>" data-jd="<?php echo $row['subject']; ?>" data-kd = "<?php echo $row['kd_detail']; ?>" data-in = "<?php echo $row['inisial']; ?>" data-ps = "<?php echo $row['pesan']; ?>" data-cd = "<?php echo $row['create_date']; ?>" data-nama = "<?php echo $row['nama_depan']; ?> <?php echo $row['nama_belakang']; ?>">
                   <div class="mail_list">
                     <div class="left">
-                      <i class="fa fa-circle"></i>
+                      <?=$label?>
                     </div>
                     <div class="right">
                       <h3><?php echo $row['nama_subject']; ?> <small><?php echo $row['create_date']; ?></small></h3>
@@ -198,7 +232,12 @@
                 </a>
             <?php }
             }?>
-            
+            <?php
+        
+        // $stmt = $config->paginglink($sql, $row_per_page);
+
+        
+        ?>
           </div>
 
         </div>
@@ -223,7 +262,7 @@
                 <label for="kepada" class="control-label col-md-3 col-sm-3 col-xs-12">Kepada</label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
                   <input id="kepada" type="text" name="txt_kepada" class="form-control col-md-7 col-xs-12" placeholder="input nomor KTP" required autofocus>
-                  <input id="admin" type="hidden" name="txt_admin" class="form-control col-md-7 col-xs-12" value="<?php echo $admin_id;?>" >
+                  <input id="admin" type="text" name="txt_admin" class="form-control col-md-7 col-xs-12" value="<?php echo $admin_id;?>" >
                 </div>
             </div>
             <div class="form-group">
