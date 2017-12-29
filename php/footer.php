@@ -145,6 +145,7 @@
     $(document).on('click', '.lulus', function(){
         var id = $(this).data('id');
         var st = $(this).data('st');
+        var kode = $(this).data('kode');
 
         $.ajax({
 
@@ -153,7 +154,8 @@
             dataType: 'text',
             data: {
                 id: id,
-                st: st
+                st: st,
+                kode: kode
             },
             success: function(data){
                 alert('' +data+ '')
@@ -165,6 +167,7 @@
     $(document).on('click', '.gagal', function(){
         var id = $(this).data('id');
         var st = $(this).data('st');
+        var kode = $(this).data('kode');
 
         $.ajax({
 
@@ -173,7 +176,8 @@
             dataType: 'text',
             data: {
                 id: id,
-                st: st
+                st: st,
+                kode: kode
 
             },
             success: function(data){

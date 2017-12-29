@@ -19,6 +19,7 @@
     $cat->execute(array(
       ':idstaff'  => $rowAdmin['id_role']
       ));
+
   // endsidebar
 
     // readurl

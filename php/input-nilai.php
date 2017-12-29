@@ -326,9 +326,9 @@ $data = new Admin();
                     <?php }?>
                     </tbody>
                 </table>
-                <button type="button" class="btn btn-success btn-xs lulus" data-id="<?php echo $id; ?>" data-st="1" > <i class="fa fa-check">
+                <button type="button" class="btn btn-success btn-xs lulus" data-id="<?php echo $id; ?>" data-st="1" data-kode="KDKRY0015" > <i class="fa fa-check">
                     </i> Lulus</button>
-                <button type="button" class="btn btn-danger btn-xs gagal" data-id="<?php echo $id; ?>" data-st="0"> <i class="fa fa-close">
+                <button type="button" class="btn btn-danger btn-xs gagal" data-id="<?php echo $id; ?>" data-st="0" data-kode="KDKRY0016"> <i class="fa fa-close">
                     </i> Tidak Lulus</button>
             </div>
 

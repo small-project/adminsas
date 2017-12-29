@@ -3,7 +3,7 @@
 
 $sql1 = "SELECT tb_karyawan.no_ktp, tb_karyawan.no_NIK, tb_karyawan.nama_depan, tb_karyawan.nama_belakang, tb_kode_status_karyawan.nama_kode FROM tb_karyawan 
 INNER JOIN tb_kode_status_karyawan ON tb_kode_status_karyawan.kd_id = tb_karyawan.kd_status_karyawan
-WHERE tb_karyawan.no_NIK !='' AND tb_karyawan.kd_status_karyawan IN ('KDKRY0006', 'KDKRY0008', 'KDKRY0009', 'KDKRY0010')";
+WHERE tb_karyawan.kd_status_karyawan IN ('KDKRY0006', 'KDKRY0008', 'KDKRY0009', 'KDKRY0010', 'KDKRY0015')";
 // $sql1 = 'SELECT * FROM tb_karyawan WHERE no_NIK !="" AND kd_status_karyawan LIKE :arrayData';
 $sql2 = 'SELECT * FROM tb_karyawan WHERE no_NIK = ""';
 

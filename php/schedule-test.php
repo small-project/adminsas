@@ -32,11 +32,14 @@
             </tr>
           </thead>
           <?php
-            $calon = new Karyawan();
+            $calon = new Admin();
 
-            $stmt = $calon->runQuery("SELECT tb_karyawan.no_ktp, tb_karyawan.no_NIK, tb_karyawan.nama_depan, tb_karyawan.nama_belakang, tb_info_test.kode_test, tb_info_test.date_test, tb_info_test.nilai, tb_info_test.kode_admin, tb_info_test.status FROM tb_karyawan LEFT OUTER JOIN tb_info_test ON tb_info_test.no_ktp=tb_karyawan.no_ktp WHERE tb_karyawan.no_NIK =''");
-
-            $stmt->execute();
+            $records_per_page = 20;
+            $query = "SELECT tb_karyawan.no_ktp, tb_karyawan.no_NIK, tb_karyawan.nama_depan, tb_karyawan.nama_belakang, tb_info_test.kode_test, tb_info_test.date_test, tb_info_test.nilai, tb_info_test.kode_admin, tb_info_test.status FROM tb_karyawan LEFT OUTER JOIN tb_info_test ON tb_info_test.no_ktp=tb_karyawan.no_ktp WHERE tb_karyawan.no_NIK =''";
+          
+           $sql = $calon->paging($query, $records_per_page);
+          $stmt = $calon->runQuery($sql);
+          $stmt->execute();
           ?>
           <tbody>
           <?php
@@ -80,6 +83,12 @@
             <?php } ?>
           </tbody>
         </table>
+        <?php
+        
+        $stmt = $calon->paginglink($query, $records_per_page);
+
+        
+        ?>
       </div>
       </div>
       </div>

@@ -30,11 +30,12 @@
                     </thead>
                     <?php
                     $calon = new Karyawan();
-                    $stmt = $calon->runQuery("SELECT tb_karyawan.no_ktp, tb_karyawan.nama_depan, tb_karyawan.nama_belakang, tb_karyawan.nilai, tb_info_test.kode_test, tb_info_test.status,
-tb_info_interview.kd_interview, tb_info_interview.status FROM tb_karyawan
-RIGHT JOIN tb_info_test ON tb_info_test.no_ktp = tb_karyawan.no_ktp
-RIGHT JOIN tb_info_interview ON tb_info_interview.no_ktp = tb_karyawan.no_ktp
-WHERE tb_info_test.status !='' OR tb_info_interview.status !=''");
+                    $stmt = $calon->runQuery("SELECT tb_karyawan.no_ktp, tb_karyawan.kd_status_karyawan, tb_karyawan.nama_depan, tb_karyawan.nama_belakang, tb_karyawan.nilai, tb_info_test.kode_test, tb_info_test.status,
+tb_info_interview.kd_interview, tb_info_interview.status, tb_kode_status_karyawan.nama_kode FROM tb_karyawan
+LEFT JOIN tb_info_test ON tb_info_test.no_ktp = tb_karyawan.no_ktp
+LEFT JOIN tb_info_interview ON tb_info_interview.no_ktp = tb_karyawan.no_ktp
+INNER JOIN tb_kode_status_karyawan ON tb_kode_status_karyawan.kd_id = tb_karyawan.kd_status_karyawan
+WHERE tb_karyawan.kd_status_karyawan IN ('KDKRY0004', 'KDKRY0003', 'KDKRY0005', 'KDKRY0006', 'KDKRY0013', 'KDKRY0014')");
                     $stmt->execute();
                     ?>
                     <tbody>

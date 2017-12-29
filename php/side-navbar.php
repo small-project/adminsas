@@ -16,6 +16,20 @@
 
     <ul class="nav side-menu">
       <?php while ( $subcat = $sub->fetch(PDO::FETCH_LAZY)) {
+
+        $data = $subcat['id_subcategory'];
+        if ($category['id_roles'] == '5' && in_array($subcat['id_subcategory'], ['2', '7', '13'])) {
+          # code...
+          $label = " display: block; ";
+        }
+        elseif($category['id_roles'] != '5')
+        {
+          $label = " display: block; ";
+        }
+        else{
+          $label = "display: none;";
+        }
+
         if (!empty($urltype[1]) ) {
           if ($urltype[1] == $subcat['link']) {
             # code...
@@ -28,7 +42,7 @@
           $active = "";
         }
         ?>
-      <li class="<?=$active?>" style="text-transform: capitalize;">
+      <li class="<?=$active?>" style="text-transform: capitalize; <?=$label?>" >
         <a href="?p=<?=$subcat['link']?>" ><i class="fa <?=$subcat['icon']?>"></i> <?=$subcat['name_sub']?> </a>
       </li>
       <?php } ?>
