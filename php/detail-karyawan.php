@@ -27,7 +27,7 @@ if (isset($_POST['addRekomendasi'])) {
     }
 
 
-$stmt = $detail->runQuery("SELECT * FROM tb_karyawan INNER JOIN tb_kode_status_karyawan ON tb_kode_status_karyawan.kd_id = tb_karyawan.kd_status_karyawan WHERE no_ktp = :id");
+$stmt = $detail->runQuery("SELECT * FROM tb_karyawan LEFT JOIN tb_kode_status_karyawan ON tb_kode_status_karyawan.kd_id = tb_karyawan.kd_status_karyawan WHERE no_ktp = :id");
 $stmt->bindParam(':id', $no_ktp);
 $stmt->execute();
 
@@ -80,13 +80,21 @@ if ($row['foto'] != "") {
 }else{
   $dataFoto = "https://renderman.pixar.com/assets/camaleon_cms/image-not-found-4a963b95bf081c3ea02923dceaeb3f8085e1a654fc54840aac61a57a60903fef.png";
 }
+
+if (empty($row['nama_kode'])) {
+  # code...
+  $labelKaryawan = "status not set";
+}
+else{
+  $labelKaryawan = $row['nama_kode'];
+}
 ?>
 
 
 <div class="x_panel">
   <div class="x_title">
     <h2><?php echo $pesan; ?></h2> 
-     <small><span class="label label-success" style="font-size: 11px; color: #fff; text-transform: uppercase;"><?=$row['nama_kode']?></span></small>
+     <small><span class="label label-success" style="font-size: 11px; color: #fff; text-transform: uppercase;"><?=$labelKaryawan?></span></small>
     <ul class="nav navbar-right panel_toolbox">
       <li>
         <a href="?p=send-push&ktp=<?=$row['no_ktp']?>" data-toggle="tooltip" data-placement="top" title="" data-original-title="Send Push">
@@ -630,8 +638,9 @@ if ($row['foto'] != "") {
                       if ($stat == '1') {
                         # code...
                         $status = '<span class="label label-success"><span class="fa fa-user"></span></span>';
-                      }
-                       ?>
+                      }else{
+                        $status ="-";
+                      } ?>
                       <tr class="even pointer">
 
                         <td class=" "><?php echo $row['nama_lengkap']; ?>
@@ -791,7 +800,7 @@ if ($row['foto'] != "") {
                        ?>
                       <tr class="even pointer">
 
-                        <td class=" " style="text-transform: uppercase;"><a href="../Pendaftaran/Upload/<?=$row['nama_file'];?>"><?=$row['nama_file']; ?></a></td>
+                        <td class=" " style="text-transform: uppercase;" ><a href="../Pendaftaran/Upload/<?=$row['nama_file'];?>" target="_blank"><?=$row['nama_file']; ?></a></td>
                         <td class=" "><?php echo $row['type_file']; ?></td>
                         <td class=" "><?php echo $row['paths']; ?></td>
                         <td class=" "><?php echo $row['create_date']; ?></td>

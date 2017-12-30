@@ -63,7 +63,13 @@
               <td class="a-center ">
                 <input type="checkbox" class="flat" name="table_records">
               </td>
-              <td class=" "><?php echo $row['no_ktp']; ?></td>
+              <td class=" ">
+                <a href="?p=detail-karyawan&id=<?=$row['no_ktp']; ?>" data-toggle="tooltip" data-placement="left" title="Views Profile">
+                  <button type="button" class="btn btn-primary btn-xs">
+                     <?=$row['no_ktp']?> <i class="fa fa-chevron-circle-right"></i> 
+                  </button>
+                </a>
+              </td>
               <td class=" "><?php echo $row['nama_depan']; ?> <?php echo $row['nama_belakang']; ?></td>
               <td class=" "><?php echo $row['kode_test']; ?></td>
               <td class=" "><?php echo $row['date_test']; ?></td>

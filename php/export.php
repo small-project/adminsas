@@ -151,6 +151,11 @@ body{
 			$stmt = $config->runQuery($query);
 			$stmt->execute(array(':ktp' => $no_ktp));
 
+			$countKeluarga = $stmt->rowCount();
+
+			if ($countKeluarga > 0) {
+
+
 			?>
 			<table class="table table-bordered" style="margin-top: 25px;">
 				<tr class="info">
@@ -178,14 +183,16 @@ body{
 						<td><?=$pendidikan['nomor_handphone']?></td>
 
 					</tr>
-					<?php } ?>
+					<?php } }else {} ?>
 				</table>
 
 				<?php 
 				$query = "SELECT * FROM tb_info_pendidikan WHERE no_ktp = :ktp";
 				$stmt = $config->runQuery($query);
 				$stmt->execute(array(':ktp' => $no_ktp));
+				$countPendidikan = $stmt->rowCount();
 
+				if ($countPendidikan > 0) {
 				?>
 				<table class="table table-bordered" style="margin-top: 25px;">
 					<tr style="background-color: #000; color: #fff;">
@@ -210,7 +217,7 @@ body{
 							<td><?=$pendidikan['nilai']?></td>
 
 						</tr>
-						<?php } ?>
+						<?php } } else {} ?>
 					</table>
 
 					<?php 
