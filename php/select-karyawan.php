@@ -76,7 +76,9 @@ if ($kd_list_karyawan == "")
 else
     {
             $records_per_page = 10;
-            $dt = "SELECT * FROM tb_karyawan WHERE status= ''";
+            $dt = "SELECT tb_karyawan.no_ktp, tb_karyawan.nama_depan, tb_karyawan.nama_belakang, tb_karyawan.email, tb_kode_status_karyawan.nama_kode FROM `database`.tb_karyawan 
+INNER JOIN tb_kode_status_karyawan ON tb_kode_status_karyawan.kd_id = tb_karyawan.kd_status_karyawan
+where kd_status_karyawan IN ('KDKRY0006', 'KDKRY0008', 'KDKRY0009', 'KDKRY0010', 'KDKRY0015')";
             $sql = $data->paging($dt, $records_per_page);
             $stmt = $data->runQuery($sql);
             $stmt->execute();
@@ -93,6 +95,7 @@ else
                         <th class="column-title">NIK</th>
                         <th class="column-title">Nama Lengkap</th>
                         <th class="column-title">Email</th>
+                        <th class="column-title">Status</th>
                         <th class="column-title no-link last"><span class="nobr">Action</span>
                         </th>
                     </tr>
@@ -108,6 +111,9 @@ else
                         <td class=" "><?= $row['no_ktp']; ?></td>
                         <td class=" "><?= $row['nama_depan']; ?> <?= $row['nama_belakang'] ?></td>
                         <td class=" "><?= $row['email']; ?></td>
+                        <td class=" "><label class="label label-success" style="font-size: 11px;">
+                            <?= $row['nama_kode']; ?>
+                        </label></td>
                         <td>
                             <a href="?p=addKaryawan&id=<?= $row['no_ktp']; ?>&kode=<?= $kd_list_karyawan ?>">
                                 <button type="button" data-toggle="tooltip" data-placement="right" title="Add"

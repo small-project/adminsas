@@ -1,3 +1,26 @@
+<?php 
+
+  $sql = "SELECT * FROM tb_karyawan";
+  $stmt = $config->runQuery($sql);
+  $stmt->execute();
+
+  $sql2 = "SELECT * FROM tb_karyawan WHERE tb_karyawan.kd_status_karyawan IN ('KDKRY0003', 'KDKRY0013')";
+  $stmt2 = $config->runQuery($sql2);
+  $stmt2->execute();
+
+  $sql3 = "SELECT * FROM tb_karyawan WHERE tb_karyawan.kd_status_karyawan IN ('KDKRY0005', 'KDKRY0014')";
+  $stmt3 = $config->runQuery($sql3);
+  $stmt3->execute();
+
+  $sql4 = "SELECT * FROM tb_karyawan WHERE tb_karyawan.kd_status_karyawan IN ('KDKRY0008', 'KDKRY0009', 'KDKRY0010', 'KDKRY0012','KDKRY0015')";
+  $stmt4 = $config->runQuery($sql4);
+  $stmt4->execute();
+
+  $totalKaryawan = $stmt->rowCount();
+  $totalPsikotes = $stmt2->rowCount();
+  $totalInterview = $stmt3->rowCount();
+  $totalK = $stmt4->rowCount();
+?>
 <div class="clearfix"></div>
 
 <div class="col-md-12 col-sm-12 col-xs-12">
@@ -6,6 +29,36 @@
       <h2>List Pelamar </h2>
 
       <div class="clearfix"></div>
+    </div>
+    <div class="row top_tiles">
+      <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="tile-stats">
+          <div class="icon"><i class="fa fa-users"></i></div>
+          <div class="count"><?=$totalKaryawan?></div>
+          <h3>Total Karyawan</h3>
+        </div>
+      </div>
+      <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="tile-stats">
+          <div class="icon"><i class="fa fa-pencil-square-o"></i></div>
+          <div class="count"><?=$totalPsikotes?></div>
+          <h3>Psikotes</h3>
+        </div>
+      </div>
+      <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="tile-stats">
+          <div class="icon"><i class="fa fa-comments"></i></div>
+          <div class="count"><?=$totalInterview?></div>
+          <h3>Interviews</h3>
+        </div>
+      </div>
+      <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="tile-stats">
+          <div class="icon"><i class="fa fa-user"></i></div>
+          <div class="count"><?=$totalK?></div>
+          <h3>Karyawan</h3>
+        </div>
+      </div>
     </div>
 
     <div class="x_content">
