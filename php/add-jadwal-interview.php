@@ -11,7 +11,7 @@ $jadwal = new Admin();
         $kdAdmin = strip_tags($_POST['kode_admin']);
         $tanggalTest = strip_tags($_POST['tanggal']);
         $detail = strip_tags($_POST['detail']);
-        $kd_status = strip_tags($_POST['txt_status_karyawan']);
+        $kd_status = "KDKRY0005";
 
         $input = new Admin();
         $stmt = $input->runQuery("INSERT INTO tb_info_interview (kd_interview, no_ktp, date_interview, detail, kd_admin) VALUES (:kd, :ktp, :tgl, :detail, :admin)");
@@ -103,25 +103,7 @@ $jadwal = new Admin();
 
                     </div>
                 </div>
-                <div class="form-group">
-                  <label class="control-label col-md-3 col-sm-3 col-xs-3">Ubah Status Karyawan</label>
-                  <div class="col-md-5 col-sm-5 col-xs-9">
-                    <select name="txt_status_karyawan" class="form-control">
-                      <option value="0" selected style="text-transform: capitalize; font-weight: 600;">-- change status --</option>
-                      <?php
-                      $admin = new Admin();
 
-                      $stmt = $admin->runQuery("SELECT * FROM tb_kode_status_karyawan");
-                      $stmt->execute();
-                      while ($row = $stmt->fetch(PDO::FETCH_LAZY)) {
-              # code...
-                        ?>
-                        <option style="text-transform: capitalize; font-weight: 600;" value="<?=$row['kd_id']?>"><?=$row['nama_kode']?> </option>
-                        <?php } ?>
-                      </select>
-                    </div>
-
-                  </div>
                 <div class="form-group">
                     <div class="col-md-9 col-md-offset-3">
                         <button type="submit" name="addJadwal" class="btn btn-success">Submit</button>
@@ -162,7 +144,7 @@ if (isset($_POST['addData'])) {
   $kdAdmin = strip_tags($_POST['kode_admin']);
   $tanggalTest = strip_tags($_POST['tanggal']);
   $st = "";
-  $kd_status = strip_tags($_POST['txt_status_karyawan']);
+  $kd_status = "KDKRY0014";
 
   $input = new Karyawan();
   $stmt = $input->runQuery("UPDATE tb_info_interview SET kd_interview = :kode, date_interview = :tanggal, detail = :detail, kd_admin = :admin, status = :st WHERE no_ktp = :id");
@@ -239,25 +221,7 @@ if (isset($_POST['addData'])) {
 
               </div>
           </div>
-          <div class="form-group">
-              <label class="control-label col-md-3 col-sm-3 col-xs-3">Ubah Status Karyawan</label>
-              <div class="col-md-5 col-sm-5 col-xs-9">
-                <select name="txt_status_karyawan" class="form-control">
-                  <option value="0" selected style="text-transform: capitalize; font-weight: 600;">-- change status --</option>
-                  <?php
-                  $admin = new Admin();
 
-                  $stmt = $admin->runQuery("SELECT * FROM tb_kode_status_karyawan");
-                  $stmt->execute();
-                  while ($row = $stmt->fetch(PDO::FETCH_LAZY)) {
-              # code...
-                    ?>
-                    <option style="text-transform: capitalize; font-weight: 600;" value="<?=$row['kd_id']?>"><?=$row['nama_kode']?> </option>
-                    <?php } ?>
-                  </select>
-                </div>
-
-              </div>
           <div class="form-group">
             <div class="col-md-9 col-md-offset-3">
               <button type="submit" name="addData" class="btn btn-success">Submit</button>
