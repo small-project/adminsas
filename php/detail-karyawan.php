@@ -4,9 +4,48 @@ $no_ktp = $_GET['id'];
 
 $detail = new Karyawan();
 
-$stmt = $detail->runQuery("SELECT * FROM tb_karyawan WHERE no_ktp = :id");
+if (isset($_POST['addRekomendasi'])) {
+        # code...
+        $ktpp = $_POST['txt_id_ktp'];
+        $lokerr = $_POST['txt_loker'];
+
+        $query2 = "INSERT INTO tb_rekomendasi_posisi (no_ktp, kd_pekerjaan, kd_admin) VALUES (:kd, :nama, :admin)";
+            $dd = $detail->runQuery($query2);
+            $dd->execute(array(
+                ':kd'   => $ktpp,
+                ':nama' => $lokerr,
+                ':admin'=> $kd_admin
+            ));
+            if (!$dd){
+                echo "data tidak masuk";
+            } else {
+                echo "<script>
+                alert('Rekomendasi Data Success!');
+                window.location.href='?p=detail-karyawan&id=". $no_ktp ."';
+                </script>";
+            }
+    }
+
+
+$stmt = $detail->runQuery("SELECT * FROM tb_karyawan LEFT JOIN tb_kode_status_karyawan ON tb_kode_status_karyawan.kd_id = tb_karyawan.kd_status_karyawan WHERE no_ktp = :id");
 $stmt->bindParam(':id', $no_ktp);
 $stmt->execute();
+
+$sql = "SELECT * FROM tb_rekomendasi_posisi INNER JOIN tb_jenis_pekerjaan ON tb_jenis_pekerjaan.kd_pekerjaan = tb_rekomendasi_posisi.kd_pekerjaan WHERE no_ktp = :ktp";
+$cek = $detail->runQuery($sql);
+$cek->execute(array(
+  ':ktp' => $no_ktp
+));
+
+$rekomendasi = $cek->rowCount();
+$rekomendasi = $cek->fetch(PDO::FETCH_LAZY);
+
+if ($rekomendasi > 0) {
+  # code...
+  $titleRekomendasi = $rekomendasi['nama_pekerjaan']. " <span class='fa fa-fw fa-thumbs-o-up '></span>";
+}else{
+  $titleRekomendasi = '<span class="fa fa-fw fa-plus"></span> Rekomendasi';
+}
 
 $row = $stmt->fetch(PDO::FETCH_LAZY);
 
@@ -41,12 +80,21 @@ if ($row['foto'] != "") {
 }else{
   $dataFoto = "https://renderman.pixar.com/assets/camaleon_cms/image-not-found-4a963b95bf081c3ea02923dceaeb3f8085e1a654fc54840aac61a57a60903fef.png";
 }
+
+if (empty($row['nama_kode'])) {
+  # code...
+  $labelKaryawan = "status not set";
+}
+else{
+  $labelKaryawan = $row['nama_kode'];
+}
 ?>
 
 
 <div class="x_panel">
   <div class="x_title">
-    <h2><?php echo $pesan; ?></h2>
+    <h2><?php echo $pesan; ?></h2> 
+     <small><span class="label label-success" style="font-size: 11px; color: #fff; text-transform: uppercase;"><?=$labelKaryawan?></span></small>
     <ul class="nav navbar-right panel_toolbox">
       <li>
         <a href="?p=send-push&ktp=<?=$row['no_ktp']?>" data-toggle="tooltip" data-placement="top" title="" data-original-title="Send Push">
@@ -84,6 +132,8 @@ if ($row['foto'] != "") {
       <a class="btn btn-danger"><i class="fa fa-qrcode m-right-xs"></i> <?php echo $nik; ?></a>
       <a class="btn <?=$color?>"><i class="fa fa-qrcode m-right-xs"></i> <?php echo $st; ?></a>
       <a class="btn btn-success" target="_blank" href="php/export.php?id=<?php echo $row['no_ktp']; ?>"><i class="fa fa-qrcode m-right-xs"></i> Export Data Karyawan</a>
+      <a class="btn btn-primary" data-toggle="modal" data-target="#addRekomendasi" title="Rekomendasi Pekerjaan" ><?=$titleRekomendasi?></a>
+
       <br/>
 
       <!-- start skills -->
@@ -588,8 +638,9 @@ if ($row['foto'] != "") {
                       if ($stat == '1') {
                         # code...
                         $status = '<span class="label label-success"><span class="fa fa-user"></span></span>';
-                      }
-                       ?>
+                      }else{
+                        $status ="-";
+                      } ?>
                       <tr class="even pointer">
 
                         <td class=" "><?php echo $row['nama_lengkap']; ?>
@@ -749,7 +800,7 @@ if ($row['foto'] != "") {
                        ?>
                       <tr class="even pointer">
 
-                        <td class=" " style="text-transform: uppercase;"><a href="../Pendaftaran/Upload/<?=$row['nama_file'];?>"><?=$row['nama_file']; ?></a></td>
+                        <td class=" " style="text-transform: uppercase;" ><a href="../Pendaftaran/Upload/<?=$row['nama_file'];?>" target="_blank"><?=$row['nama_file']; ?></a></td>
                         <td class=" "><?php echo $row['type_file']; ?></td>
                         <td class=" "><?php echo $row['paths']; ?></td>
                         <td class=" "><?php echo $row['create_date']; ?></td>
@@ -835,4 +886,49 @@ if ($row['foto'] != "") {
     </div>
   </div>
 
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="addRekomendasi" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+<div class="modal-content">
+
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+    </button>
+    <h4 class="modal-title" id="myModalLabel"><span class="fa fa-users"></span> Add Rekomendasi Posisi Karyawan</h4>
+  </div>
+  <div class="modal-body">
+
+    <form method="post" action="">
+
+      <div class="form-group">
+        <label for="exampleInputPassword1">List Lowongan Kerja</label>
+        <input name="txt_id_ktp" type="hidden" class="form-control" value="<?=$no_ktp?>">
+        <select name="txt_loker" class="form-control">
+          <option value="0" selected style="text-transform: capitalize; font-weight: 600;">-- list loker --</option>
+          <?php
+          $admin = new Admin();
+
+          $stmt = $admin->runQuery("SELECT * FROM tb_jenis_pekerjaan");
+          $stmt->execute();
+          while ($row = $stmt->fetch(PDO::FETCH_LAZY)) {
+              # code...
+            ?>
+            <option style="text-transform: capitalize; font-weight: 600;" value="<?=$row['kd_pekerjaan']?>"><?=$row['nama_pekerjaan']?> </option>
+            <?php } ?>
+        </select>
+      </div>
+      <button type="submit" name="addRekomendasi" class="btn btn-default">Submit</button>
+      
+    </form>
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-xs btn-default" data-dismiss="modal">Close</button>
+  </div>
+
+</div>    
+  </div>
 </div>

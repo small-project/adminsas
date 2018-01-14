@@ -31,11 +31,15 @@
             </tr>
           </thead>
           <?php
-            $calon = new Karyawan();
-            $stmt = $calon->runQuery("SELECT tb_karyawan.no_ktp, tb_karyawan.no_NIK, tb_karyawan.nama_depan, tb_karyawan.nama_belakang, tb_info_interview.kd_interview, tb_info_interview.date_interview, tb_info_interview.detail, tb_info_interview.status, tb_info_interview.kd_admin, tb_info_interview.create_date
-FROM tb_karyawan
-LEFT OUTER JOIN tb_info_interview ON tb_info_interview.no_ktp=tb_karyawan.no_ktp WHERE tb_karyawan.no_NIK =''");
-            $stmt->execute();
+          $calon = new Admin();
+          $records_per_page = 20;
+
+          $query = "SELECT tb_karyawan.no_ktp, tb_karyawan.no_NIK, tb_karyawan.nama_depan, tb_karyawan.nama_belakang, tb_info_interview.kd_interview, tb_info_interview.date_interview, tb_info_interview.detail, tb_info_interview.status, tb_info_interview.kd_admin, tb_info_interview.create_date
+          FROM tb_karyawan
+          LEFT OUTER JOIN tb_info_interview ON tb_info_interview.no_ktp=tb_karyawan.no_ktp WHERE tb_karyawan.no_NIK =''";
+          $sql = $calon->paging($query, $records_per_page);
+          $stmt = $calon->runQuery($sql);
+          $stmt->execute();
 
 
           ?>
@@ -57,7 +61,13 @@ LEFT OUTER JOIN tb_info_interview ON tb_info_interview.no_ktp=tb_karyawan.no_ktp
              ?>
             <tr class="even pointer">
 
-              <td class=" "><?php echo $row['no_ktp']; ?></td>
+              <td class=" ">
+                <a href="?p=detail-karyawan&id=<?=$row['no_ktp']; ?>" data-toggle="tooltip" data-placement="left" title="Views Profile">
+                  <button type="button" class="btn btn-primary btn-xs">
+                     <?=$row['no_ktp']?> <i class="fa fa-chevron-circle-right"></i> 
+                  </button>
+                </a>
+              </td>
               <td class=" "><?php echo $row['nama_depan']; ?> <?php echo $row['nama_belakang']; ?></td>
               <td class=" "><?php echo $row['kd_interview']; ?></td>
               <td class=" "><?php echo $row['date_interview']; ?></td>
@@ -75,6 +85,12 @@ LEFT OUTER JOIN tb_info_interview ON tb_info_interview.no_ktp=tb_karyawan.no_ktp
             <?php } ?>
           </tbody>
         </table>
+        <?php
+        
+        $stmt = $calon->paginglink($query, $records_per_page);
+
+        
+        ?>
       </div>
       </div>
       </div>

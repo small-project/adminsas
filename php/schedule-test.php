@@ -32,11 +32,14 @@
             </tr>
           </thead>
           <?php
-            $calon = new Karyawan();
+            $calon = new Admin();
 
-            $stmt = $calon->runQuery("SELECT tb_karyawan.no_ktp, tb_karyawan.no_NIK, tb_karyawan.nama_depan, tb_karyawan.nama_belakang, tb_info_test.kode_test, tb_info_test.date_test, tb_info_test.nilai, tb_info_test.kode_admin, tb_info_test.status FROM tb_karyawan LEFT OUTER JOIN tb_info_test ON tb_info_test.no_ktp=tb_karyawan.no_ktp WHERE tb_karyawan.no_NIK =''");
-
-            $stmt->execute();
+            $records_per_page = 20;
+            $query = "SELECT tb_karyawan.no_ktp, tb_karyawan.no_NIK, tb_karyawan.nama_depan, tb_karyawan.nama_belakang, tb_info_test.kode_test, tb_info_test.date_test, tb_info_test.nilai, tb_info_test.kode_admin, tb_info_test.status FROM tb_karyawan LEFT OUTER JOIN tb_info_test ON tb_info_test.no_ktp=tb_karyawan.no_ktp WHERE tb_karyawan.no_NIK =''";
+          
+           $sql = $calon->paging($query, $records_per_page);
+          $stmt = $calon->runQuery($sql);
+          $stmt->execute();
           ?>
           <tbody>
           <?php
@@ -60,7 +63,13 @@
               <td class="a-center ">
                 <input type="checkbox" class="flat" name="table_records">
               </td>
-              <td class=" "><?php echo $row['no_ktp']; ?></td>
+              <td class=" ">
+                <a href="?p=detail-karyawan&id=<?=$row['no_ktp']; ?>" data-toggle="tooltip" data-placement="left" title="Views Profile">
+                  <button type="button" class="btn btn-primary btn-xs">
+                     <?=$row['no_ktp']?> <i class="fa fa-chevron-circle-right"></i> 
+                  </button>
+                </a>
+              </td>
               <td class=" "><?php echo $row['nama_depan']; ?> <?php echo $row['nama_belakang']; ?></td>
               <td class=" "><?php echo $row['kode_test']; ?></td>
               <td class=" "><?php echo $row['date_test']; ?></td>
@@ -80,6 +89,12 @@
             <?php } ?>
           </tbody>
         </table>
+        <?php
+        
+        $stmt = $calon->paginglink($query, $records_per_page);
+
+        
+        ?>
       </div>
       </div>
       </div>

@@ -105,7 +105,7 @@ class Admin
 	  return $query2;
 	 }
 
-	 public function paginglink($query,$records_per_page)
+	 public function paginglink($query, $records_per_page)
 
 	 {
 
