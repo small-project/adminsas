@@ -1,7 +1,16 @@
 <?php
 require '../config/api.php';
 
-$no_ktp = $_GET['id'];
+if(isset($_GET['id'])){
+	$no_ktp = $_GET['id'];
+
+	
+}else{
+
+	$no_ktp = "";
+}
+
+
 
 $sql = "SELECT year(curdate()) - year(str_to_date(tgl_lahir,'%d-%m-%Y')) as age, no_ktp, no_NIK, nama_depan, nama_belakang, jenis_kelamin, email, nomor_hp, nomor_telp, tempat_lahir, tgl_lahir, nama_suku, agama, tinggi_badan, berat_badan, no_NPWP, no_BPJS, nomor_sim, jenis_sim, status_perkawinan, status_tempat_tinggal, foto, hobi, alamat, kelurahan, kecamatan, kota, keperibadian, menghire, status, nilai FROM tb_karyawan WHERE no_ktp = :ktp";
 $config = new Admin();
