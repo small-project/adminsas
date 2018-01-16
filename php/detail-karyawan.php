@@ -37,10 +37,10 @@ $cek->execute(array(
   ':ktp' => $no_ktp
 ));
 
-$rekomendasi = $cek->rowCount();
+$totalRekomendasi = $cek->rowCount();
 $rekomendasi = $cek->fetch(PDO::FETCH_LAZY);
 
-if ($rekomendasi > 0) {
+if ($totalRekomendasi > 0) {
   # code...
   $titleRekomendasi = $rekomendasi['nama_pekerjaan']. " <span class='fa fa-fw fa-thumbs-o-up '></span>";
 }else{
