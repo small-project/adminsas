@@ -39,8 +39,8 @@
       <file leaf-file-name="top-navbar.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/php/top-navbar.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="425">
-              <caret line="25" column="16" lean-forward="false" selection-start-line="25" selection-start-column="16" selection-end-line="25" selection-end-column="16" />
+            <state relative-caret-position="228">
+              <caret line="15" column="12" lean-forward="true" selection-start-line="15" selection-start-column="12" selection-end-line="15" selection-end-column="12" />
               <folding>
                 <marker date="1515951434546" expanded="true" signature="38:441" ph="SELECT tb_pu... tb_push" />
               </folding>
@@ -263,7 +263,8 @@
       <workItem from="1498991656236" duration="171000" />
       <workItem from="1515945080535" duration="3118000" />
       <workItem from="1515984625809" duration="103000" />
-      <workItem from="1516072071187" duration="699000" />
+      <workItem from="1516072071187" duration="865000" />
+      <workItem from="1516162425162" duration="653000" />
     </task>
     <task id="LOCAL-00001" summary="perbaikan modul admin-sales&#10;perubahan database:&#10;- tb_kerjasama_perusahan&#10;kode_admin set (60)&#10;total_karyawan(varchar[4])&#10;- tb_list_job&#10;remove start_at, finish_at&#10;-tb_job&#10;remove no_nip&#10;-tb_list_karyawan&#10;change AI on id">
       <created>1496675481386</created>
@@ -290,7 +291,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="42919000" />
+    <option name="totallyTimeSpent" value="43738000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -709,8 +710,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/php/top-navbar.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="25" column="16" lean-forward="false" selection-start-line="25" selection-start-column="16" selection-end-line="25" selection-end-column="16" />
+        <state relative-caret-position="228">
+          <caret line="15" column="12" lean-forward="true" selection-start-line="15" selection-start-column="12" selection-end-line="15" selection-end-column="12" />
           <folding>
             <marker date="1515951434546" expanded="true" signature="38:441" ph="SELECT tb_pu... tb_push" />
           </folding>
