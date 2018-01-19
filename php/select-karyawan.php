@@ -39,6 +39,7 @@ if (isset($_POST['addGenerate'])) {
             //         alert('CODE Berhasil di Generate!');
             //         window.location.href='?p=select-karyawan&id=".$kode."';
             //         </script>";
+            
         } else {
             echo "Data Tidak Masuk";
         }
@@ -59,6 +60,7 @@ $row = $stmt->fetch(PDO::FETCH_LAZY);
 $kd_list_karyawan = $row['kode_list_karyawan'];
 if ($kd_list_karyawan == "") 
 {
+    //Generate Kode Karyawan
     ?>
     <div class="col-md-6 col-lg-offset-3">
         <div class="well">
@@ -76,13 +78,11 @@ if ($kd_list_karyawan == "")
 else
     {
             $records_per_page = 10;
-            $dt = "SELECT tb_karyawan.no_ktp, tb_karyawan.nama_depan, tb_karyawan.nama_belakang, tb_karyawan.email, tb_kode_status_karyawan.nama_kode FROM `database`.tb_karyawan 
-INNER JOIN tb_kode_status_karyawan ON tb_kode_status_karyawan.kd_id = tb_karyawan.kd_status_karyawan
-where kd_status_karyawan IN ('KDKRY0006', 'KDKRY0008', 'KDKRY0009', 'KDKRY0010', 'KDKRY0015')";
+            $dt = "SELECT tb_karyawan.no_ktp, tb_karyawan.nama_depan, tb_karyawan.nama_belakang, tb_karyawan.email, tb_kode_status_karyawan.nama_kode FROM `database`.tb_karyawan INNER JOIN tb_kode_status_karyawan ON tb_kode_status_karyawan.kd_id = tb_karyawan.kd_status_karyawan where kd_status_karyawan IN ('KDKRY0006', 'KDKRY0008', 'KDKRY0009', 'KDKRY0010', 'KDKRY0015') AND tb_karyawan.no_ktp NOT IN (SELECT tb_list_karyawan.no_nip FROM tb_list_karyawan INNER JOIN tb_karyawan ON tb_karyawan.no_ktp = tb_list_karyawan.no_nip)";
             $sql = $data->paging($dt, $records_per_page);
             $stmt = $data->runQuery($sql);
             $stmt->execute();
-
+//Tampilkan List Calon Karyawan Project
         ?>
         <div class="x_content">
             <h3>Select List Karyawan</h3>
@@ -139,7 +139,7 @@ where kd_status_karyawan IN ('KDKRY0006', 'KDKRY0008', 'KDKRY0009', 'KDKRY0010',
             $dt = "SELECT tb_list_karyawan.kode_list_karyawan, tb_list_karyawan.no_nip, tb_list_karyawan.kode_jabatan, tb_list_karyawan.status_karyawan, tb_karyawan.nama_depan, tb_karyawan.nama_belakang, tb_karyawan.jenis_kelamin, tb_karyawan.email, tb_kerjasama_perusahan.nomor_kontrak, tb_kerjasama_perusahan.kode_list_karyawan FROM tb_list_karyawan INNER JOIN tb_karyawan ON tb_karyawan.no_ktp = tb_list_karyawan.no_nip INNER JOIN tb_kerjasama_perusahan ON tb_kerjasama_perusahan.kode_list_karyawan = tb_list_karyawan.kode_list_karyawan WHERE tb_kerjasama_perusahan.nomor_kontrak = :nomor";
             $stmt = $data->runQuery($dt);
             $stmt->execute(array(':nomor' => $id));
-                
+              //List Karyawan Selected To Project  
         ?>
         <div class="x_content">
             <h3>Selected List Karyawan</h3>
@@ -156,11 +156,14 @@ where kd_status_karyawan IN ('KDKRY0006', 'KDKRY0008', 'KDKRY0009', 'KDKRY0010',
                         </th>
                         <th class="column-title no-link last"><span class="nobr">Status</span>
                         </th>
+                        <th class="column-title no-link last"><span class="nobr">#</span>
+                        </th>
                     </tr>
                     </thead>
                     <tbody>
                     <?php
                     $i = 1;
+                    if($stmt->rowCount() > 0){
                     while ($row = $stmt->fetch(PDO::FETCH_LAZY)) 
                     {
                         $st = $row['status_karyawan'];
@@ -178,9 +181,18 @@ where kd_status_karyawan IN ('KDKRY0006', 'KDKRY0008', 'KDKRY0009', 'KDKRY0010',
                             <td class=" "><?= $row['email']; ?></td>
                             <td><?=$row['jenis_kelamin']?></td>
                             <td><?=$status?></td>
+                            <td>
+                            <a href="php/deleteKaryawanSuggest.php?id=<?=$row['no_nip']?>&kode=<?=$row['kode_list_karyawan']?>&spk=<?=$id?>">
+                                <button class="btn btn-xs btn-primary" data-toggle="tooltip" data-placement="top" title="Remove Karyawan"><span class="fa fa-fw fa-times-circle"></span></button>
+                            </a> 
+                            </td>
                         </tr>
                         <?php
                     }
+
+                }else{
+                    echo "<td colspan='7' style='font-size=18px; font-wight=500;'>Karyawan Belum Dipilih!</td>";
+                }
                         ?>
                     </tbody>
                 </table>
@@ -192,7 +204,7 @@ where kd_status_karyawan IN ('KDKRY0006', 'KDKRY0008', 'KDKRY0009', 'KDKRY0010',
 $id = $_GET['id'];
 
 $data = new Admin();
-$sql = "SELECT tb_kerjasama_perusahan.nomor_kontrak, tb_kerjasama_perusahan.total_karyawan, tb_temporary_perusahaan.nama_perusahaan, tb_temporary_perusahaan.kode_perusahaan, tb_temporary_perusahaan.nama_perusahaan, tb_temporary_perusahaan.kebutuhan, tb_temporary_perusahaan.kode_pekerjaan, tb_jenis_pekerjaan.nama_pekerjaan, tb_kategori_pekerjaan.nama_kategori FROM tb_kerjasama_perusahan LEFT JOIN tb_temporary_perusahaan ON tb_temporary_perusahaan.no_pendaftaran=tb_kerjasama_perusahan.kode_perusahaan LEFT JOIN tb_jenis_pekerjaan ON tb_jenis_pekerjaan.kd_pekerjaan=tb_temporary_perusahaan.kode_pekerjaan LEFT JOIN tb_kategori_pekerjaan ON tb_kategori_pekerjaan.kode_kategori=tb_temporary_perusahaan.kebutuhan WHERE tb_kerjasama_perusahan.nomor_kontrak = :kode";
+$sql = "SELECT tb_kerjasama_perusahan.nomor_kontrak, tb_kerjasama_perusahan.kode_list_karyawan, tb_kerjasama_perusahan.total_karyawan, tb_temporary_perusahaan.nama_perusahaan, tb_temporary_perusahaan.kode_perusahaan, tb_temporary_perusahaan.nama_perusahaan, tb_temporary_perusahaan.kebutuhan, tb_temporary_perusahaan.kode_pekerjaan, tb_jenis_pekerjaan.nama_pekerjaan, tb_kategori_pekerjaan.nama_kategori FROM tb_kerjasama_perusahan LEFT JOIN tb_temporary_perusahaan ON tb_temporary_perusahaan.kode_perusahaan=tb_kerjasama_perusahan.kode_perusahaan LEFT JOIN tb_jenis_pekerjaan ON tb_jenis_pekerjaan.kd_pekerjaan=tb_temporary_perusahaan.kode_pekerjaan LEFT JOIN tb_kategori_pekerjaan ON tb_kategori_pekerjaan.kode_kategori=tb_temporary_perusahaan.kebutuhan WHERE tb_kerjasama_perusahan.nomor_kontrak = :kode";
 $stmt = $data->runQuery($sql);
 $stmt->execute(array(
     ':kode' => $id
@@ -203,13 +215,14 @@ $stmt->execute(array(
             
             $noKontrak = $row['nomor_kontrak'];
             $jmlh_karyawan = $row['total_karyawan'];
-            
+            $kodeList = $row['kode_list_karyawan'];
             
             $cek = "SELECT kode_list_karyawan FROM tb_list_karyawan WHERE kode_list_karyawan = :kode";
             $tes = $data->runQuery($cek);
             $tes->execute(array(
-                ':kode' => $id
+                ':kode' => $kodeList
             ));
+           
             //cek jika jumlah nilai spk sudah ada
             if ($tes->rowCount() == $jmlh_karyawan) {
             ?>

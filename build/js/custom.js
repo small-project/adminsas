@@ -1,7 +1,7 @@
 /**
  * Resize function without multiple trigger
  * 
- * Usage:
+ * Usage: 
  * $(window).smartresize(function(){  
  *     // code here
  * });
@@ -17,7 +17,7 @@
             function delayed () {
                 if (!execAsap)
                     func.apply(obj, args); 
-                timeout = null; 
+                timeout = null;
             }
 
             if (timeout)
@@ -25,7 +25,7 @@
             else if (execAsap)
                 func.apply(obj, args);
 
-            timeout = setTimeout(delayed, threshold || 100); 
+            timeout = setTimeout(delayed, threshold || 100);
         };
     };
 
@@ -39,15 +39,15 @@
  * and open the template in the editor.
  */
 
-var CURRENT_URL = window.location.href.split('#')[0].split('?')[0],
-    $BODY = $('body'),
-    $MENU_TOGGLE = $('#menu_toggle'),
-    $SIDEBAR_MENU = $('#sidebar-menu'),
+var CURRENT_URL     = window.location.href.split('#')[0].split('?')[0],
+    $BODY           = $('body'),
+    $MENU_TOGGLE    = $('#menu_toggle'),
+    $SIDEBAR_MENU   = $('#sidebar-menu'),
     $SIDEBAR_FOOTER = $('.sidebar-footer'),
-    $LEFT_COL = $('.left_col'),
-    $RIGHT_COL = $('.right_col'),
-    $NAV_MENU = $('.nav_menu'),
-    $FOOTER = $('footer');
+    $LEFT_COL       = $('.left_col'),
+    $RIGHT_COL      = $('.right_col'),
+    $NAV_MENU       = $('.nav_menu'),
+    $FOOTER         = $('footer');
 
 	
 	
@@ -58,10 +58,10 @@ var setContentHeight = function () {
 	// reset height
 	$RIGHT_COL.css('min-height', $(window).height());
 
-	var bodyHeight = $BODY.outerHeight(),
-		footerHeight = $BODY.hasClass('footer_fixed') ? -10 : $FOOTER.height(),
-		leftColHeight = $LEFT_COL.eq(1).height() + $SIDEBAR_FOOTER.height(),
-		contentHeight = bodyHeight < leftColHeight ? leftColHeight : bodyHeight;
+	var bodyHeight    = $BODY.outerHeight(),
+	    footerHeight  = $BODY.hasClass('footer_fixed') ? -10 : $FOOTER.height(),
+	    leftColHeight = $LEFT_COL.eq(1).height() + $SIDEBAR_FOOTER.height(),
+	    contentHeight = bodyHeight < leftColHeight ? leftColHeight : bodyHeight;
 
 	// normalize content
 	contentHeight -= $NAV_MENU.height() + footerHeight;
@@ -136,8 +136,8 @@ $MENU_TOGGLE.on('click', function() {
 	if ($.fn.mCustomScrollbar) {
 		$('.menu_fixed').mCustomScrollbar({
 			autoHideScrollbar: true,
-			theme: 'minimal',
-			mouseWheel:{ preventDefault: true }
+			theme            : 'minimal',
+			mouseWheel       : { preventDefault: true }
 		});
 	}
 };
@@ -151,8 +151,8 @@ $MENU_TOGGLE.on('click', function() {
 // Panel toolbox
 $(document).ready(function() {
     $('.collapse-link').on('click', function() {
-        var $BOX_PANEL = $(this).closest('.x_panel'),
-            $ICON = $(this).find('i'),
+        var $BOX_PANEL   = $(this).closest('.x_panel'),
+            $ICON        = $(this).find('i'),
             $BOX_CONTENT = $BOX_PANEL.find('.x_content');
         
         // fix for some div with hardcoded fix class
@@ -210,7 +210,7 @@ $(document).ready(function() {
         $(document).ready(function () {
             $('input.flat').iCheck({
                 checkboxClass: 'icheckbox_flat-green',
-                radioClass: 'iradio_flat-green'
+                radioClass   : 'iradio_flat-green'
             });
         });
     }
@@ -299,17 +299,17 @@ if (typeof NProgress != 'undefined') {
 
 	
 	  //hover and retain popover when on popover content
-        var originalLeave = $.fn.popover.Constructor.prototype.leave;
-        $.fn.popover.Constructor.prototype.leave = function(obj) {
+        var originalLeave                            = $.fn.popover.Constructor.prototype.leave;
+            $.fn.popover.Constructor.prototype.leave = function(obj) {
           var self = obj instanceof this.constructor ?
-            obj : $(obj.currentTarget)[this.type](this.getDelegateOptions()).data('bs.' + this.type);
+            obj: $(obj.currentTarget)[this.type](this.getDelegateOptions()).data('bs.' + this.type);
           var container, timeout;
 
           originalLeave.call(this, obj);
 
           if (obj.currentTarget) {
             container = $(obj.currentTarget).siblings('.popover');
-            timeout = self.timeout;
+            timeout   = self.timeout;
             container.one('mouseenter', function() {
               //We entered the actual popover – call off the dogs
               clearTimeout(timeout);
@@ -323,8 +323,8 @@ if (typeof NProgress != 'undefined') {
 
         $('body').popover({
           selector: '[data-popover]',
-          trigger: 'click hover',
-          delay: {
+          trigger : 'click hover',
+          delay   : {
             show: 50,
             hide: 400
           }
@@ -419,39 +419,39 @@ if (typeof NProgress != 'undefined') {
               fill: true
             },
             splines: {
-              show: true,
-              tension: 0.4,
+              show     : true,
+              tension  : 0.4,
               lineWidth: 1,
-              fill: 0.4
+              fill     : 0.4
             },
             points: {
               radius: 0,
-              show: true
+              show  : true
             },
             shadowSize: 2
           },
           grid: {
             verticalLines: true,
-            hoverable: true,
-            clickable: true,
-            tickColor: "#d5d5d5",
-            borderWidth: 1,
-            color: '#fff'
+            hoverable    : true,
+            clickable    : true,
+            tickColor    : "#d5d5d5",
+            borderWidth  : 1,
+            color        : '#fff'
           },
           colors: ["rgba(38, 185, 154, 0.38)", "rgba(3, 88, 106, 0.38)"],
-          xaxis: {
+          xaxis : {
             tickColor: "rgba(51, 51, 51, 0.06)",
-            mode: "time",
-            tickSize: [1, "day"],
+            mode     : "time",
+            tickSize : [1, "day"],
             //tickLength: 10,
-            axisLabel: "Date",
-            axisLabelUseCanvas: true,
+            axisLabel              : "Date",
+            axisLabelUseCanvas     : true,
             axisLabelFontSizePixels: 12,
-            axisLabelFontFamily: 'Verdana, Arial',
-            axisLabelPadding: 10
+            axisLabelFontFamily    : 'Verdana, Arial',
+            axisLabelPadding       : 10
           },
           yaxis: {
-            ticks: 8,
+            ticks    : 8,
             tickColor: "rgba(51, 51, 51, 0.06)",
           },
           tooltip: false
@@ -459,51 +459,51 @@ if (typeof NProgress != 'undefined') {
 		
 		var chart_plot_02_settings = {
 			grid: {
-				show: true,
-				aboveData: true,
-				color: "#3f3f3f",
-				labelMargin: 10,
-				axisMargin: 0,
-				borderWidth: 0,
-				borderColor: null,
-				minBorderMargin: 5,
-				clickable: true,
-				hoverable: true,
-				autoHighlight: true,
+				show             : true,
+				aboveData        : true,
+				color            : "#3f3f3f",
+				labelMargin      : 10,
+				axisMargin       : 0,
+				borderWidth      : 0,
+				borderColor      : null,
+				minBorderMargin  : 5,
+				clickable        : true,
+				hoverable        : true,
+				autoHighlight    : true,
 				mouseActiveRadius: 100
 			},
 			series: {
 				lines: {
-					show: true,
-					fill: true,
+					show     : true,
+					fill     : true,
 					lineWidth: 2,
-					steps: false
+					steps    : false
 				},
 				points: {
-					show: true,
-					radius: 4.5,
-					symbol: "circle",
+					show     : true,
+					radius   : 4.5,
+					symbol   : "circle",
 					lineWidth: 3.0
 				}
 			},
 			legend: {
-				position: "ne",
-				margin: [0, -25],
-				noColumns: 0,
+				position           : "ne",
+				margin             : [0, -25],
+				noColumns          : 0,
 				labelBoxBorderColor: null,
-				labelFormatter: function(label, series) {
+				labelFormatter     : function(label, series) {
 					return label + '&nbsp;&nbsp;';
 				},
-				width: 40,
+				width : 40,
 				height: 1
 			},
-			colors: ['#96CA59', '#3F97EB', '#72c380', '#6f7a8a', '#f7cb38', '#5a8022', '#2c7282'],
-			shadowSize: 0,
-			tooltip: true,
+			colors     : ['#96CA59', '#3F97EB', '#72c380', '#6f7a8a', '#f7cb38', '#5a8022', '#2c7282'],
+			shadowSize : 0,
+			tooltip    : true,
 			tooltipOpts: {
-				content: "%s: %y.0",
+				content    : "%s: %y.0",
 				xDateFormat: "%d/%m",
-			shifts: {
+				shifts     : {
 				x: -30,
 				y: -50
 			},
@@ -513,33 +513,33 @@ if (typeof NProgress != 'undefined') {
 				min: 0
 			},
 			xaxis: {
-				mode: "time",
+				mode       : "time",
 				minTickSize: [1, "day"],
-				timeformat: "%d/%m/%y",
-				min: chart_plot_02_data[0][0],
-				max: chart_plot_02_data[20][0]
+				timeformat : "%d/%m/%y",
+				min        : chart_plot_02_data[0][0],
+				max        : chart_plot_02_data[20][0]
 			}
 		};	
 	
 		var chart_plot_03_settings = {
 			series: {
 				curvedLines: {
-					apply: true,
-					active: true,
+					apply       : true,
+					active      : true,
 					monotonicFit: true
 				}
 			},
 			colors: ["#26B99A"],
-			grid: {
+			grid  : {
 				borderWidth: {
-					top: 0,
-					right: 0,
+					top   : 0,
+					right : 0,
 					bottom: 1,
-					left: 1
+					left  : 1
 				},
 				borderColor: {
 					bottom: "#7F8790",
-					left: "#7F8790"
+					left  : "#7F8790"
 				}
 			}
 		};
@@ -557,10 +557,10 @@ if (typeof NProgress != 'undefined') {
 			
 			$.plot( $("#chart_plot_02"), 
 			[{ 
-				label: "Email Sent", 
-				data: chart_plot_02_data, 
+				label: "Email Sent",
+				data : chart_plot_02_data,
 				lines: { 
-					fillColor: "rgba(150, 202, 89, 0.12)" 
+					fillColor: "rgba(150, 202, 89, 0.12)"
 				}, 
 				points: { 
 					fillColor: "#fff" } 
@@ -574,7 +574,7 @@ if (typeof NProgress != 'undefined') {
 			
 			$.plot($("#chart_plot_03"), [{
 				label: "Registrations",
-				data: chart_plot_03_data,
+				data : chart_plot_03_data,
 				lines: {
 					fillColor: "rgba(150, 202, 89, 0.12)"
 				}, 
@@ -623,15 +623,15 @@ if (typeof NProgress != 'undefined') {
 			if ($('#world-map-gdp').length ){
 		 
 				$('#world-map-gdp').vectorMap({
-					map: 'world_en',
-					backgroundColor: null,
-					color: '#ffffff',
-					hoverOpacity: 0.7,
-					selectedColor: '#666666',
-					enableZoom: true,
-					showTooltip: true,
-					values: sample_data,
-					scaleColors: ['#E6F2F0', '#149B7E'],
+					map              : 'world_en',
+					backgroundColor  : null,
+					color            : '#ffffff',
+					hoverOpacity     : 0.7,
+					selectedColor    : '#666666',
+					enableZoom       : true,
+					showTooltip      : true,
+					values           : sample_data,
+					scaleColors      : ['#E6F2F0', '#149B7E'],
 					normalizeFunction: 'polynomial'
 				});
 			
@@ -640,15 +640,15 @@ if (typeof NProgress != 'undefined') {
 			if ($('#usa_map').length ){
 			
 				$('#usa_map').vectorMap({
-					map: 'usa_en',
-					backgroundColor: null,
-					color: '#ffffff',
-					hoverOpacity: 0.7,
-					selectedColor: '#666666',
-					enableZoom: true,
-					showTooltip: true,
-					values: sample_data,
-					scaleColors: ['#E6F2F0', '#149B7E'],
+					map              : 'usa_en',
+					backgroundColor  : null,
+					color            : '#ffffff',
+					hoverOpacity     : 0.7,
+					selectedColor    : '#666666',
+					enableZoom       : true,
+					showTooltip      : true,
+					values           : sample_data,
+					scaleColors      : ['#E6F2F0', '#149B7E'],
 					normalizeFunction: 'polynomial'
 				});
 			
@@ -689,16 +689,16 @@ if (typeof NProgress != 'undefined') {
 		if ($('.canvasDoughnut').length){
 			
 		var chart_doughnut_settings = {
-				type: 'doughnut',
+				type            : 'doughnut',
 				tooltipFillColor: "rgba(51, 51, 51, 0.55)",
-				data: {
+				data            : {
 					labels: [
 						"Writing",
 						"Speaking",
 						"Listening"
 					],
 					datasets: [{
-						data: [15, 20, 30],
+						data           : [15, 20, 30],
 						backgroundColor: [
 							"#BDC3C7",
 							"#9B59B6",
@@ -712,14 +712,14 @@ if (typeof NProgress != 'undefined') {
 					}]
 				},
 				options: { 
-					legend: false, 
-					responsive: false 
+					legend    : false,
+					responsive: false
 				}
 			}
 		
 			$('.canvasDoughnut').each(function(){
 				
-				var chart_element = $(this);
+				var chart_element  = $(this);
 				var chart_doughnut = new Chart( chart_element, chart_doughnut_settings);
 				
 			});			
@@ -738,18 +738,18 @@ if (typeof NProgress != 'undefined') {
 		
 
 		  var chart_gauge_settings = {
-		  lines: 12,
-		  angle: 0,
+		  lines    : 12,
+		  angle    : 0,
 		  lineWidth: 0.4,
-		  pointer: {
-			  length: 0.75,
+		  pointer  : {
+			  length     : 0.75,
 			  strokeWidth: 0.042,
-			  color: '#1D212A'
+			  color      : '#1D212A'
 		  },
-		  limitMax: 'false',
-		  colorStart: '#1ABC9C',
-		  colorStop: '#1ABC9C',
-		  strokeColor: '#F0F3F3',
+		  limitMax        : 'false',
+		  colorStart      : '#1ABC9C',
+		  colorStop       : '#1ABC9C',
+		  strokeColor     : '#F0F3F3',
 		  generateGradient: true
 	  };
 		
@@ -757,14 +757,14 @@ if (typeof NProgress != 'undefined') {
 		if ($('#chart_gauge_01').length){ 
 		
 			var chart_gauge_01_elem = document.getElementById('chart_gauge_01');
-			var chart_gauge_01 = new Gauge(chart_gauge_01_elem).setOptions(chart_gauge_settings);
+			var chart_gauge_01      = new Gauge(chart_gauge_01_elem).setOptions(chart_gauge_settings);
 			
 		}	
 		
 		
 		if ($('#gauge-text').length){ 
 		
-			chart_gauge_01.maxValue = 6000;
+			chart_gauge_01.maxValue       = 6000;
 			chart_gauge_01.animationSpeed = 32;
 			chart_gauge_01.set(3200);
 			chart_gauge_01.setTextField(document.getElementById("gauge-text"));
@@ -774,14 +774,14 @@ if (typeof NProgress != 'undefined') {
 		if ($('#chart_gauge_02').length){
 		
 			var chart_gauge_02_elem = document.getElementById('chart_gauge_02');
-			var chart_gauge_02 = new Gauge(chart_gauge_02_elem).setOptions(chart_gauge_settings);
+			var chart_gauge_02      = new Gauge(chart_gauge_02_elem).setOptions(chart_gauge_settings);
 			
 		}
 		
 		
 		if ($('#gauge-text2').length){
 			
-			chart_gauge_02.maxValue = 9000;
+			chart_gauge_02.maxValue       = 9000;
 			chart_gauge_02.animationSpeed = 32;
 			chart_gauge_02.set(2400);
 			chart_gauge_02.setTextField(document.getElementById("gauge-text2"));
@@ -800,67 +800,67 @@ if (typeof NProgress != 'undefined') {
 			
 			
 			$(".sparkline_one").sparkline([2, 4, 3, 4, 5, 4, 5, 4, 3, 4, 5, 6, 4, 5, 6, 3, 5, 4, 5, 4, 5, 4, 3, 4, 5, 6, 7, 5, 4, 3, 5, 6], {
-				type: 'bar',
-				height: '125',
+				type    : 'bar',
+				height  : '125',
 				barWidth: 13,
 				colorMap: {
 					'7': '#a1a1a1'
 				},
 				barSpacing: 2,
-				barColor: '#26B99A'
+				barColor  : '#26B99A'
 			});
 			
 			
 			$(".sparkline_two").sparkline([2, 4, 3, 4, 5, 4, 5, 4, 3, 4, 5, 6, 7, 5, 4, 3, 5, 6], {
-				type: 'bar',
-				height: '40',
+				type    : 'bar',
+				height  : '40',
 				barWidth: 9,
 				colorMap: {
-					'7': '#a1a1a1'	
+					'7': '#a1a1a1'
 				},
 				barSpacing: 2,
-				barColor: '#26B99A'
+				barColor  : '#26B99A'
 			});
 			
 			
 			$(".sparkline_three").sparkline([2, 4, 3, 4, 5, 4, 5, 4, 3, 4, 5, 6, 7, 5, 4, 3, 5, 6], {
-				type: 'line',
-				width: '200',
-				height: '40',
-				lineColor: '#26B99A',
-				fillColor: 'rgba(223, 223, 223, 0.57)',
-				lineWidth: 2,
-				spotColor: '#26B99A',
+				type        : 'line',
+				width       : '200',
+				height      : '40',
+				lineColor   : '#26B99A',
+				fillColor   : 'rgba(223, 223, 223, 0.57)',
+				lineWidth   : 2,
+				spotColor   : '#26B99A',
 				minSpotColor: '#26B99A'
 			});
 			
 			
 			$(".sparkline11").sparkline([2, 4, 3, 4, 5, 4, 5, 4, 3, 4, 6, 2, 4, 3, 4, 5, 4, 5, 4, 3], {
-				type: 'bar',
-				height: '40',
+				type    : 'bar',
+				height  : '40',
 				barWidth: 8,
 				colorMap: {
 					'7': '#a1a1a1'
 				},
 				barSpacing: 2,
-				barColor: '#26B99A'
+				barColor  : '#26B99A'
 			});
 			
 			
 			$(".sparkline22").sparkline([2, 4, 3, 4, 7, 5, 4, 3, 5, 6, 2, 4, 3, 4, 5, 4, 5, 4, 3, 4, 6], {
-				type: 'line',
-				height: '40',
-				width: '200',
-				lineColor: '#26B99A',
-				fillColor: '#ffffff',
-				lineWidth: 3,
-				spotColor: '#34495E',
+				type        : 'line',
+				height      : '40',
+				width       : '200',
+				lineColor   : '#26B99A',
+				fillColor   : '#ffffff',
+				lineWidth   : 3,
+				spotColor   : '#34495E',
 				minSpotColor: '#34495E'
 			});
 	
 	
 			$(".sparkline_bar").sparkline([2, 4, 3, 4, 5, 4, 5, 4, 3, 4, 5, 6, 4, 5, 6, 3, 5], {
-				type: 'bar',
+				type    : 'bar',
 				colorMap: {
 					'7': '#a1a1a1'
 				},
@@ -869,40 +869,40 @@ if (typeof NProgress != 'undefined') {
 			
 			
 			$(".sparkline_area").sparkline([5, 6, 7, 9, 9, 5, 3, 2, 2, 4, 6, 7], {
-				type: 'line',
-				lineColor: '#26B99A',
-				fillColor: '#26B99A',
-				spotColor: '#4578a0',
-				minSpotColor: '#728fb2',
-				maxSpotColor: '#6d93c4',
+				type              : 'line',
+				lineColor         : '#26B99A',
+				fillColor         : '#26B99A',
+				spotColor         : '#4578a0',
+				minSpotColor      : '#728fb2',
+				maxSpotColor      : '#6d93c4',
 				highlightSpotColor: '#ef5179',
 				highlightLineColor: '#8ba8bf',
-				spotRadius: 2.5,
-				width: 85
+				spotRadius        : 2.5,
+				width             : 85
 			});
 			
 			
 			$(".sparkline_line").sparkline([2, 4, 3, 4, 5, 4, 5, 4, 3, 4, 5, 6, 4, 5, 6, 3, 5], {
-				type: 'line',
-				lineColor: '#26B99A',
-				fillColor: '#ffffff',
-				width: 85,
-				spotColor: '#34495E',
+				type        : 'line',
+				lineColor   : '#26B99A',
+				fillColor   : '#ffffff',
+				width       : 85,
+				spotColor   : '#34495E',
 				minSpotColor: '#34495E'
 			});
 			
 			
 			$(".sparkline_pie").sparkline([1, 1, 2, 1], {
-				type: 'pie',
+				type       : 'pie',
 				sliceColors: ['#26B99A', '#ccc', '#75BCDD', '#D66DE2']
 			});
 			
 			
 			$(".sparkline_discreet").sparkline([4, 6, 7, 7, 4, 3, 2, 1, 4, 4, 2, 4, 3, 7, 8, 9, 7, 6, 4, 3], {
-				type: 'discrete',
-				barWidth: 3,
+				type     : 'discrete',
+				barWidth : 3,
 				lineColor: '#26B99A',
-				width: '85',
+				width    : '85',
 			});
 
 			
@@ -921,7 +921,7 @@ if (typeof NProgress != 'undefined') {
 			var countriesArray = $.map(countries, function(value, key) {
 			  return {
 				value: value,
-				data: key
+				data : key
 			  };
 			});
 
@@ -1028,13 +1028,13 @@ if (typeof NProgress != 'undefined') {
 			 
 			$(".select2_single").select2({
 			  placeholder: "Select a state",
-			  allowClear: true
+			  allowClear : true
 			});
 			$(".select2_group").select2({});
 			$(".select2_multiple").select2({
 			  maximumSelectionLength: 4,
-			  placeholder: "With Max Selection limit 4",
-			  allowClear: true
+			  placeholder           : "With Max Selection limit 4",
+			  allowClear            : true
 			});
 			
 		};
@@ -1071,7 +1071,7 @@ if (typeof NProgress != 'undefined') {
 
           $('[data-role=magic-overlay]').each(function() {
             var overlay = $(this),
-              target = $(overlay.data('target'));
+                target  = $(overlay.data('target'));
             overlay.css('opacity', 0).css('position', 'absolute').offset(target.offset()).width(target.outerWidth()).height(target.outerHeight());
           });
 
@@ -1079,7 +1079,7 @@ if (typeof NProgress != 'undefined') {
             var editorOffset = $('#editor').offset();
 
             $('.voiceBtn').css('position', 'absolute').offset({
-              top: editorOffset.top,
+              top : editorOffset.top,
               left: editorOffset.left + $('#editor').innerWidth() - 35
             });
           } else {
@@ -1099,7 +1099,7 @@ if (typeof NProgress != 'undefined') {
         }
 
        $('.editor-wrapper').each(function(){
-			var id = $(this).attr('id');	//editor-one
+			var id = $(this).attr('id');  //editor-one
 			
 			$(this).wysiwyg({
 				toolbarSelector: '[data-target="#' + id + '"]',
@@ -1121,19 +1121,19 @@ if (typeof NProgress != 'undefined') {
 			if( typeof ($.fn.cropper) === 'undefined'){ return; }
 			console.log('init_cropper');
 			
-			var $image = $('#image');
-			var $download = $('#download');
-			var $dataX = $('#dataX');
-			var $dataY = $('#dataY');
+			var $image      = $('#image');
+			var $download   = $('#download');
+			var $dataX      = $('#dataX');
+			var $dataY      = $('#dataY');
 			var $dataHeight = $('#dataHeight');
-			var $dataWidth = $('#dataWidth');
+			var $dataWidth  = $('#dataWidth');
 			var $dataRotate = $('#dataRotate');
 			var $dataScaleX = $('#dataScaleX');
 			var $dataScaleY = $('#dataScaleY');
-			var options = {
+			var options     = {
 				  aspectRatio: 16 / 9,
-				  preview: '.img-preview',
-				  crop: function (e) {
+				  preview    : '.img-preview',
+				  crop       : function (e) {
 					$dataX.val(Math.round(e.x));
 					$dataY.val(Math.round(e.y));
 					$dataHeight.val(Math.round(e.height));
@@ -1195,8 +1195,8 @@ if (typeof NProgress != 'undefined') {
 			// Options
 			$('.docs-toggles').on('change', 'input', function () {
 			  var $this = $(this);
-			  var name = $this.attr('name');
-			  var type = $this.prop('type');
+			  var name  = $this.attr('name');
+			  var type  = $this.prop('type');
 			  var cropBoxData;
 			  var canvasData;
 
@@ -1205,9 +1205,9 @@ if (typeof NProgress != 'undefined') {
 			  }
 
 			  if (type === 'checkbox') {
-				options[name] = $this.prop('checked');
-				cropBoxData = $image.cropper('getCropBoxData');
-				canvasData = $image.cropper('getCanvasData');
+				options[name]       = $this.prop('checked');
+				        cropBoxData = $image.cropper('getCropBoxData');
+				        canvasData  = $image.cropper('getCanvasData');
 
 				options.built = function () {
 				  $image.cropper('setCropBoxData', cropBoxData);
@@ -1224,7 +1224,7 @@ if (typeof NProgress != 'undefined') {
 			// Methods
 			$('.docs-buttons').on('click', '[data-method]', function () {
 			  var $this = $(this);
-			  var data = $this.data();
+			  var data  = $this.data();
 			  var $target;
 			  var result;
 
@@ -1233,7 +1233,7 @@ if (typeof NProgress != 'undefined') {
 			  }
 
 			  if ($image.data('cropper') && data.method) {
-				data = $.extend({}, data); // Clone a new one
+				data = $.extend({}, data);  // Clone a new one
 
 				if (typeof data.target !== 'undefined') {
 				  $target = $(data.target);
@@ -1250,12 +1250,12 @@ if (typeof NProgress != 'undefined') {
 				result = $image.cropper(data.method, data.option, data.secondOption);
 
 				switch (data.method) {
-				  case 'scaleX':
-				  case 'scaleY':
+				  case 'scaleX': 
+				  case 'scaleY': 
 					$(this).data('option', -data.option);
 					break;
 
-				  case 'getCroppedCanvas':
+				  case 'getCroppedCanvas': 
 					if (result) {
 
 					  // Bootstrap's Modal
@@ -1287,22 +1287,22 @@ if (typeof NProgress != 'undefined') {
 			  }
 
 			  switch (e.which) {
-				case 37:
+				case 37: 
 				  e.preventDefault();
 				  $image.cropper('move', -1, 0);
 				  break;
 
-				case 38:
+				case 38: 
 				  e.preventDefault();
 				  $image.cropper('move', 0, -1);
 				  break;
 
-				case 39:
+				case 39: 
 				  e.preventDefault();
 				  $image.cropper('move', 1, 0);
 				  break;
 
-				case 40:
+				case 40: 
 				  e.preventDefault();
 				  $image.cropper('move', 0, 1);
 				  break;
@@ -1311,7 +1311,7 @@ if (typeof NProgress != 'undefined') {
 
 			// Import image
 			var $inputImage = $('#inputImage');
-			var URL = window.URL || window.webkitURL;
+			var URL         = window.URL || window.webkitURL;
 			var blobURL;
 
 			if (URL) {
@@ -1376,7 +1376,7 @@ if (typeof NProgress != 'undefined') {
 
 					  this.cursorExt = 0.3;
 
-					  var a = this.arc(this.cv) // Arc
+					  var a = this.arc(this.cv)  // Arc
 						,
 						pa // Previous arc
 						, r = 1;
@@ -1409,12 +1409,12 @@ if (typeof NProgress != 'undefined') {
 				});
 
 				// Example of infinite knob, iPod click wheel
-				var v, up = 0,
-				  down = 0,
-				  i = 0,
-				  $idir = $("div.idir"),
-				  $ival = $("div.ival"),
-				  incr = function() {
+				var v,     up             = 0,
+				    down  = 0,
+				    i     = 0,
+				    $idir = $("div.idir"),
+				    $ival = $("div.ival"),
+				    incr  = function() {
 					i++;
 					$idir.show().html("+").fadeOut();
 					$ival.html(i);
@@ -1425,16 +1425,16 @@ if (typeof NProgress != 'undefined') {
 					$ival.html(i);
 				  };
 				$("input.infinite").knob({
-				  min: 0,
-				  max: 20,
+				  min    : 0,
+				  max    : 20,
 				  stopper: false,
-				  change: function() {
+				  change : function() {
 					if (v > this.cv) {
 					  if (up) {
 						decr();
 						up = 0;
 					  } else {
-						up = 1;
+						up   = 1;
 						down = 0;
 					  }
 					} else {
@@ -1444,7 +1444,7 @@ if (typeof NProgress != 'undefined') {
 						  down = 0;
 						} else {
 						  down = 1;
-						  up = 0;
+						  up   = 0;
 						}
 					  }
 					}
@@ -1476,7 +1476,7 @@ if (typeof NProgress != 'undefined') {
 				$('.demo2').colorpicker();
 
 				$('#demo_forceformat').colorpicker({
-					format: 'rgba',
+					format    : 'rgba',
 					horizontal: true
 				});
 
@@ -1497,61 +1497,61 @@ if (typeof NProgress != 'undefined') {
 			console.log('init_IonRangeSlider');
 			
 			$("#range_27").ionRangeSlider({
-			  type: "double",
-			  min: 1000000,
-			  max: 2000000,
-			  grid: true,
+			  type       : "double",
+			  min        : 1000000,
+			  max        : 2000000,
+			  grid       : true,
 			  force_edges: true
 			});
 			$("#range").ionRangeSlider({
 			  hide_min_max: true,
-			  keyboard: true,
-			  min: 0,
-			  max: 5000,
-			  from: 1000,
-			  to: 4000,
-			  type: 'double',
-			  step: 1,
-			  prefix: "$",
-			  grid: true
+			  keyboard    : true,
+			  min         : 0,
+			  max         : 5000,
+			  from        : 1000,
+			  to          : 4000,
+			  type        : 'double',
+			  step        : 1,
+			  prefix      : "$",
+			  grid        : true
 			});
 			$("#range_25").ionRangeSlider({
 			  type: "double",
-			  min: 1000000,
-			  max: 2000000,
+			  min : 1000000,
+			  max : 2000000,
 			  grid: true
 			});
 			$("#range_26").ionRangeSlider({
-			  type: "double",
-			  min: 0,
-			  max: 10000,
-			  step: 500,
-			  grid: true,
+			  type     : "double",
+			  min      : 0,
+			  max      : 10000,
+			  step     : 500,
+			  grid     : true,
 			  grid_snap: true
 			});
 			$("#range_31").ionRangeSlider({
-			  type: "double",
-			  min: 0,
-			  max: 100,
-			  from: 30,
-			  to: 70,
+			  type      : "double",
+			  min       : 0,
+			  max       : 100,
+			  from      : 30,
+			  to        : 70,
 			  from_fixed: true
 			});
 			$(".range_min_max").ionRangeSlider({
-			  type: "double",
-			  min: 0,
-			  max: 100,
-			  from: 30,
-			  to: 70,
+			  type        : "double",
+			  min         : 0,
+			  max         : 100,
+			  from        : 30,
+			  to          : 70,
 			  max_interval: 50
 			});
 			$(".range_time24").ionRangeSlider({
-			  min: +moment().subtract(12, "hours").format("X"),
-			  max: +moment().format("X"),
-			  from: +moment().subtract(6, "hours").format("X"),
-			  grid: true,
+			  min        : +moment().subtract(12, "hours").format("X"),
+			  max        : +moment().format("X"),
+			  from       : +moment().subtract(6, "hours").format("X"),
+			  grid       : true,
 			  force_edges: true,
-			  prettify: function(num) {
+			  prettify   : function(num) {
 				var m = moment(num, "X");
 				return m.format("Do MMMM, HH:mm");
 			  }
@@ -1574,40 +1574,40 @@ if (typeof NProgress != 'undefined') {
 
 			var optionSet1 = {
 			  startDate: moment().subtract(29, 'days'),
-			  endDate: moment(),
-			  minDate: '01/01/2012',
-			  maxDate: '12/31/2015',
+			  endDate  : moment(),
+			  minDate  : '01/01/2012',
+			  maxDate  : '12/31/2015',
 			  dateLimit: {
 				days: 60
 			  },
-			  showDropdowns: true,
-			  showWeekNumbers: true,
-			  timePicker: false,
+			  showDropdowns      : true,
+			  showWeekNumbers    : true,
+			  timePicker         : false,
 			  timePickerIncrement: 1,
-			  timePicker12Hour: true,
-			  ranges: {
-				'Today': [moment(), moment()],
-				'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-				'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+			  timePicker12Hour   : true,
+			  ranges             : {
+				'Today'       : [moment(), moment()],
+				'Yesterday'   : [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+				'Last 7 Days' : [moment().subtract(6, 'days'), moment()],
 				'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-				'This Month': [moment().startOf('month'), moment().endOf('month')],
-				'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+				'This Month'  : [moment().startOf('month'), moment().endOf('month')],
+				'Last Month'  : [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
 			  },
-			  opens: 'left',
+			  opens        : 'left',
 			  buttonClasses: ['btn btn-default'],
-			  applyClass: 'btn-small btn-primary',
-			  cancelClass: 'btn-small',
-			  format: 'MM/DD/YYYY',
-			  separator: ' to ',
-			  locale: {
-				applyLabel: 'Submit',
-				cancelLabel: 'Clear',
-				fromLabel: 'From',
-				toLabel: 'To',
+			  applyClass   : 'btn-small btn-primary',
+			  cancelClass  : 'btn-small',
+			  format       : 'MM/DD/YYYY',
+			  separator    : ' to ',
+			  locale       : {
+				applyLabel      : 'Submit',
+				cancelLabel     : 'Clear',
+				fromLabel       : 'From',
+				toLabel         : 'To',
 				customRangeLabel: 'Custom',
-				daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
-				monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-				firstDay: 1
+				daysOfWeek      : ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+				monthNames      : ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+				firstDay        : 1
 			  }
 			};
 			
@@ -1649,40 +1649,40 @@ if (typeof NProgress != 'undefined') {
 
 				var optionSet1 = {
 				  startDate: moment().subtract(29, 'days'),
-				  endDate: moment(),
-				  minDate: '01/01/2012',
-				  maxDate: '12/31/2020',
+				  endDate  : moment(),
+				  minDate  : '01/01/2012',
+				  maxDate  : '12/31/2020',
 				  dateLimit: {
 					days: 60
 				  },
-				  showDropdowns: true,
-				  showWeekNumbers: true,
-				  timePicker: false,
+				  showDropdowns      : true,
+				  showWeekNumbers    : true,
+				  timePicker         : false,
 				  timePickerIncrement: 1,
-				  timePicker12Hour: true,
-				  ranges: {
-					'Today': [moment(), moment()],
-					'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-					'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+				  timePicker12Hour   : true,
+				  ranges             : {
+					'Today'       : [moment(), moment()],
+					'Yesterday'   : [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+					'Last 7 Days' : [moment().subtract(6, 'days'), moment()],
 					'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-					'This Month': [moment().startOf('month'), moment().endOf('month')],
-					'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+					'This Month'  : [moment().startOf('month'), moment().endOf('month')],
+					'Last Month'  : [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
 				  },
-				  opens: 'right',
+				  opens        : 'right',
 				  buttonClasses: ['btn btn-default'],
-				  applyClass: 'btn-small btn-primary',
-				  cancelClass: 'btn-small',
-				  format: 'MM/DD/YYYY',
-				  separator: ' to ',
-				  locale: {
-					applyLabel: 'Submit',
-					cancelLabel: 'Clear',
-					fromLabel: 'From',
-					toLabel: 'To',
+				  applyClass   : 'btn-small btn-primary',
+				  cancelClass  : 'btn-small',
+				  format       : 'MM/DD/YYYY',
+				  separator    : ' to ',
+				  locale       : {
+					applyLabel      : 'Submit',
+					cancelLabel     : 'Clear',
+					fromLabel       : 'From',
+					toLabel         : 'To',
 					customRangeLabel: 'Custom',
-					daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
-					monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-					firstDay: 1
+					daysOfWeek      : ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+					monthNames      : ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+					firstDay        : 1
 				  }
 				};
 
@@ -1724,19 +1724,19 @@ if (typeof NProgress != 'undefined') {
   
 			$('#single_cal1').daterangepicker({
 			  singleDatePicker: true,
-			  singleClasses: "picker_1"
+			  singleClasses   : "picker_1"
 			}, function(start, end, label) {
 			  console.log(start.toISOString(), end.toISOString(), label);
 			});
 			$('#single_cal2').daterangepicker({
 			  singleDatePicker: true,
-			  singleClasses: "picker_2"
+			  singleClasses   : "picker_2"
 			}, function(start, end, label) {
 			  console.log(start.toISOString(), end.toISOString(), label);
 			});
 			$('#single_cal3').daterangepicker({
 			  singleDatePicker: true,
-			  singleClasses: "picker_3"
+			  singleClasses   : "picker_3"
 			}, function(start, end, label) {
 			  console.log(start.toISOString(), end.toISOString(), label);
 			});
@@ -1755,9 +1755,9 @@ if (typeof NProgress != 'undefined') {
 			});
 
 			$('#reservation-time').daterangepicker({
-			  timePicker: true,
+			  timePicker         : true,
 			  timePickerIncrement: 30,
-			  locale: {
+			  locale             : {
 				format: 'MM/DD/YYYY h:mm A'
 			  }
 			});
@@ -1829,18 +1829,18 @@ if (typeof NProgress != 'undefined') {
 			console.log('init_PNotify');
 			
 			new PNotify({
-			  title: "PNotify",
-			  type: "info",
-			  text: "Welcome. Try hovering over me. You can click things behind me, because I'm non-blocking.",
+			  title   : "PNotify",
+			  type    : "info",
+			  text    : "Welcome. Try hovering over me. You can click things behind me, because I'm non-blocking.",
 			  nonblock: {
 				  nonblock: true
 			  },
-			  addclass: 'dark',
-			  styling: 'bootstrap3',
-			  hide: false,
+			  addclass    : 'dark',
+			  styling     : 'bootstrap3',
+			  hide        : false,
 			  before_close: function(PNotify) {
 				PNotify.update({
-				  title: PNotify.options.title + " - Enjoy your Stay",
+				  title       : PNotify.options.title + " - Enjoy your Stay",
 				  before_close: null
 				});
 
@@ -1884,10 +1884,10 @@ if (typeof NProgress != 'undefined') {
 			  $('#custom_notifications').removeClass('dsp_none');
 			  $('.notifications a').click(function(e) {
 				e.preventDefault();
-				var $this = $(this),
-				  tabbed_notifications = '#' + $this.parents('.notifications').data('tabbed_notifications'),
-				  others = $this.closest('li').siblings().children('a'),
-				  target = $this.attr('href');
+				var $this                = $(this),
+				    tabbed_notifications = '#' + $this.parents('.notifications').data('tabbed_notifications'),
+				    others               = $this.closest('li').siblings().children('a'),
+				    target               = $this.attr('href');
 				others.removeClass('active');
 				$this.addClass('active');
 				$(tabbed_notifications).children('div').hide();
@@ -1901,7 +1901,7 @@ if (typeof NProgress != 'undefined') {
 
 			$(document).on('click', '.notification_close', function(e) {
 			  idname = $(this).parent().parent().attr("id");
-			  tabid = idname.substr(-2);
+			  tabid  = idname.substr(-2);
 			  $('#ntf' + tabid).remove();
 			  $('#ntlink' + tabid).parent().remove();
 			  $('.notifications a').first().addClass('active');
@@ -1918,15 +1918,15 @@ if (typeof NProgress != 'undefined') {
 				console.log('init_EasyPieChart');
 				
 				$('.chart').easyPieChart({
-				  easing: 'easeOutElastic',
-				  delay: 3000,
-				  barColor: '#26B99A',
+				  easing    : 'easeOutElastic',
+				  delay     : 3000,
+				  barColor  : '#26B99A',
 				  trackColor: '#fff',
 				  scaleColor: false,
-				  lineWidth: 20,
+				  lineWidth : 20,
 				  trackWidth: 16,
-				  lineCap: 'butt',
-				  onStep: function(from, to, percent) {
+				  lineCap   : 'butt',
+				  onStep    : function(from, to, percent) {
 					$(this.el).find('.percent').text(Math.round(percent));
 				  }
 				});
@@ -1936,17 +1936,17 @@ if (typeof NProgress != 'undefined') {
 				});
 
 				//hover and retain popover when on popover content
-				var originalLeave = $.fn.popover.Constructor.prototype.leave;
-				$.fn.popover.Constructor.prototype.leave = function(obj) {
+				var originalLeave                            = $.fn.popover.Constructor.prototype.leave;
+				    $.fn.popover.Constructor.prototype.leave = function(obj) {
 				  var self = obj instanceof this.constructor ?
-					obj : $(obj.currentTarget)[this.type](this.getDelegateOptions()).data('bs.' + this.type);
+					obj: $(obj.currentTarget)[this.type](this.getDelegateOptions()).data('bs.' + this.type);
 				  var container, timeout;
 
 				  originalLeave.call(this, obj);
 
 				  if (obj.currentTarget) {
 					container = $(obj.currentTarget).siblings('.popover');
-					timeout = self.timeout;
+					timeout   = self.timeout;
 					container.one('mouseenter', function() {
 					  //We entered the actual popover – call off the dogs
 					  clearTimeout(timeout);
@@ -1960,8 +1960,8 @@ if (typeof NProgress != 'undefined') {
 
 				$('body').popover({
 				  selector: '[data-popover]',
-				  trigger: 'click hover',
-				  delay: {
+				  trigger : 'click hover',
+				  delay   : {
 					show: 50,
 					hide: 400
 				  }
@@ -1990,27 +1990,27 @@ if (typeof NProgress != 'undefined') {
 				var canvas_line_00 = new Chart(document.getElementById("canvas_line"), {
 				  type: 'line',
 				  data: {
-					labels: ["January", "February", "March", "April", "May", "June", "July"],
+					labels  : ["January", "February", "March", "April", "May", "June", "July"],
 					datasets: [{
-					  label: "My First dataset",
-					  backgroundColor: "rgba(38, 185, 154, 0.31)",
-					  borderColor: "rgba(38, 185, 154, 0.7)",
-					  pointBorderColor: "rgba(38, 185, 154, 0.7)",
-					  pointBackgroundColor: "rgba(38, 185, 154, 0.7)",
+					  label                    : "My First dataset",
+					  backgroundColor          : "rgba(38, 185, 154, 0.31)",
+					  borderColor              : "rgba(38, 185, 154, 0.7)",
+					  pointBorderColor         : "rgba(38, 185, 154, 0.7)",
+					  pointBackgroundColor     : "rgba(38, 185, 154, 0.7)",
 					  pointHoverBackgroundColor: "#fff",
-					  pointHoverBorderColor: "rgba(220,220,220,1)",
-					  pointBorderWidth: 1,
-					  data: [31, 74, 6, 39, 20, 85, 7]
+					  pointHoverBorderColor    : "rgba(220,220,220,1)",
+					  pointBorderWidth         : 1,
+					  data                     : [31, 74, 6, 39, 20, 85, 7]
 					}, {
-					  label: "My Second dataset",
-					  backgroundColor: "rgba(3, 88, 106, 0.3)",
-					  borderColor: "rgba(3, 88, 106, 0.70)",
-					  pointBorderColor: "rgba(3, 88, 106, 0.70)",
-					  pointBackgroundColor: "rgba(3, 88, 106, 0.70)",
+					  label                    : "My Second dataset",
+					  backgroundColor          : "rgba(3, 88, 106, 0.3)",
+					  borderColor              : "rgba(3, 88, 106, 0.70)",
+					  pointBorderColor         : "rgba(3, 88, 106, 0.70)",
+					  pointBackgroundColor     : "rgba(3, 88, 106, 0.70)",
 					  pointHoverBackgroundColor: "#fff",
-					  pointHoverBorderColor: "rgba(151,187,205,1)",
-					  pointBorderWidth: 1,
-					  data: [82, 23, 66, 9, 99, 4, 2]
+					  pointHoverBorderColor    : "rgba(151,187,205,1)",
+					  pointBorderWidth         : 1,
+					  data                     : [82, 23, 66, 9, 99, 4, 2]
 					}]
 				  },
 				});
@@ -2023,27 +2023,27 @@ if (typeof NProgress != 'undefined') {
 				var canvas_line_01 = new Chart(document.getElementById("canvas_line1"), {
 				  type: 'line',
 				  data: {
-					labels: ["January", "February", "March", "April", "May", "June", "July"],
+					labels  : ["January", "February", "March", "April", "May", "June", "July"],
 					datasets: [{
-					  label: "My First dataset",
-					  backgroundColor: "rgba(38, 185, 154, 0.31)",
-					  borderColor: "rgba(38, 185, 154, 0.7)",
-					  pointBorderColor: "rgba(38, 185, 154, 0.7)",
-					  pointBackgroundColor: "rgba(38, 185, 154, 0.7)",
+					  label                    : "My First dataset",
+					  backgroundColor          : "rgba(38, 185, 154, 0.31)",
+					  borderColor              : "rgba(38, 185, 154, 0.7)",
+					  pointBorderColor         : "rgba(38, 185, 154, 0.7)",
+					  pointBackgroundColor     : "rgba(38, 185, 154, 0.7)",
 					  pointHoverBackgroundColor: "#fff",
-					  pointHoverBorderColor: "rgba(220,220,220,1)",
-					  pointBorderWidth: 1,
-					  data: [31, 74, 6, 39, 20, 85, 7]
+					  pointHoverBorderColor    : "rgba(220,220,220,1)",
+					  pointBorderWidth         : 1,
+					  data                     : [31, 74, 6, 39, 20, 85, 7]
 					}, {
-					  label: "My Second dataset",
-					  backgroundColor: "rgba(3, 88, 106, 0.3)",
-					  borderColor: "rgba(3, 88, 106, 0.70)",
-					  pointBorderColor: "rgba(3, 88, 106, 0.70)",
-					  pointBackgroundColor: "rgba(3, 88, 106, 0.70)",
+					  label                    : "My Second dataset",
+					  backgroundColor          : "rgba(3, 88, 106, 0.3)",
+					  borderColor              : "rgba(3, 88, 106, 0.70)",
+					  pointBorderColor         : "rgba(3, 88, 106, 0.70)",
+					  pointBackgroundColor     : "rgba(3, 88, 106, 0.70)",
 					  pointHoverBackgroundColor: "#fff",
-					  pointHoverBorderColor: "rgba(151,187,205,1)",
-					  pointBorderWidth: 1,
-					  data: [82, 23, 66, 9, 99, 4, 2]
+					  pointHoverBorderColor    : "rgba(151,187,205,1)",
+					  pointBorderWidth         : 1,
+					  data                     : [82, 23, 66, 9, 99, 4, 2]
 					}]
 				  },
 				});
@@ -2056,27 +2056,27 @@ if (typeof NProgress != 'undefined') {
 				var canvas_line_02 = new Chart(document.getElementById("canvas_line2"), {
 				  type: 'line',
 				  data: {
-					labels: ["January", "February", "March", "April", "May", "June", "July"],
+					labels  : ["January", "February", "March", "April", "May", "June", "July"],
 					datasets: [{
-					  label: "My First dataset",
-					  backgroundColor: "rgba(38, 185, 154, 0.31)",
-					  borderColor: "rgba(38, 185, 154, 0.7)",
-					  pointBorderColor: "rgba(38, 185, 154, 0.7)",
-					  pointBackgroundColor: "rgba(38, 185, 154, 0.7)",
+					  label                    : "My First dataset",
+					  backgroundColor          : "rgba(38, 185, 154, 0.31)",
+					  borderColor              : "rgba(38, 185, 154, 0.7)",
+					  pointBorderColor         : "rgba(38, 185, 154, 0.7)",
+					  pointBackgroundColor     : "rgba(38, 185, 154, 0.7)",
 					  pointHoverBackgroundColor: "#fff",
-					  pointHoverBorderColor: "rgba(220,220,220,1)",
-					  pointBorderWidth: 1,
-					  data: [31, 74, 6, 39, 20, 85, 7]
+					  pointHoverBorderColor    : "rgba(220,220,220,1)",
+					  pointBorderWidth         : 1,
+					  data                     : [31, 74, 6, 39, 20, 85, 7]
 					}, {
-					  label: "My Second dataset",
-					  backgroundColor: "rgba(3, 88, 106, 0.3)",
-					  borderColor: "rgba(3, 88, 106, 0.70)",
-					  pointBorderColor: "rgba(3, 88, 106, 0.70)",
-					  pointBackgroundColor: "rgba(3, 88, 106, 0.70)",
+					  label                    : "My Second dataset",
+					  backgroundColor          : "rgba(3, 88, 106, 0.3)",
+					  borderColor              : "rgba(3, 88, 106, 0.70)",
+					  pointBorderColor         : "rgba(3, 88, 106, 0.70)",
+					  pointBackgroundColor     : "rgba(3, 88, 106, 0.70)",
 					  pointHoverBackgroundColor: "#fff",
-					  pointHoverBorderColor: "rgba(151,187,205,1)",
-					  pointBorderWidth: 1,
-					  data: [82, 23, 66, 9, 99, 4, 2]
+					  pointHoverBorderColor    : "rgba(151,187,205,1)",
+					  pointBorderWidth         : 1,
+					  data                     : [82, 23, 66, 9, 99, 4, 2]
 					}]
 				  },
 				});
@@ -2089,27 +2089,27 @@ if (typeof NProgress != 'undefined') {
 				var canvas_line_03 = new Chart(document.getElementById("canvas_line3"), {
 				  type: 'line',
 				  data: {
-					labels: ["January", "February", "March", "April", "May", "June", "July"],
+					labels  : ["January", "February", "March", "April", "May", "June", "July"],
 					datasets: [{
-					  label: "My First dataset",
-					  backgroundColor: "rgba(38, 185, 154, 0.31)",
-					  borderColor: "rgba(38, 185, 154, 0.7)",
-					  pointBorderColor: "rgba(38, 185, 154, 0.7)",
-					  pointBackgroundColor: "rgba(38, 185, 154, 0.7)",
+					  label                    : "My First dataset",
+					  backgroundColor          : "rgba(38, 185, 154, 0.31)",
+					  borderColor              : "rgba(38, 185, 154, 0.7)",
+					  pointBorderColor         : "rgba(38, 185, 154, 0.7)",
+					  pointBackgroundColor     : "rgba(38, 185, 154, 0.7)",
 					  pointHoverBackgroundColor: "#fff",
-					  pointHoverBorderColor: "rgba(220,220,220,1)",
-					  pointBorderWidth: 1,
-					  data: [31, 74, 6, 39, 20, 85, 7]
+					  pointHoverBorderColor    : "rgba(220,220,220,1)",
+					  pointBorderWidth         : 1,
+					  data                     : [31, 74, 6, 39, 20, 85, 7]
 					}, {
-					  label: "My Second dataset",
-					  backgroundColor: "rgba(3, 88, 106, 0.3)",
-					  borderColor: "rgba(3, 88, 106, 0.70)",
-					  pointBorderColor: "rgba(3, 88, 106, 0.70)",
-					  pointBackgroundColor: "rgba(3, 88, 106, 0.70)",
+					  label                    : "My Second dataset",
+					  backgroundColor          : "rgba(3, 88, 106, 0.3)",
+					  borderColor              : "rgba(3, 88, 106, 0.70)",
+					  pointBorderColor         : "rgba(3, 88, 106, 0.70)",
+					  pointBackgroundColor     : "rgba(3, 88, 106, 0.70)",
 					  pointHoverBackgroundColor: "#fff",
-					  pointHoverBorderColor: "rgba(151,187,205,1)",
-					  pointBorderWidth: 1,
-					  data: [82, 23, 66, 9, 99, 4, 2]
+					  pointHoverBorderColor    : "rgba(151,187,205,1)",
+					  pointBorderWidth         : 1,
+					  data                     : [82, 23, 66, 9, 99, 4, 2]
 					}]
 				  },
 				});
@@ -2122,27 +2122,27 @@ if (typeof NProgress != 'undefined') {
 				var canvas_line_04 = new Chart(document.getElementById("canvas_line4"), {
 				  type: 'line',
 				  data: {
-					labels: ["January", "February", "March", "April", "May", "June", "July"],
+					labels  : ["January", "February", "March", "April", "May", "June", "July"],
 					datasets: [{
-					  label: "My First dataset",
-					  backgroundColor: "rgba(38, 185, 154, 0.31)",
-					  borderColor: "rgba(38, 185, 154, 0.7)",
-					  pointBorderColor: "rgba(38, 185, 154, 0.7)",
-					  pointBackgroundColor: "rgba(38, 185, 154, 0.7)",
+					  label                    : "My First dataset",
+					  backgroundColor          : "rgba(38, 185, 154, 0.31)",
+					  borderColor              : "rgba(38, 185, 154, 0.7)",
+					  pointBorderColor         : "rgba(38, 185, 154, 0.7)",
+					  pointBackgroundColor     : "rgba(38, 185, 154, 0.7)",
 					  pointHoverBackgroundColor: "#fff",
-					  pointHoverBorderColor: "rgba(220,220,220,1)",
-					  pointBorderWidth: 1,
-					  data: [31, 74, 6, 39, 20, 85, 7]
+					  pointHoverBorderColor    : "rgba(220,220,220,1)",
+					  pointBorderWidth         : 1,
+					  data                     : [31, 74, 6, 39, 20, 85, 7]
 					}, {
-					  label: "My Second dataset",
-					  backgroundColor: "rgba(3, 88, 106, 0.3)",
-					  borderColor: "rgba(3, 88, 106, 0.70)",
-					  pointBorderColor: "rgba(3, 88, 106, 0.70)",
-					  pointBackgroundColor: "rgba(3, 88, 106, 0.70)",
+					  label                    : "My Second dataset",
+					  backgroundColor          : "rgba(3, 88, 106, 0.3)",
+					  borderColor              : "rgba(3, 88, 106, 0.70)",
+					  pointBorderColor         : "rgba(3, 88, 106, 0.70)",
+					  pointBackgroundColor     : "rgba(3, 88, 106, 0.70)",
 					  pointHoverBackgroundColor: "#fff",
-					  pointHoverBorderColor: "rgba(151,187,205,1)",
-					  pointBorderWidth: 1,
-					  data: [82, 23, 66, 9, 99, 4, 2]
+					  pointHoverBorderColor    : "rgba(151,187,205,1)",
+					  pointBorderWidth         : 1,
+					  data                     : [82, 23, 66, 9, 99, 4, 2]
 					}]
 				  },
 				});		
@@ -2154,31 +2154,31 @@ if (typeof NProgress != 'undefined') {
 			 
 			if ($('#lineChart').length ){	
 			
-			  var ctx = document.getElementById("lineChart");
+			  var ctx       = document.getElementById("lineChart");
 			  var lineChart = new Chart(ctx, {
 				type: 'line',
 				data: {
-				  labels: ["January", "February", "March", "April", "May", "June", "July"],
+				  labels  : ["January", "February", "March", "April", "May", "June", "July"],
 				  datasets: [{
-					label: "My First dataset",
-					backgroundColor: "rgba(38, 185, 154, 0.31)",
-					borderColor: "rgba(38, 185, 154, 0.7)",
-					pointBorderColor: "rgba(38, 185, 154, 0.7)",
-					pointBackgroundColor: "rgba(38, 185, 154, 0.7)",
+					label                    : "My First dataset",
+					backgroundColor          : "rgba(38, 185, 154, 0.31)",
+					borderColor              : "rgba(38, 185, 154, 0.7)",
+					pointBorderColor         : "rgba(38, 185, 154, 0.7)",
+					pointBackgroundColor     : "rgba(38, 185, 154, 0.7)",
 					pointHoverBackgroundColor: "#fff",
-					pointHoverBorderColor: "rgba(220,220,220,1)",
-					pointBorderWidth: 1,
-					data: [31, 74, 6, 39, 20, 85, 7]
+					pointHoverBorderColor    : "rgba(220,220,220,1)",
+					pointBorderWidth         : 1,
+					data                     : [31, 74, 6, 39, 20, 85, 7]
 				  }, {
-					label: "My Second dataset",
-					backgroundColor: "rgba(3, 88, 106, 0.3)",
-					borderColor: "rgba(3, 88, 106, 0.70)",
-					pointBorderColor: "rgba(3, 88, 106, 0.70)",
-					pointBackgroundColor: "rgba(3, 88, 106, 0.70)",
+					label                    : "My Second dataset",
+					backgroundColor          : "rgba(3, 88, 106, 0.3)",
+					borderColor              : "rgba(3, 88, 106, 0.70)",
+					pointBorderColor         : "rgba(3, 88, 106, 0.70)",
+					pointBackgroundColor     : "rgba(3, 88, 106, 0.70)",
 					pointHoverBackgroundColor: "#fff",
-					pointHoverBorderColor: "rgba(151,187,205,1)",
-					pointBorderWidth: 1,
-					data: [82, 23, 66, 9, 99, 4, 2]
+					pointHoverBorderColor    : "rgba(151,187,205,1)",
+					pointBorderWidth         : 1,
+					data                     : [82, 23, 66, 9, 99, 4, 2]
 				  }]
 				},
 			  });
@@ -2189,19 +2189,19 @@ if (typeof NProgress != 'undefined') {
 			  
 			if ($('#mybarChart').length ){ 
 			  
-			  var ctx = document.getElementById("mybarChart");
+			  var ctx        = document.getElementById("mybarChart");
 			  var mybarChart = new Chart(ctx, {
 				type: 'bar',
 				data: {
-				  labels: ["January", "February", "March", "April", "May", "June", "July"],
+				  labels  : ["January", "February", "March", "April", "May", "June", "July"],
 				  datasets: [{
-					label: '# of Votes',
+					label          : '# of Votes',
 					backgroundColor: "#26B99A",
-					data: [51, 30, 40, 28, 92, 50, 45]
+					data           : [51, 30, 40, 28, 92, 50, 45]
 				  }, {
-					label: '# of Votes',
+					label          : '# of Votes',
 					backgroundColor: "#03586A",
-					data: [41, 56, 25, 48, 72, 34, 12]
+					data           : [41, 56, 25, 48, 72, 34, 12]
 				  }]
 				},
 
@@ -2223,7 +2223,7 @@ if (typeof NProgress != 'undefined') {
 			  
 			if ($('#canvasDoughnut').length ){ 
 			  
-			  var ctx = document.getElementById("canvasDoughnut");
+			  var ctx  = document.getElementById("canvasDoughnut");
 			  var data = {
 				labels: [
 				  "Dark Grey",
@@ -2233,7 +2233,7 @@ if (typeof NProgress != 'undefined') {
 				  "Blue Color"
 				],
 				datasets: [{
-				  data: [120, 50, 140, 180, 100],
+				  data           : [120, 50, 140, 180, 100],
 				  backgroundColor: [
 					"#455C73",
 					"#9B59B6",
@@ -2253,9 +2253,9 @@ if (typeof NProgress != 'undefined') {
 			  };
 
 			  var canvasDoughnut = new Chart(ctx, {
-				type: 'doughnut',
+				type            : 'doughnut',
 				tooltipFillColor: "rgba(51, 51, 51, 0.55)",
-				data: data
+				data            : data
 			  });
 			 
 			} 
@@ -2264,27 +2264,27 @@ if (typeof NProgress != 'undefined') {
 			  
 			if ($('#canvasRadar').length ){ 
 			  
-			  var ctx = document.getElementById("canvasRadar");
+			  var ctx  = document.getElementById("canvasRadar");
 			  var data = {
-				labels: ["Eating", "Drinking", "Sleeping", "Designing", "Coding", "Cycling", "Running"],
+				labels  : ["Eating", "Drinking", "Sleeping", "Designing", "Coding", "Cycling", "Running"],
 				datasets: [{
-				  label: "My First dataset",
-				  backgroundColor: "rgba(3, 88, 106, 0.2)",
-				  borderColor: "rgba(3, 88, 106, 0.80)",
-				  pointBorderColor: "rgba(3, 88, 106, 0.80)",
-				  pointBackgroundColor: "rgba(3, 88, 106, 0.80)",
+				  label                    : "My First dataset",
+				  backgroundColor          : "rgba(3, 88, 106, 0.2)",
+				  borderColor              : "rgba(3, 88, 106, 0.80)",
+				  pointBorderColor         : "rgba(3, 88, 106, 0.80)",
+				  pointBackgroundColor     : "rgba(3, 88, 106, 0.80)",
 				  pointHoverBackgroundColor: "#fff",
-				  pointHoverBorderColor: "rgba(220,220,220,1)",
-				  data: [65, 59, 90, 81, 56, 55, 40]
+				  pointHoverBorderColor    : "rgba(220,220,220,1)",
+				  data                     : [65, 59, 90, 81, 56, 55, 40]
 				}, {
-				  label: "My Second dataset",
-				  backgroundColor: "rgba(38, 185, 154, 0.2)",
-				  borderColor: "rgba(38, 185, 154, 0.85)",
-				  pointColor: "rgba(38, 185, 154, 0.85)",
-				  pointStrokeColor: "#fff",
-				  pointHighlightFill: "#fff",
+				  label               : "My Second dataset",
+				  backgroundColor     : "rgba(38, 185, 154, 0.2)",
+				  borderColor         : "rgba(38, 185, 154, 0.85)",
+				  pointColor          : "rgba(38, 185, 154, 0.85)",
+				  pointStrokeColor    : "#fff",
+				  pointHighlightFill  : "#fff",
 				  pointHighlightStroke: "rgba(151,187,205,1)",
-				  data: [28, 48, 40, 19, 96, 27, 100]
+				  data                : [28, 48, 40, 19, 96, 27, 100]
 				}]
 			  };
 
@@ -2299,10 +2299,10 @@ if (typeof NProgress != 'undefined') {
 			  // Pie chart
 			  if ($('#pieChart').length ){
 				  
-				  var ctx = document.getElementById("pieChart");
+				  var ctx  = document.getElementById("pieChart");
 				  var data = {
 					datasets: [{
-					  data: [120, 50, 140, 180, 100],
+					  data           : [120, 50, 140, 180, 100],
 					  backgroundColor: [
 						"#455C73",
 						"#9B59B6",
@@ -2310,7 +2310,7 @@ if (typeof NProgress != 'undefined') {
 						"#26B99A",
 						"#3498DB"
 					  ],
-					  label: 'My dataset' // for legend
+					  label: 'My dataset'  // for legend
 					}],
 					labels: [
 					  "Dark Gray",
@@ -2322,8 +2322,8 @@ if (typeof NProgress != 'undefined') {
 				  };
 
 				  var pieChart = new Chart(ctx, {
-					data: data,
-					type: 'pie',
+					data   : data,
+					type   : 'pie',
 					otpions: {
 					  legend: false
 					}
@@ -2336,10 +2336,10 @@ if (typeof NProgress != 'undefined') {
 
 			if ($('#polarArea').length ){
 
-				var ctx = document.getElementById("polarArea");
+				var ctx  = document.getElementById("polarArea");
 				var data = {
 				datasets: [{
-				  data: [120, 50, 140, 180, 100],
+				  data           : [120, 50, 140, 180, 100],
 				  backgroundColor: [
 					"#455C73",
 					"#9B59B6",
@@ -2359,8 +2359,8 @@ if (typeof NProgress != 'undefined') {
 				};
 
 				var polarArea = new Chart(ctx, {
-				data: data,
-				type: 'polarArea',
+				data   : data,
+				type   : 'polarArea',
 				options: {
 				  scale: {
 					ticks: {
@@ -2394,25 +2394,25 @@ if (typeof NProgress != 'undefined') {
 				console.log('init_calendar');
 					
 				var date = new Date(),
-					d = date.getDate(),
-					m = date.getMonth(),
-					y = date.getFullYear(),
+				    d    = date.getDate(),
+				    m    = date.getMonth(),
+				    y    = date.getFullYear(),
 					started,
 					categoryClass;
 
 				var calendar = $('#calendar').fullCalendar({
 				  header: {
-					left: 'prev,next today',
+					left  : 'prev,next today',
 					center: 'title',
-					right: 'month,agendaWeek,agendaDay,listMonth'
+					right : 'month,agendaWeek,agendaDay,listMonth'
 				  },
-				  selectable: true,
+				  selectable  : true,
 				  selectHelper: true,
-				  select: function(start, end, allDay) {
+				  select      : function(start, end, allDay) {
 					$('#fc_create').click();
 
 					started = start;
-					ended = end;
+					ended   = end;
 
 					$(".antosubmit").on("click", function() {
 					  var title = $("#title").val();
@@ -2424,9 +2424,9 @@ if (typeof NProgress != 'undefined') {
 
 					  if (title) {
 						calendar.fullCalendar('renderEvent', {
-							title: title,
-							start: started,
-							end: end,
+							title : title,
+							start : started,
+							end   : end,
 							allDay: allDay
 						  },
 						  true // make the event "stick"
@@ -2458,32 +2458,32 @@ if (typeof NProgress != 'undefined') {
 					calendar.fullCalendar('unselect');
 				  },
 				  editable: true,
-				  events: [{
+				  events  : [{
 					title: 'All Day Event',
 					start: new Date(y, m, 1)
 				  }, {
 					title: 'Long Event',
 					start: new Date(y, m, d - 5),
-					end: new Date(y, m, d - 2)
+					end  : new Date(y, m, d - 2)
 				  }, {
-					title: 'Meeting',
-					start: new Date(y, m, d, 10, 30),
+					title : 'Meeting',
+					start : new Date(y, m, d, 10, 30),
 					allDay: false
 				  }, {
-					title: 'Lunch',
-					start: new Date(y, m, d + 14, 12, 0),
-					end: new Date(y, m, d, 14, 0),
+					title : 'Lunch',
+					start : new Date(y, m, d + 14, 12, 0),
+					end   : new Date(y, m, d, 14, 0),
 					allDay: false
 				  }, {
-					title: 'Birthday Party',
-					start: new Date(y, m, d + 1, 19, 0),
-					end: new Date(y, m, d + 1, 22, 30),
+					title : 'Birthday Party',
+					start : new Date(y, m, d + 1, 19, 0),
+					end   : new Date(y, m, d + 1, 22, 30),
 					allDay: false
 				  }, {
 					title: 'Click for Google',
 					start: new Date(y, m, 28),
-					end: new Date(y, m, 29),
-					url: 'http://google.com/'
+					end  : new Date(y, m, 29),
+					url  : 'http://google.com/'
 				  }]
 				});
 				
@@ -2501,26 +2501,26 @@ if (typeof NProgress != 'undefined') {
 				var handleDataTableButtons = function() {
 				  if ($("#datatable-buttons").length) {
 					$("#datatable-buttons").DataTable({
-					  dom: "Bfrtip",
+					  dom    : "Bfrtip",
 					  buttons: [
 						{
-						  extend: "copy",
+						  extend   : "copy",
 						  className: "btn-sm"
 						},
 						{
-						  extend: "csv",
+						  extend   : "csv",
 						  className: "btn-sm"
 						},
 						{
-						  extend: "excel",
+						  extend   : "excel",
 						  className: "btn-sm"
 						},
 						{
-						  extend: "pdfHtml5",
+						  extend   : "pdfHtml5",
 						  className: "btn-sm"
 						},
 						{
-						  extend: "print",
+						  extend   : "print",
 						  className: "btn-sm"
 						},
 					  ],
@@ -2547,11 +2547,11 @@ if (typeof NProgress != 'undefined') {
 				$('#datatable-responsive').DataTable();
 
 				$('#datatable-scroller').DataTable({
-				  ajax: "js/datatables/json/scroller-demo.json",
-				  deferRender: true,
-				  scrollY: 380,
+				  ajax          : "js/datatables/json/scroller-demo.json",
+				  deferRender   : true,
+				  scrollY       : 380,
 				  scrollCollapse: true,
-				  scroller: true
+				  scroller      : true
 				});
 
 				$('#datatable-fixed-header').DataTable({
@@ -2561,7 +2561,7 @@ if (typeof NProgress != 'undefined') {
 				var $datatable = $('#datatable-checkbox');
 
 				$datatable.dataTable({
-				  'order': [[ 1, 'asc' ]],
+				  'order'     : [[ 1, 'asc' ]],
 				  'columnDefs': [
 					{ orderable: false, targets: [0] }
 				  ]
@@ -2587,7 +2587,7 @@ if (typeof NProgress != 'undefined') {
 			
 				Morris.Bar({
 				  element: 'graph_bar',
-				  data: [
+				  data   : [
 					{device: 'iPhone 4', geekbench: 380},
 					{device: 'iPhone 4S', geekbench: 655},
 					{device: 'iPhone 3GS', geekbench: 275},
@@ -2599,14 +2599,14 @@ if (typeof NProgress != 'undefined') {
 					{device: 'iPhone 6S Plus', geekbench: 1471},
 					{device: 'Other', geekbench: 1371}
 				  ],
-				  xkey: 'device',
-				  ykeys: ['geekbench'],
-				  labels: ['Geekbench'],
-				  barRatio: 0.4,
-				  barColors: ['#26B99A', '#34495E', '#ACADAC', '#3498DB'],
+				  xkey       : 'device',
+				  ykeys      : ['geekbench'],
+				  labels     : ['Geekbench'],
+				  barRatio   : 0.4,
+				  barColors  : ['#26B99A', '#34495E', '#ACADAC', '#3498DB'],
 				  xLabelAngle: 35,
-				  hideHover: 'auto',
-				  resize: true
+				  hideHover  : 'auto',
+				  resize     : true
 				});
 
 			}	
@@ -2615,7 +2615,7 @@ if (typeof NProgress != 'undefined') {
 			
 				Morris.Bar({
 				  element: 'graph_bar_group',
-				  data: [
+				  data   : [
 					{"period": "2016-10-01", "licensed": 807, "sorned": 660},
 					{"period": "2016-09-30", "licensed": 1251, "sorned": 729},
 					{"period": "2016-09-29", "licensed": 1769, "sorned": 1018},
@@ -2627,13 +2627,13 @@ if (typeof NProgress != 'undefined') {
 					{"period": "2016-09-15", "licensed": 2401, "sorned": 1656},
 					{"period": "2016-09-10", "licensed": 2115, "sorned": 1022}
 				  ],
-				  xkey: 'period',
-				  barColors: ['#26B99A', '#34495E', '#ACADAC', '#3498DB'],
-				  ykeys: ['licensed', 'sorned'],
-				  labels: ['Licensed', 'SORN'],
-				  hideHover: 'auto',
+				  xkey       : 'period',
+				  barColors  : ['#26B99A', '#34495E', '#ACADAC', '#3498DB'],
+				  ykeys      : ['licensed', 'sorned'],
+				  labels     : ['Licensed', 'SORN'],
+				  hideHover  : 'auto',
 				  xLabelAngle: 60,
-				  resize: true
+				  resize     : true
 				});
 
 			}
@@ -2642,18 +2642,18 @@ if (typeof NProgress != 'undefined') {
 			
 				Morris.Bar({
 				  element: 'graphx',
-				  data: [
+				  data   : [
 					{x: '2015 Q1', y: 2, z: 3, a: 4},
 					{x: '2015 Q2', y: 3, z: 5, a: 6},
 					{x: '2015 Q3', y: 4, z: 3, a: 2},
 					{x: '2015 Q4', y: 2, z: 4, a: 5}
 				  ],
-				  xkey: 'x',
-				  ykeys: ['y', 'z', 'a'],
+				  xkey     : 'x',
+				  ykeys    : ['y', 'z', 'a'],
 				  barColors: ['#26B99A', '#34495E', '#ACADAC', '#3498DB'],
 				  hideHover: 'auto',
-				  labels: ['Y', 'Z', 'A'],
-				  resize: true
+				  labels   : ['Y', 'Z', 'A'],
+				  resize   : true
 				}).on('click', function (i, row) {
 					console.log(i, row);
 				});
@@ -2664,7 +2664,7 @@ if (typeof NProgress != 'undefined') {
 			
 				Morris.Area({
 				  element: 'graph_area',
-				  data: [
+				  data   : [
 					{period: '2014 Q1', iphone: 2666, ipad: null, itouch: 2647},
 					{period: '2014 Q2', iphone: 2778, ipad: 2294, itouch: 2441},
 					{period: '2014 Q3', iphone: 4912, ipad: 1969, itouch: 2501},
@@ -2676,13 +2676,13 @@ if (typeof NProgress != 'undefined') {
 					{period: '2016 Q1', iphone: 10687, ipad: 4460, itouch: 2028},
 					{period: '2016 Q2', iphone: 8432, ipad: 5713, itouch: 1791}
 				  ],
-				  xkey: 'period',
-				  ykeys: ['iphone', 'ipad', 'itouch'],
+				  xkey      : 'period',
+				  ykeys     : ['iphone', 'ipad', 'itouch'],
 				  lineColors: ['#26B99A', '#34495E', '#ACADAC', '#3498DB'],
-				  labels: ['iPhone', 'iPad', 'iPod Touch'],
-				  pointSize: 2,
-				  hideHover: 'auto',
-				  resize: true
+				  labels    : ['iPhone', 'iPad', 'iPod Touch'],
+				  pointSize : 2,
+				  hideHover : 'auto',
+				  resize    : true
 				});
 
 			}
@@ -2691,13 +2691,13 @@ if (typeof NProgress != 'undefined') {
 			
 				Morris.Donut({
 				  element: 'graph_donut',
-				  data: [
+				  data   : [
 					{label: 'Jam', value: 25},
 					{label: 'Frosted', value: 40},
 					{label: 'Custard', value: 25},
 					{label: 'Sugar', value: 10}
 				  ],
-				  colors: ['#26B99A', '#34495E', '#ACADAC', '#3498DB'],
+				  colors   : ['#26B99A', '#34495E', '#ACADAC', '#3498DB'],
 				  formatter: function (y) {
 					return y + "%";
 				  },
@@ -2709,13 +2709,13 @@ if (typeof NProgress != 'undefined') {
 			if ($('#graph_line').length ){
 			
 				Morris.Line({
-				  element: 'graph_line',
-				  xkey: 'year',
-				  ykeys: ['value'],
-				  labels: ['Value'],
-				  hideHover: 'auto',
+				  element   : 'graph_line',
+				  xkey      : 'year',
+				  ykeys     : ['value'],
+				  labels    : ['Value'],
+				  hideHover : 'auto',
 				  lineColors: ['#26B99A', '#34495E', '#ACADAC', '#3498DB'],
-				  data: [
+				  data      : [
 					{year: '2012', value: 20},
 					{year: '2013', value: 10},
 					{year: '2014', value: 5},
@@ -2751,10 +2751,10 @@ if (typeof NProgress != 'undefined') {
 				  ],
 
 				  title: {
-					  itemGap: 8,
+					  itemGap  : 8,
 					  textStyle: {
 						  fontWeight: 'normal',
-						  color: '#408829'
+						  color     : '#408829'
 					  }
 				  },
 
@@ -2768,11 +2768,11 @@ if (typeof NProgress != 'undefined') {
 
 				  tooltip: {
 					  backgroundColor: 'rgba(0,0,0,0.5)',
-					  axisPointer: {
-						  type: 'line',
+					  axisPointer    : {
+						  type     : 'line',
 						  lineStyle: {
 							  color: '#408829',
-							  type: 'dashed'
+							  type : 'dashed'
 						  },
 						  crossStyle: {
 							  color: '#408829'
@@ -2785,8 +2785,8 @@ if (typeof NProgress != 'undefined') {
 
 				  dataZoom: {
 					  dataBackgroundColor: '#eee',
-					  fillerColor: 'rgba(64,136,41,0.2)',
-					  handleColor: '#408829'
+					  fillerColor        : 'rgba(64,136,41,0.2)',
+					  handleColor        : '#408829'
 				  },
 				  grid: {
 					  borderWidth: 0
@@ -2812,7 +2812,7 @@ if (typeof NProgress != 'undefined') {
 						  }
 					  },
 					  splitArea: {
-						  show: true,
+						  show     : true,
 						  areaStyle: {
 							  color: ['rgba(250,250,250,0.1)', 'rgba(200,200,200,0.1)']
 						  }
@@ -2828,7 +2828,7 @@ if (typeof NProgress != 'undefined') {
 						  color: '#408829'
 					  },
 					  controlStyle: {
-						  normal: {color: '#408829'},
+						  normal  : {color: '#408829'},
 						  emphasis: {color: '#408829'}
 					  }
 				  },
@@ -2836,11 +2836,11 @@ if (typeof NProgress != 'undefined') {
 				  k: {
 					  itemStyle: {
 						  normal: {
-							  color: '#68a54a',
-							  color0: '#a9cba2',
+							  color    : '#68a54a',
+							  color0   : '#a9cba2',
 							  lineStyle: {
-								  width: 1,
-								  color: '#408829',
+								  width : 1,
+								  color : '#408829',
 								  color0: '#86b379'
 							  }
 						  }
@@ -2880,7 +2880,7 @@ if (typeof NProgress != 'undefined') {
 					  }
 				  },
 				  chord: {
-					  padding: 4,
+					  padding  : 4,
 					  itemStyle: {
 						  normal: {
 							  lineStyle: {
@@ -2910,9 +2910,9 @@ if (typeof NProgress != 'undefined') {
 				  },
 				  gauge: {
 					  startAngle: 225,
-					  endAngle: -45,
-					  axisLine: {
-						  show: true,
+					  endAngle  : -45,
+					  axisLine  : {
+						  show     : true,
 						  lineStyle: {
 							  color: [[0.2, '#86b379'], [0.8, '#68a54a'], [1, '#408829']],
 							  width: 8
@@ -2920,8 +2920,8 @@ if (typeof NProgress != 'undefined') {
 					  },
 					  axisTick: {
 						  splitNumber: 10,
-						  length: 12,
-						  lineStyle: {
+						  length     : 12,
+						  lineStyle  : {
 							  color: 'auto'
 						  }
 					  },
@@ -2931,14 +2931,14 @@ if (typeof NProgress != 'undefined') {
 						  }
 					  },
 					  splitLine: {
-						  length: 18,
+						  length   : 18,
 						  lineStyle: {
 							  color: 'auto'
 						  }
 					  },
 					  pointer: {
 						  length: '90%',
-						  color: 'auto'
+						  color : 'auto'
 					  },
 					  title: {
 						  textStyle: {
@@ -2965,7 +2965,7 @@ if (typeof NProgress != 'undefined') {
 
 				  echartBar.setOption({
 					title: {
-					  text: 'Graph title',
+					  text   : 'Graph title',
 					  subtext: 'Graph Sub-text'
 					},
 					tooltip: {
@@ -2978,7 +2978,7 @@ if (typeof NProgress != 'undefined') {
 					  show: false
 					},
 					calculable: false,
-					xAxis: [{
+					xAxis     : [{
 					  type: 'category',
 					  data: ['1?', '2?', '3?', '4?', '5?', '6?', '7?', '8?', '9?', '10?', '11?', '12?']
 					}],
@@ -2986,9 +2986,9 @@ if (typeof NProgress != 'undefined') {
 					  type: 'value'
 					}],
 					series: [{
-					  name: 'sales',
-					  type: 'bar',
-					  data: [2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3],
+					  name     : 'sales',
+					  type     : 'bar',
+					  data     : [2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3],
 					  markPoint: {
 						data: [{
 						  type: 'max',
@@ -3005,17 +3005,17 @@ if (typeof NProgress != 'undefined') {
 						}]
 					  }
 					}, {
-					  name: 'purchases',
-					  type: 'bar',
-					  data: [2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3],
+					  name     : 'purchases',
+					  type     : 'bar',
+					  data     : [2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3],
 					  markPoint: {
 						data: [{
-						  name: 'sales',
+						  name : 'sales',
 						  value: 182.2,
 						  xAxis: 7,
 						  yAxis: 183,
 						}, {
-						  name: 'purchases',
+						  name : 'purchases',
 						  value: 2.3,
 						  xAxis: 11,
 						  yAxis: 3
@@ -3043,7 +3043,7 @@ if (typeof NProgress != 'undefined') {
 
 			  echartRadar.setOption({
 				title: {
-				  text: 'Budget vs spending',
+				  text   : 'Budget vs spending',
 				  subtext: 'Subtitle'
 				},
 				 tooltip: {
@@ -3051,19 +3051,19 @@ if (typeof NProgress != 'undefined') {
 				},
 				legend: {
 				  orient: 'vertical',
-				  x: 'right',
-				  y: 'bottom',
-				  data: ['Allocated Budget', 'Actual Spending']
+				  x     : 'right',
+				  y     : 'bottom',
+				  data  : ['Allocated Budget', 'Actual Spending']
 				},
 				toolbox: {
-				  show: true,
+				  show   : true,
 				  feature: {
 					restore: {
-					  show: true,
+					  show : true,
 					  title: "Restore"
 					},
 					saveAsImage: {
-					  show: true,
+					  show : true,
 					  title: "Save Image"
 					}
 				  }
@@ -3071,34 +3071,34 @@ if (typeof NProgress != 'undefined') {
 				polar: [{
 				  indicator: [{
 					text: 'Sales',
-					max: 6000
+					max : 6000
 				  }, {
 					text: 'Administration',
-					max: 16000
+					max : 16000
 				  }, {
 					text: 'Information Techology',
-					max: 30000
+					max : 30000
 				  }, {
 					text: 'Customer Support',
-					max: 38000
+					max : 38000
 				  }, {
 					text: 'Development',
-					max: 52000
+					max : 52000
 				  }, {
 					text: 'Marketing',
-					max: 25000
+					max : 25000
 				  }]
 				}],
 				calculable: true,
-				series: [{
+				series    : [{
 				  name: 'Budget vs spending',
 				  type: 'radar',
 				  data: [{
 					value: [4300, 10000, 28000, 35000, 50000, 19000],
-					name: 'Allocated Budget'
+					name : 'Allocated Budget'
 				  }, {
 					value: [5000, 14000, 28000, 31000, 42000, 21000],
-					name: 'Actual Spending'
+					name : 'Actual Spending'
 				  }]
 				}]
 			  });
@@ -3113,52 +3113,52 @@ if (typeof NProgress != 'undefined') {
 
 			  echartFunnel.setOption({
 				title: {
-				  text: 'Echart Pyramid Graph',
+				  text   : 'Echart Pyramid Graph',
 				  subtext: 'Subtitle'
 				},
 				tooltip: {
-				  trigger: 'item',
+				  trigger  : 'item',
 				  formatter: "{a} <br/>{b} : {c}%"
 				},
 				toolbox: {
-				  show: true,
+				  show   : true,
 				  feature: {
 					restore: {
-					  show: true,
+					  show : true,
 					  title: "Restore"
 					},
 					saveAsImage: {
-					  show: true,
+					  show : true,
 					  title: "Save Image"
 					}
 				  }
 				},
 				legend: {
-				  data: ['Something #1', 'Something #2', 'Something #3', 'Something #4', 'Something #5'],
+				  data  : ['Something #1', 'Something #2', 'Something #3', 'Something #4', 'Something #5'],
 				  orient: 'vertical',
-				  x: 'left',
-				  y: 'bottom'
+				  x     : 'left',
+				  y     : 'bottom'
 				},
 				calculable: true,
-				series: [{
-				  name: '漏斗图',
-				  type: 'funnel',
+				series    : [{
+				  name : '漏斗图',
+				  type : 'funnel',
 				  width: '40%',
-				  data: [{
+				  data : [{
 					value: 60,
-					name: 'Something #1'
+					name : 'Something #1'
 				  }, {
 					value: 40,
-					name: 'Something #2'
+					name : 'Something #2'
 				  }, {
 					value: 20,
-					name: 'Something #3'
+					name : 'Something #3'
 				  }, {
 					value: 80,
-					name: 'Something #4'
+					name : 'Something #4'
 				  }, {
 					value: 100,
-					name: 'Something #5'
+					name : 'Something #5'
 				  }]
 				}]
 			  });
@@ -3176,30 +3176,30 @@ if (typeof NProgress != 'undefined') {
 				  formatter: "{a} <br/>{b} : {c}%"
 				},
 				toolbox: {
-				  show: true,
+				  show   : true,
 				  feature: {
 					restore: {
-					  show: true,
+					  show : true,
 					  title: "Restore"
 					},
 					saveAsImage: {
-					  show: true,
+					  show : true,
 					  title: "Save Image"
 					}
 				  }
 				},
 				series: [{
-				  name: 'Performance',
-				  type: 'gauge',
-				  center: ['50%', '50%'],
-				  startAngle: 140,
-				  endAngle: -140,
-				  min: 0,
-				  max: 100,
-				  precision: 0,
+				  name       : 'Performance',
+				  type       : 'gauge',
+				  center     : ['50%', '50%'],
+				  startAngle : 140,
+				  endAngle   : -140,
+				  min        : 0,
+				  max        : 100,
+				  precision  : 0,
 				  splitNumber: 10,
-				  axisLine: {
-					show: true,
+				  axisLine   : {
+					show     : true,
 					lineStyle: {
 					  color: [
 						[0.2, 'lightgreen'],
@@ -3211,28 +3211,28 @@ if (typeof NProgress != 'undefined') {
 					}
 				  },
 				  axisTick: {
-					show: true,
+					show       : true,
 					splitNumber: 5,
-					length: 8,
-					lineStyle: {
+					length     : 8,
+					lineStyle  : {
 					  color: '#eee',
 					  width: 1,
-					  type: 'solid'
+					  type : 'solid'
 					}
 				  },
 				  axisLabel: {
-					show: true,
+					show     : true,
 					formatter: function(v) {
 					  switch (v + '') {
-						case '10':
+						case '10': 
 						  return 'a';
-						case '30':
+						case '30': 
 						  return 'b';
-						case '60':
+						case '60': 
 						  return 'c';
-						case '90':
+						case '90': 
 						  return 'd';
-						default:
+						default: 
 						  return '';
 					  }
 					},
@@ -3241,44 +3241,44 @@ if (typeof NProgress != 'undefined') {
 					}
 				  },
 				  splitLine: {
-					show: true,
-					length: 30,
+					show     : true,
+					length   : 30,
 					lineStyle: {
 					  color: '#eee',
 					  width: 2,
-					  type: 'solid'
+					  type : 'solid'
 					}
 				  },
 				  pointer: {
 					length: '80%',
-					width: 8,
-					color: 'auto'
+					width : 8,
+					color : 'auto'
 				  },
 				  title: {
-					show: true,
+					show        : true,
 					offsetCenter: ['-65%', -10],
-					textStyle: {
-					  color: '#333',
+					textStyle   : {
+					  color   : '#333',
 					  fontSize: 15
 					}
 				  },
 				  detail: {
-					show: true,
+					show           : true,
 					backgroundColor: 'rgba(0,0,0,0)',
-					borderWidth: 0,
-					borderColor: '#ccc',
-					width: 100,
-					height: 40,
-					offsetCenter: ['-60%', 10],
-					formatter: '{value}%',
-					textStyle: {
-					  color: 'auto',
+					borderWidth    : 0,
+					borderColor    : '#ccc',
+					width          : 100,
+					height         : 40,
+					offsetCenter   : ['-60%', 10],
+					formatter      : '{value}%',
+					textStyle      : {
+					  color   : 'auto',
 					  fontSize: 30
 					}
 				  },
 				  data: [{
 					value: 50,
-					name: 'Performance'
+					name : 'Performance'
 				  }]
 				}]
 			  });
@@ -3293,53 +3293,53 @@ if (typeof NProgress != 'undefined') {
 
 			  echartLine.setOption({
 				title: {
-				  text: 'Line Graph',
+				  text   : 'Line Graph',
 				  subtext: 'Subtitle'
 				},
 				tooltip: {
 				  trigger: 'axis'
 				},
 				legend: {
-				  x: 220,
-				  y: 40,
+				  x   : 220,
+				  y   : 40,
 				  data: ['Intent', 'Pre-order', 'Deal']
 				},
 				toolbox: {
-				  show: true,
+				  show   : true,
 				  feature: {
 					magicType: {
-					  show: true,
+					  show : true,
 					  title: {
-						line: 'Line',
-						bar: 'Bar',
+						line : 'Line',
+						bar  : 'Bar',
 						stack: 'Stack',
 						tiled: 'Tiled'
 					  },
 					  type: ['line', 'bar', 'stack', 'tiled']
 					},
 					restore: {
-					  show: true,
+					  show : true,
 					  title: "Restore"
 					},
 					saveAsImage: {
-					  show: true,
+					  show : true,
 					  title: "Save Image"
 					}
 				  }
 				},
 				calculable: true,
-				xAxis: [{
-				  type: 'category',
+				xAxis     : [{
+				  type       : 'category',
 				  boundaryGap: false,
-				  data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+				  data       : ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
 				}],
 				yAxis: [{
 				  type: 'value'
 				}],
 				series: [{
-				  name: 'Deal',
-				  type: 'line',
-				  smooth: true,
+				  name     : 'Deal',
+				  type     : 'line',
+				  smooth   : true,
 				  itemStyle: {
 					normal: {
 					  areaStyle: {
@@ -3349,9 +3349,9 @@ if (typeof NProgress != 'undefined') {
 				  },
 				  data: [10, 12, 21, 54, 260, 830, 710]
 				}, {
-				  name: 'Pre-order',
-				  type: 'line',
-				  smooth: true,
+				  name     : 'Pre-order',
+				  type     : 'line',
+				  smooth   : true,
 				  itemStyle: {
 					normal: {
 					  areaStyle: {
@@ -3361,9 +3361,9 @@ if (typeof NProgress != 'undefined') {
 				  },
 				  data: [30, 182, 434, 791, 390, 30, 10]
 				}, {
-				  name: 'Intent',
-				  type: 'line',
-				  smooth: true,
+				  name     : 'Intent',
+				  type     : 'line',
+				  smooth   : true,
 				  itemStyle: {
 					normal: {
 					  areaStyle: {
@@ -3385,16 +3385,16 @@ if (typeof NProgress != 'undefined') {
 
 			  echartScatter.setOption({
 				title: {
-				  text: 'Scatter Graph',
+				  text   : 'Scatter Graph',
 				  subtext: 'Heinz  2003'
 				},
 				tooltip: {
-				  trigger: 'axis',
-				  showDelay: 0,
+				  trigger    : 'axis',
+				  showDelay  : 0,
 				  axisPointer: {
-					type: 'cross',
+					type     : 'cross',
 					lineStyle: {
-					  type: 'dashed',
+					  type : 'dashed',
 					  width: 1
 					}
 				  }
@@ -3403,33 +3403,33 @@ if (typeof NProgress != 'undefined') {
 				  data: ['Data2', 'Data1']
 				},
 				toolbox: {
-				  show: true,
+				  show   : true,
 				  feature: {
 					saveAsImage: {
-					  show: true,
+					  show : true,
 					  title: "Save Image"
 					}
 				  }
 				},
 				xAxis: [{
-				  type: 'value',
-				  scale: true,
+				  type     : 'value',
+				  scale    : true,
 				  axisLabel: {
 					formatter: '{value} cm'
 				  }
 				}],
 				yAxis: [{
-				  type: 'value',
-				  scale: true,
+				  type     : 'value',
+				  scale    : true,
 				  axisLabel: {
 					formatter: '{value} kg'
 				  }
 				}],
 				series: [{
-				  name: 'Data1',
-				  type: 'scatter',
+				  name   : 'Data1',
+				  type   : 'scatter',
 				  tooltip: {
-					trigger: 'item',
+					trigger  : 'item',
 					formatter: function(params) {
 					  if (params.value.length > 1) {
 						return params.seriesName + ' :<br/>' + params.value[0] + 'cm ' + params.value[1] + 'kg ';
@@ -3716,10 +3716,10 @@ if (typeof NProgress != 'undefined') {
 					}]
 				  }
 				}, {
-				  name: 'Data2',
-				  type: 'scatter',
+				  name   : 'Data2',
+				  type   : 'scatter',
 				  tooltip: {
-					trigger: 'item',
+					trigger  : 'item',
 					formatter: function(params) {
 					  if (params.value.length > 1) {
 						return params.seriesName + ' :<br/>' + params.value[0] + 'cm ' + params.value[1] + 'kg ';
@@ -4005,28 +4005,28 @@ if (typeof NProgress != 'undefined') {
 
 			  echartBar.setOption({
 				title: {
-				  text: 'Bar Graph',
+				  text   : 'Bar Graph',
 				  subtext: 'Graph subtitle'
 				},
 				tooltip: {
 				  trigger: 'axis'
 				},
 				legend: {
-				  x: 100,
+				  x   : 100,
 				  data: ['2015', '2016']
 				},
 				toolbox: {
-				  show: true,
+				  show   : true,
 				  feature: {
 					saveAsImage: {
-					  show: true,
+					  show : true,
 					  title: "Save Image"
 					}
 				  }
 				},
 				calculable: true,
-				xAxis: [{
-				  type: 'value',
+				xAxis     : [{
+				  type       : 'value',
 				  boundaryGap: [0, 0.01]
 				}],
 				yAxis: [{
@@ -4054,59 +4054,59 @@ if (typeof NProgress != 'undefined') {
 			  
 			  echartPieCollapse.setOption({
 				tooltip: {
-				  trigger: 'item',
+				  trigger  : 'item',
 				  formatter: "{a} <br/>{b} : {c} ({d}%)"
 				},
 				legend: {
-				  x: 'center',
-				  y: 'bottom',
+				  x   : 'center',
+				  y   : 'bottom',
 				  data: ['rose1', 'rose2', 'rose3', 'rose4', 'rose5', 'rose6']
 				},
 				toolbox: {
-				  show: true,
+				  show   : true,
 				  feature: {
 					magicType: {
 					  show: true,
 					  type: ['pie', 'funnel']
 					},
 					restore: {
-					  show: true,
+					  show : true,
 					  title: "Restore"
 					},
 					saveAsImage: {
-					  show: true,
+					  show : true,
 					  title: "Save Image"
 					}
 				  }
 				},
 				calculable: true,
-				series: [{
-				  name: 'Area Mode',
-				  type: 'pie',
-				  radius: [25, 90],
-				  center: ['50%', 170],
+				series    : [{
+				  name    : 'Area Mode',
+				  type    : 'pie',
+				  radius  : [25, 90],
+				  center  : ['50%', 170],
 				  roseType: 'area',
-				  x: '50%',
-				  max: 40,
-				  sort: 'ascending',
-				  data: [{
+				  x       : '50%',
+				  max     : 40,
+				  sort    : 'ascending',
+				  data    : [{
 					value: 10,
-					name: 'rose1'
+					name : 'rose1'
 				  }, {
 					value: 5,
-					name: 'rose2'
+					name : 'rose2'
 				  }, {
 					value: 15,
-					name: 'rose3'
+					name : 'rose3'
 				  }, {
 					value: 25,
-					name: 'rose4'
+					name : 'rose4'
 				  }, {
 					value: 20,
-					name: 'rose5'
+					name : 'rose5'
 				  }, {
 					value: 35,
-					name: 'rose6'
+					name : 'rose6'
 				  }]
 				}]
 			  });
@@ -4121,44 +4121,44 @@ if (typeof NProgress != 'undefined') {
 			  
 			  echartDonut.setOption({
 				tooltip: {
-				  trigger: 'item',
+				  trigger  : 'item',
 				  formatter: "{a} <br/>{b} : {c} ({d}%)"
 				},
 				calculable: true,
-				legend: {
-				  x: 'center',
-				  y: 'bottom',
+				legend    : {
+				  x   : 'center',
+				  y   : 'bottom',
 				  data: ['Direct Access', 'E-mail Marketing', 'Union Ad', 'Video Ads', 'Search Engine']
 				},
 				toolbox: {
-				  show: true,
+				  show   : true,
 				  feature: {
 					magicType: {
-					  show: true,
-					  type: ['pie', 'funnel'],
+					  show  : true,
+					  type  : ['pie', 'funnel'],
 					  option: {
 						funnel: {
-						  x: '25%',
-						  width: '50%',
+						  x          : '25%',
+						  width      : '50%',
 						  funnelAlign: 'center',
-						  max: 1548
+						  max        : 1548
 						}
 					  }
 					},
 					restore: {
-					  show: true,
+					  show : true,
 					  title: "Restore"
 					},
 					saveAsImage: {
-					  show: true,
+					  show : true,
 					  title: "Save Image"
 					}
 				  }
 				},
 				series: [{
-				  name: 'Access to the resource',
-				  type: 'pie',
-				  radius: ['35%', '55%'],
+				  name     : 'Access to the resource',
+				  type     : 'pie',
+				  radius   : ['35%', '55%'],
 				  itemStyle: {
 					normal: {
 					  label: {
@@ -4170,10 +4170,10 @@ if (typeof NProgress != 'undefined') {
 					},
 					emphasis: {
 					  label: {
-						show: true,
-						position: 'center',
+						show     : true,
+						position : 'center',
 						textStyle: {
-						  fontSize: '14',
+						  fontSize  : '14',
 						  fontWeight: 'normal'
 						}
 					  }
@@ -4181,19 +4181,19 @@ if (typeof NProgress != 'undefined') {
 				  },
 				  data: [{
 					value: 335,
-					name: 'Direct Access'
+					name : 'Direct Access'
 				  }, {
 					value: 310,
-					name: 'E-mail Marketing'
+					name : 'E-mail Marketing'
 				  }, {
 					value: 234,
-					name: 'Union Ad'
+					name : 'Union Ad'
 				  }, {
 					value: 135,
-					name: 'Video Ads'
+					name : 'Video Ads'
 				  }, {
 					value: 1548,
-					name: 'Search Engine'
+					name : 'Search Engine'
 				  }]
 				}]
 			  });
@@ -4208,60 +4208,60 @@ if (typeof NProgress != 'undefined') {
 
 			  echartPie.setOption({
 				tooltip: {
-				  trigger: 'item',
+				  trigger  : 'item',
 				  formatter: "{a} <br/>{b} : {c} ({d}%)"
 				},
 				legend: {
-				  x: 'center',
-				  y: 'bottom',
+				  x   : 'center',
+				  y   : 'bottom',
 				  data: ['Direct Access', 'E-mail Marketing', 'Union Ad', 'Video Ads', 'Search Engine']
 				},
 				toolbox: {
-				  show: true,
+				  show   : true,
 				  feature: {
 					magicType: {
-					  show: true,
-					  type: ['pie', 'funnel'],
+					  show  : true,
+					  type  : ['pie', 'funnel'],
 					  option: {
 						funnel: {
-						  x: '25%',
-						  width: '50%',
+						  x          : '25%',
+						  width      : '50%',
 						  funnelAlign: 'left',
-						  max: 1548
+						  max        : 1548
 						}
 					  }
 					},
 					restore: {
-					  show: true,
+					  show : true,
 					  title: "Restore"
 					},
 					saveAsImage: {
-					  show: true,
+					  show : true,
 					  title: "Save Image"
 					}
 				  }
 				},
 				calculable: true,
-				series: [{
-				  name: '访问来源',
-				  type: 'pie',
+				series    : [{
+				  name  : '访问来源',
+				  type  : 'pie',
 				  radius: '55%',
 				  center: ['50%', '48%'],
-				  data: [{
+				  data  : [{
 					value: 335,
-					name: 'Direct Access'
+					name : 'Direct Access'
 				  }, {
 					value: 310,
-					name: 'E-mail Marketing'
+					name : 'E-mail Marketing'
 				  }, {
 					value: 234,
-					name: 'Union Ad'
+					name : 'Union Ad'
 				  }, {
 					value: 135,
-					name: 'Video Ads'
+					name : 'Video Ads'
 				  }, {
 					value: 1548,
-					name: 'Search Engine'
+					name : 'Search Engine'
 				  }]
 				}]
 			  });
@@ -4302,40 +4302,40 @@ if (typeof NProgress != 'undefined') {
 
 			  echartMiniPie .setOption({
 				title: {
-				  text: 'Chart #2',
-				  subtext: 'From ExcelHome',
-				  sublink: 'http://e.weibo.com/1341556070/AhQXtjbqh',
-				  x: 'center',
-				  y: 'center',
-				  itemGap: 20,
+				  text     : 'Chart #2',
+				  subtext  : 'From ExcelHome',
+				  sublink  : 'http://e.weibo.com/1341556070/AhQXtjbqh',
+				  x        : 'center',
+				  y        : 'center',
+				  itemGap  : 20,
 				  textStyle: {
-					color: 'rgba(30,144,255,0.8)',
+					color     : 'rgba(30,144,255,0.8)',
 					fontFamily: '微软雅黑',
-					fontSize: 35,
+					fontSize  : 35,
 					fontWeight: 'bolder'
 				  }
 				},
 				tooltip: {
-				  show: true,
+				  show     : true,
 				  formatter: "{a} <br/>{b} : {c} ({d}%)"
 				},
 				legend: {
-				  orient: 'vertical',
-				  x: 170,
-				  y: 45,
+				  orient : 'vertical',
+				  x      : 170,
+				  y      : 45,
 				  itemGap: 12,
-				  data: ['68%Something #1', '29%Something #2', '3%Something #3'],
+				  data   : ['68%Something #1', '29%Something #2', '3%Something #3'],
 				},
 				toolbox: {
-				  show: true,
+				  show   : true,
 				  feature: {
 					mark: {
 					  show: true
 					},
 					dataView: {
-					  show: true,
+					  show : true,
 					  title: "Text View",
-					  lang: [
+					  lang : [
 						"Text View",
 						"Close",
 						"Refresh",
@@ -4343,55 +4343,55 @@ if (typeof NProgress != 'undefined') {
 					  readOnly: false
 					},
 					restore: {
-					  show: true,
+					  show : true,
 					  title: "Restore"
 					},
 					saveAsImage: {
-					  show: true,
+					  show : true,
 					  title: "Save Image"
 					}
 				  }
 				},
 				series: [{
-				  name: '1',
-				  type: 'pie',
+				  name     : '1',
+				  type     : 'pie',
 				  clockWise: false,
-				  radius: [105, 130],
+				  radius   : [105, 130],
 				  itemStyle: dataStyle,
-				  data: [{
+				  data     : [{
 					value: 68,
-					name: '68%Something #1'
+					name : '68%Something #1'
 				  }, {
-					value: 32,
-					name: 'invisible',
+					value    : 32,
+					name     : 'invisible',
 					itemStyle: placeHolderStyle
 				  }]
 				}, {
-				  name: '2',
-				  type: 'pie',
+				  name     : '2',
+				  type     : 'pie',
 				  clockWise: false,
-				  radius: [80, 105],
+				  radius   : [80, 105],
 				  itemStyle: dataStyle,
-				  data: [{
+				  data     : [{
 					value: 29,
-					name: '29%Something #2'
+					name : '29%Something #2'
 				  }, {
-					value: 71,
-					name: 'invisible',
+					value    : 71,
+					name     : 'invisible',
 					itemStyle: placeHolderStyle
 				  }]
 				}, {
-				  name: '3',
-				  type: 'pie',
+				  name     : '3',
+				  type     : 'pie',
 				  clockWise: false,
-				  radius: [25, 80],
+				  radius   : [25, 80],
 				  itemStyle: dataStyle,
-				  data: [{
+				  data     : [{
 					value: 3,
-					name: '3%Something #3'
+					name : '3%Something #3'
 				  }, {
-					value: 97,
-					name: 'invisible',
+					value    : 97,
+					name     : 'invisible',
 					itemStyle: placeHolderStyle
 				  }]
 				}]
@@ -4408,32 +4408,32 @@ if (typeof NProgress != 'undefined') {
 				   
 				  echartMap.setOption({
 					title: {
-					  text: 'World Population (2010)',
+					  text   : 'World Population (2010)',
 					  subtext: 'from United Nations, Total population, both sexes combined, as of 1 July (thousands)',
-					  x: 'center',
-					  y: 'top'
+					  x      : 'center',
+					  y      : 'top'
 					},
 					tooltip: {
-					  trigger: 'item',
+					  trigger  : 'item',
 					  formatter: function(params) {
 						var value = (params.value + '').split('.');
-						value = value[0].replace(/(\d{1,3})(?=(?:\d{3})+(?!\d))/g, '$1,') + '.' + value[1];
+						    value = value[0].replace(/(\d{1,3})(?=(?:\d{3})+(?!\d))/g, '$1,') + '.' + value[1];
 						return params.seriesName + '<br/>' + params.name + ' : ' + value;
 					  }
 					},
 					toolbox: {
-					  show: true,
-					  orient: 'vertical',
-					  x: 'right',
-					  y: 'center',
+					  show   : true,
+					  orient : 'vertical',
+					  x      : 'right',
+					  y      : 'center',
 					  feature: {
 						mark: {
 						  show: true
 						},
 						dataView: {
-						  show: true,
+						  show : true,
 						  title: "Text View",
-						  lang: [
+						  lang : [
 							"Text View",
 							"Close",
 							"Refresh",
@@ -4441,28 +4441,28 @@ if (typeof NProgress != 'undefined') {
 						  readOnly: false
 						},
 						restore: {
-						  show: true,
+						  show : true,
 						  title: "Restore"
 						},
 						saveAsImage: {
-						  show: true,
+						  show : true,
 						  title: "Save Image"
 						}
 					  }
 					},
 					dataRange: {
-					  min: 0,
-					  max: 1000000,
-					  text: ['High', 'Low'],
-					  realtime: false,
+					  min       : 0,
+					  max       : 1000000,
+					  text      : ['High', 'Low'],
+					  realtime  : false,
 					  calculable: true,
-					  color: ['#087E65', '#26B99A', '#CBEAE3']
+					  color     : ['#087E65', '#26B99A', '#CBEAE3']
 					},
 					series: [{
-					  name: 'World Population (2010)',
-					  type: 'map',
-					  mapType: 'world',
-					  roam: false,
+					  name       : 'World Population (2010)',
+					  type       : 'map',
+					  mapType    : 'world',
+					  roam       : false,
 					  mapLocation: {
 						y: 60
 					  },
@@ -4474,535 +4474,535 @@ if (typeof NProgress != 'undefined') {
 						}
 					  },
 					  data: [{
-						name: 'Afghanistan',
+						name : 'Afghanistan',
 						value: 28397.812
 					  }, {
-						name: 'Angola',
+						name : 'Angola',
 						value: 19549.124
 					  }, {
-						name: 'Albania',
+						name : 'Albania',
 						value: 3150.143
 					  }, {
-						name: 'United Arab Emirates',
+						name : 'United Arab Emirates',
 						value: 8441.537
 					  }, {
-						name: 'Argentina',
+						name : 'Argentina',
 						value: 40374.224
 					  }, {
-						name: 'Armenia',
+						name : 'Armenia',
 						value: 2963.496
 					  }, {
-						name: 'French Southern and Antarctic Lands',
+						name : 'French Southern and Antarctic Lands',
 						value: 268.065
 					  }, {
-						name: 'Australia',
+						name : 'Australia',
 						value: 22404.488
 					  }, {
-						name: 'Austria',
+						name : 'Austria',
 						value: 8401.924
 					  }, {
-						name: 'Azerbaijan',
+						name : 'Azerbaijan',
 						value: 9094.718
 					  }, {
-						name: 'Burundi',
+						name : 'Burundi',
 						value: 9232.753
 					  }, {
-						name: 'Belgium',
+						name : 'Belgium',
 						value: 10941.288
 					  }, {
-						name: 'Benin',
+						name : 'Benin',
 						value: 9509.798
 					  }, {
-						name: 'Burkina Faso',
+						name : 'Burkina Faso',
 						value: 15540.284
 					  }, {
-						name: 'Bangladesh',
+						name : 'Bangladesh',
 						value: 151125.475
 					  }, {
-						name: 'Bulgaria',
+						name : 'Bulgaria',
 						value: 7389.175
 					  }, {
-						name: 'The Bahamas',
+						name : 'The Bahamas',
 						value: 66402.316
 					  }, {
-						name: 'Bosnia and Herzegovina',
+						name : 'Bosnia and Herzegovina',
 						value: 3845.929
 					  }, {
-						name: 'Belarus',
+						name : 'Belarus',
 						value: 9491.07
 					  }, {
-						name: 'Belize',
+						name : 'Belize',
 						value: 308.595
 					  }, {
-						name: 'Bermuda',
+						name : 'Bermuda',
 						value: 64.951
 					  }, {
-						name: 'Bolivia',
+						name : 'Bolivia',
 						value: 716.939
 					  }, {
-						name: 'Brazil',
+						name : 'Brazil',
 						value: 195210.154
 					  }, {
-						name: 'Brunei',
+						name : 'Brunei',
 						value: 27.223
 					  }, {
-						name: 'Bhutan',
+						name : 'Bhutan',
 						value: 716.939
 					  }, {
-						name: 'Botswana',
+						name : 'Botswana',
 						value: 1969.341
 					  }, {
-						name: 'Central African Republic',
+						name : 'Central African Republic',
 						value: 4349.921
 					  }, {
-						name: 'Canada',
+						name : 'Canada',
 						value: 34126.24
 					  }, {
-						name: 'Switzerland',
+						name : 'Switzerland',
 						value: 7830.534
 					  }, {
-						name: 'Chile',
+						name : 'Chile',
 						value: 17150.76
 					  }, {
-						name: 'China',
+						name : 'China',
 						value: 1359821.465
 					  }, {
-						name: 'Ivory Coast',
+						name : 'Ivory Coast',
 						value: 60508.978
 					  }, {
-						name: 'Cameroon',
+						name : 'Cameroon',
 						value: 20624.343
 					  }, {
-						name: 'Democratic Republic of the Congo',
+						name : 'Democratic Republic of the Congo',
 						value: 62191.161
 					  }, {
-						name: 'Republic of the Congo',
+						name : 'Republic of the Congo',
 						value: 3573.024
 					  }, {
-						name: 'Colombia',
+						name : 'Colombia',
 						value: 46444.798
 					  }, {
-						name: 'Costa Rica',
+						name : 'Costa Rica',
 						value: 4669.685
 					  }, {
-						name: 'Cuba',
+						name : 'Cuba',
 						value: 11281.768
 					  }, {
-						name: 'Northern Cyprus',
+						name : 'Northern Cyprus',
 						value: 1.468
 					  }, {
-						name: 'Cyprus',
+						name : 'Cyprus',
 						value: 1103.685
 					  }, {
-						name: 'Czech Republic',
+						name : 'Czech Republic',
 						value: 10553.701
 					  }, {
-						name: 'Germany',
+						name : 'Germany',
 						value: 83017.404
 					  }, {
-						name: 'Djibouti',
+						name : 'Djibouti',
 						value: 834.036
 					  }, {
-						name: 'Denmark',
+						name : 'Denmark',
 						value: 5550.959
 					  }, {
-						name: 'Dominican Republic',
+						name : 'Dominican Republic',
 						value: 10016.797
 					  }, {
-						name: 'Algeria',
+						name : 'Algeria',
 						value: 37062.82
 					  }, {
-						name: 'Ecuador',
+						name : 'Ecuador',
 						value: 15001.072
 					  }, {
-						name: 'Egypt',
+						name : 'Egypt',
 						value: 78075.705
 					  }, {
-						name: 'Eritrea',
+						name : 'Eritrea',
 						value: 5741.159
 					  }, {
-						name: 'Spain',
+						name : 'Spain',
 						value: 46182.038
 					  }, {
-						name: 'Estonia',
+						name : 'Estonia',
 						value: 1298.533
 					  }, {
-						name: 'Ethiopia',
+						name : 'Ethiopia',
 						value: 87095.281
 					  }, {
-						name: 'Finland',
+						name : 'Finland',
 						value: 5367.693
 					  }, {
-						name: 'Fiji',
+						name : 'Fiji',
 						value: 860.559
 					  }, {
-						name: 'Falkland Islands',
+						name : 'Falkland Islands',
 						value: 49.581
 					  }, {
-						name: 'France',
+						name : 'France',
 						value: 63230.866
 					  }, {
-						name: 'Gabon',
+						name : 'Gabon',
 						value: 1556.222
 					  }, {
-						name: 'United Kingdom',
+						name : 'United Kingdom',
 						value: 62066.35
 					  }, {
-						name: 'Georgia',
+						name : 'Georgia',
 						value: 4388.674
 					  }, {
-						name: 'Ghana',
+						name : 'Ghana',
 						value: 24262.901
 					  }, {
-						name: 'Guinea',
+						name : 'Guinea',
 						value: 10876.033
 					  }, {
-						name: 'Gambia',
+						name : 'Gambia',
 						value: 1680.64
 					  }, {
-						name: 'Guinea Bissau',
+						name : 'Guinea Bissau',
 						value: 10876.033
 					  }, {
-						name: 'Equatorial Guinea',
+						name : 'Equatorial Guinea',
 						value: 696.167
 					  }, {
-						name: 'Greece',
+						name : 'Greece',
 						value: 11109.999
 					  }, {
-						name: 'Greenland',
+						name : 'Greenland',
 						value: 56.546
 					  }, {
-						name: 'Guatemala',
+						name : 'Guatemala',
 						value: 14341.576
 					  }, {
-						name: 'French Guiana',
+						name : 'French Guiana',
 						value: 231.169
 					  }, {
-						name: 'Guyana',
+						name : 'Guyana',
 						value: 786.126
 					  }, {
-						name: 'Honduras',
+						name : 'Honduras',
 						value: 7621.204
 					  }, {
-						name: 'Croatia',
+						name : 'Croatia',
 						value: 4338.027
 					  }, {
-						name: 'Haiti',
+						name : 'Haiti',
 						value: 9896.4
 					  }, {
-						name: 'Hungary',
+						name : 'Hungary',
 						value: 10014.633
 					  }, {
-						name: 'Indonesia',
+						name : 'Indonesia',
 						value: 240676.485
 					  }, {
-						name: 'India',
+						name : 'India',
 						value: 1205624.648
 					  }, {
-						name: 'Ireland',
+						name : 'Ireland',
 						value: 4467.561
 					  }, {
-						name: 'Iran',
+						name : 'Iran',
 						value: 240676.485
 					  }, {
-						name: 'Iraq',
+						name : 'Iraq',
 						value: 30962.38
 					  }, {
-						name: 'Iceland',
+						name : 'Iceland',
 						value: 318.042
 					  }, {
-						name: 'Israel',
+						name : 'Israel',
 						value: 7420.368
 					  }, {
-						name: 'Italy',
+						name : 'Italy',
 						value: 60508.978
 					  }, {
-						name: 'Jamaica',
+						name : 'Jamaica',
 						value: 2741.485
 					  }, {
-						name: 'Jordan',
+						name : 'Jordan',
 						value: 6454.554
 					  }, {
-						name: 'Japan',
+						name : 'Japan',
 						value: 127352.833
 					  }, {
-						name: 'Kazakhstan',
+						name : 'Kazakhstan',
 						value: 15921.127
 					  }, {
-						name: 'Kenya',
+						name : 'Kenya',
 						value: 40909.194
 					  }, {
-						name: 'Kyrgyzstan',
+						name : 'Kyrgyzstan',
 						value: 5334.223
 					  }, {
-						name: 'Cambodia',
+						name : 'Cambodia',
 						value: 14364.931
 					  }, {
-						name: 'South Korea',
+						name : 'South Korea',
 						value: 51452.352
 					  }, {
-						name: 'Kosovo',
+						name : 'Kosovo',
 						value: 97.743
 					  }, {
-						name: 'Kuwait',
+						name : 'Kuwait',
 						value: 2991.58
 					  }, {
-						name: 'Laos',
+						name : 'Laos',
 						value: 6395.713
 					  }, {
-						name: 'Lebanon',
+						name : 'Lebanon',
 						value: 4341.092
 					  }, {
-						name: 'Liberia',
+						name : 'Liberia',
 						value: 3957.99
 					  }, {
-						name: 'Libya',
+						name : 'Libya',
 						value: 6040.612
 					  }, {
-						name: 'Sri Lanka',
+						name : 'Sri Lanka',
 						value: 20758.779
 					  }, {
-						name: 'Lesotho',
+						name : 'Lesotho',
 						value: 2008.921
 					  }, {
-						name: 'Lithuania',
+						name : 'Lithuania',
 						value: 3068.457
 					  }, {
-						name: 'Luxembourg',
+						name : 'Luxembourg',
 						value: 507.885
 					  }, {
-						name: 'Latvia',
+						name : 'Latvia',
 						value: 2090.519
 					  }, {
-						name: 'Morocco',
+						name : 'Morocco',
 						value: 31642.36
 					  }, {
-						name: 'Moldova',
+						name : 'Moldova',
 						value: 103.619
 					  }, {
-						name: 'Madagascar',
+						name : 'Madagascar',
 						value: 21079.532
 					  }, {
-						name: 'Mexico',
+						name : 'Mexico',
 						value: 117886.404
 					  }, {
-						name: 'Macedonia',
+						name : 'Macedonia',
 						value: 507.885
 					  }, {
-						name: 'Mali',
+						name : 'Mali',
 						value: 13985.961
 					  }, {
-						name: 'Myanmar',
+						name : 'Myanmar',
 						value: 51931.231
 					  }, {
-						name: 'Montenegro',
+						name : 'Montenegro',
 						value: 620.078
 					  }, {
-						name: 'Mongolia',
+						name : 'Mongolia',
 						value: 2712.738
 					  }, {
-						name: 'Mozambique',
+						name : 'Mozambique',
 						value: 23967.265
 					  }, {
-						name: 'Mauritania',
+						name : 'Mauritania',
 						value: 3609.42
 					  }, {
-						name: 'Malawi',
+						name : 'Malawi',
 						value: 15013.694
 					  }, {
-						name: 'Malaysia',
+						name : 'Malaysia',
 						value: 28275.835
 					  }, {
-						name: 'Namibia',
+						name : 'Namibia',
 						value: 2178.967
 					  }, {
-						name: 'New Caledonia',
+						name : 'New Caledonia',
 						value: 246.379
 					  }, {
-						name: 'Niger',
+						name : 'Niger',
 						value: 15893.746
 					  }, {
-						name: 'Nigeria',
+						name : 'Nigeria',
 						value: 159707.78
 					  }, {
-						name: 'Nicaragua',
+						name : 'Nicaragua',
 						value: 5822.209
 					  }, {
-						name: 'Netherlands',
+						name : 'Netherlands',
 						value: 16615.243
 					  }, {
-						name: 'Norway',
+						name : 'Norway',
 						value: 4891.251
 					  }, {
-						name: 'Nepal',
+						name : 'Nepal',
 						value: 26846.016
 					  }, {
-						name: 'New Zealand',
+						name : 'New Zealand',
 						value: 4368.136
 					  }, {
-						name: 'Oman',
+						name : 'Oman',
 						value: 2802.768
 					  }, {
-						name: 'Pakistan',
+						name : 'Pakistan',
 						value: 173149.306
 					  }, {
-						name: 'Panama',
+						name : 'Panama',
 						value: 3678.128
 					  }, {
-						name: 'Peru',
+						name : 'Peru',
 						value: 29262.83
 					  }, {
-						name: 'Philippines',
+						name : 'Philippines',
 						value: 93444.322
 					  }, {
-						name: 'Papua New Guinea',
+						name : 'Papua New Guinea',
 						value: 6858.945
 					  }, {
-						name: 'Poland',
+						name : 'Poland',
 						value: 38198.754
 					  }, {
-						name: 'Puerto Rico',
+						name : 'Puerto Rico',
 						value: 3709.671
 					  }, {
-						name: 'North Korea',
+						name : 'North Korea',
 						value: 1.468
 					  }, {
-						name: 'Portugal',
+						name : 'Portugal',
 						value: 10589.792
 					  }, {
-						name: 'Paraguay',
+						name : 'Paraguay',
 						value: 6459.721
 					  }, {
-						name: 'Qatar',
+						name : 'Qatar',
 						value: 1749.713
 					  }, {
-						name: 'Romania',
+						name : 'Romania',
 						value: 21861.476
 					  }, {
-						name: 'Russia',
+						name : 'Russia',
 						value: 21861.476
 					  }, {
-						name: 'Rwanda',
+						name : 'Rwanda',
 						value: 10836.732
 					  }, {
-						name: 'Western Sahara',
+						name : 'Western Sahara',
 						value: 514.648
 					  }, {
-						name: 'Saudi Arabia',
+						name : 'Saudi Arabia',
 						value: 27258.387
 					  }, {
-						name: 'Sudan',
+						name : 'Sudan',
 						value: 35652.002
 					  }, {
-						name: 'South Sudan',
+						name : 'South Sudan',
 						value: 9940.929
 					  }, {
-						name: 'Senegal',
+						name : 'Senegal',
 						value: 12950.564
 					  }, {
-						name: 'Solomon Islands',
+						name : 'Solomon Islands',
 						value: 526.447
 					  }, {
-						name: 'Sierra Leone',
+						name : 'Sierra Leone',
 						value: 5751.976
 					  }, {
-						name: 'El Salvador',
+						name : 'El Salvador',
 						value: 6218.195
 					  }, {
-						name: 'Somaliland',
+						name : 'Somaliland',
 						value: 9636.173
 					  }, {
-						name: 'Somalia',
+						name : 'Somalia',
 						value: 9636.173
 					  }, {
-						name: 'Republic of Serbia',
+						name : 'Republic of Serbia',
 						value: 3573.024
 					  }, {
-						name: 'Suriname',
+						name : 'Suriname',
 						value: 524.96
 					  }, {
-						name: 'Slovakia',
+						name : 'Slovakia',
 						value: 5433.437
 					  }, {
-						name: 'Slovenia',
+						name : 'Slovenia',
 						value: 2054.232
 					  }, {
-						name: 'Sweden',
+						name : 'Sweden',
 						value: 9382.297
 					  }, {
-						name: 'Swaziland',
+						name : 'Swaziland',
 						value: 1193.148
 					  }, {
-						name: 'Syria',
+						name : 'Syria',
 						value: 7830.534
 					  }, {
-						name: 'Chad',
+						name : 'Chad',
 						value: 11720.781
 					  }, {
-						name: 'Togo',
+						name : 'Togo',
 						value: 6306.014
 					  }, {
-						name: 'Thailand',
+						name : 'Thailand',
 						value: 66402.316
 					  }, {
-						name: 'Tajikistan',
+						name : 'Tajikistan',
 						value: 7627.326
 					  }, {
-						name: 'Turkmenistan',
+						name : 'Turkmenistan',
 						value: 5041.995
 					  }, {
-						name: 'East Timor',
+						name : 'East Timor',
 						value: 10016.797
 					  }, {
-						name: 'Trinidad and Tobago',
+						name : 'Trinidad and Tobago',
 						value: 1328.095
 					  }, {
-						name: 'Tunisia',
+						name : 'Tunisia',
 						value: 10631.83
 					  }, {
-						name: 'Turkey',
+						name : 'Turkey',
 						value: 72137.546
 					  }, {
-						name: 'United Republic of Tanzania',
+						name : 'United Republic of Tanzania',
 						value: 44973.33
 					  }, {
-						name: 'Uganda',
+						name : 'Uganda',
 						value: 33987.213
 					  }, {
-						name: 'Ukraine',
+						name : 'Ukraine',
 						value: 46050.22
 					  }, {
-						name: 'Uruguay',
+						name : 'Uruguay',
 						value: 3371.982
 					  }, {
-						name: 'United States of America',
+						name : 'United States of America',
 						value: 312247.116
 					  }, {
-						name: 'Uzbekistan',
+						name : 'Uzbekistan',
 						value: 27769.27
 					  }, {
-						name: 'Venezuela',
+						name : 'Venezuela',
 						value: 236.299
 					  }, {
-						name: 'Vietnam',
+						name : 'Vietnam',
 						value: 89047.397
 					  }, {
-						name: 'Vanuatu',
+						name : 'Vanuatu',
 						value: 236.299
 					  }, {
-						name: 'West Bank',
+						name : 'West Bank',
 						value: 13.565
 					  }, {
-						name: 'Yemen',
+						name : 'Yemen',
 						value: 22763.008
 					  }, {
-						name: 'South Africa',
+						name : 'South Africa',
 						value: 51452.352
 					  }, {
-						name: 'Zambia',
+						name : 'Zambia',
 						value: 13216.985
 					  }, {
-						name: 'Zimbabwe',
+						name : 'Zimbabwe',
 						value: 13076.978
 					  }]
 					}]
@@ -5016,8 +5016,8 @@ if (typeof NProgress != 'undefined') {
 
 			$('#datepsikotes').daterangepicker({
 			  singleDatePicker: true,
-			  locale:{
-			  	format:'DD-MM-YYYY'
+			  locale          : {
+			  	format: 'DD-MM-YYYY'
 			  },
 			  singleClasses: "picker_1"
 			}, function(start, end, label) {
@@ -5039,7 +5039,7 @@ if (typeof NProgress != 'undefined') {
 		init_IonRangeSlider();
 		init_ColorPicker();
 		init_TagsInput();
-		init_parsley();
+		// init_parsley();
 		init_daterangepicker();
 		init_daterangepicker_right();
 		init_daterangepicker_single_call();
