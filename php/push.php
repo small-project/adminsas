@@ -54,6 +54,8 @@
     
     foreach ($nama as $key => $value) {
 
+      $ch = curl_init();
+
       $pdo = new Admin();
       $sql = "INSERT INTO tb_push (kd_push, subject, dari, kepada) VALUES (:kode, :aa, :bb, :cc)";
 
@@ -71,6 +73,10 @@
         ':aa' =>$kd,
         ':bb' =>$admin,
         ':cc' =>$kode));
+      curl_setopt( $ch,CURLOPT_URL, 'http://sinergiadhikarya.co.id/public/api/push/message/?id='.$new_kode );
+
+      $result = curl_exec($ch);
+            curl_close( $ch );
 
       $id2 = "kd_detail";
       $kode2 = "PUSHDT";
