@@ -74,9 +74,7 @@
         ':bb' =>$admin,
         ':cc' =>$kode));
       curl_setopt( $ch,CURLOPT_URL, 'http://sinergiadhikarya.co.id/public/api/push/message/?id='.$new_kode );
-
-      $result = curl_exec($ch);
-            curl_close( $ch );
+      
 
       $id2 = "kd_detail";
       $kode2 = "PUSHDT";
@@ -95,7 +93,8 @@
         echo "tidak berhasil";
       } else{
             
-
+$result = curl_exec($ch);
+            curl_close( $ch );
       //   $sql = " insert ke $key, dari kode ke: $kode";
       // echo $sql;
       // echo "<br/>";
