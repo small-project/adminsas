@@ -8,7 +8,7 @@ if (isset($_POST['addJadwal'])) {
   $kdAdmin = strip_tags($_POST['kode_admin']);
   $tanggalTest = strip_tags($_POST['tanggal']);
   $cv = strip_tags($_POST['txt_cv']);
-  $kd_status = strip_tags($_POST['txt_status_karyawan']);
+  $kd_status = "KDKRY0003";
   
   $input = new Karyawan();
   $sql = "INSERT INTO tb_info_test (kode_test, no_ktp, date_test, kode_admin, keterangan) VALUES (:kode, :ktp, :tgl, :admin, :ket)";
@@ -116,25 +116,6 @@ if ($stmt->rowCount() == 0) {
                 </div>
               </div>
               <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-3">Ubah Status Karyawan</label>
-                <div class="col-md-5 col-sm-5 col-xs-9">
-                  <select name="txt_status_karyawan" class="form-control">
-                    <option value="0" selected style="text-transform: capitalize; font-weight: 600;">-- change status --</option>
-                    <?php
-                    $admin = new Admin();
-
-                    $stmt = $admin->runQuery("SELECT * FROM tb_kode_status_karyawan");
-                    $stmt->execute();
-                    while ($row = $stmt->fetch(PDO::FETCH_LAZY)) {
-              # code...
-                      ?>
-                      <option style="text-transform: capitalize; font-weight: 600;" value="<?=$row['kd_id']?>"><?=$row['nama_kode']?> </option>
-                      <?php } ?>
-                    </select>
-                  </div>
-
-                </div>
-              <div class="form-group">
                 <div class="col-md-9 col-md-offset-3">
                   <button type="submit" name="addJadwal" class="btn btn-success">Submit</button>
                 </div>
@@ -167,7 +148,7 @@ if ($stmt->rowCount() == 0) {
     $tanggalTest = strip_tags($_POST['tanggal']);
     $status = "";
     $cv = strip_tags($_POST['txt_cv']);
-    $kd_status = strip_tags($_POST['txt_status_karyawan']);
+    $kd_status = "KDKRY0013";
     $input = new Karyawan();
     $stmt = $input->runQuery("UPDATE tb_info_test SET date_test = :tanggal, kode_admin = :admin, status = :st, keterangan = :ket WHERE id = :id");
     $stmt->execute(array(
@@ -248,25 +229,6 @@ if ($stmt->rowCount() == 0) {
                 </div>
               </div>
             </div>
-            <div class="form-group">
-              <label class="control-label col-md-3 col-sm-3 col-xs-3">Ubah Status Karyawan</label>
-              <div class="col-md-5 col-sm-5 col-xs-9">
-                <select name="txt_status_karyawan" class="form-control">
-                  <option value="0" selected style="text-transform: capitalize; font-weight: 600;">-- change status --</option>
-                  <?php
-                  $admin = new Admin();
-
-                  $stmt = $admin->runQuery("SELECT * FROM tb_kode_status_karyawan");
-                  $stmt->execute();
-                  while ($row = $stmt->fetch(PDO::FETCH_LAZY)) {
-              # code...
-                    ?>
-                    <option style="text-transform: capitalize; font-weight: 600;" value="<?=$row['kd_id']?>"><?=$row['nama_kode']?> </option>
-                    <?php } ?>
-                  </select>
-                </div>
-
-              </div>
             <div class="form-group">
               <div class="col-md-9 col-md-offset-3">
                 <button type="submit" name="addData" class="btn btn-success">Submit</button>

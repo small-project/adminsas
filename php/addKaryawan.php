@@ -1,8 +1,15 @@
 <?php
-include_once '../config/api.php';
+require '../config/api.php';
 $config = new Perusahaan();
-$nik = $_GET['id'];
+
+if(isset($_GET['id'])){
+  $nik = $_GET['id'];
 $spk = $_GET['kode'];
+}
+else{
+  
+}
+
 
 $dt = "SELECT * FROM tb_kerjasama_perusahan WHERE kode_list_karyawan = :kode";
 $mg = $config->runQuery($dt);

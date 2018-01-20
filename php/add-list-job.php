@@ -6,143 +6,163 @@
  * Time: 15:15
  */
 $kode = $_GET['name'];
-$conn = new Admin();
 
-    //input data
-    if (isset($_POST['addJob'])){
-        $title = $_POST['txt_title'];
-        $admin = $_POST['txt_admin'];
-        $kodeData = $_POST['txt_kode'];
-        $tugas = $_POST['txt_tugas'];
-        $tanggungJwb = $_POST['txt_tanggungJawab'];
+    $id = "kode_detail_job"; $tbName = "tb_job"; $kode2 = "DTL";
+    $sql = "SELECT MAX(RIGHT(". $id . ", 4)) AS max_id FROM " . $tbName . " ORDER BY ". $id ." ";
+    $stmt = $config->runQuery($sql);
+    $stmt->execute();
 
-        $sql = "INSERT INTO tb_list_job (kode_detail_job, nama_job, deskripsi_job, keterangan, kode_admin) VALUES (:kode, :nama, :deskripsi, :ket, :admin)";
-        $stmt = $conn->runQuery($sql);
-        $stmt->execute(array(
-                ':kode'  => $kodeData,
-                ':nama'  => $title,
-                ':deskripsi' => $tugas,
-                ':ket'   => $tanggungJwb,
-                ':admin' => $admin
-        ));
-        if ($stmt) {
-            echo "<script>
-    alert('Input Data Success!" . $kode . "');
-    window.location.href='?p=add-list-job&name=" . $kode . "';
-    </script>";
-        }
-    }
-    //end of input data
+    $row = $stmt->fetch(PDO::FETCH_LAZY);
+    $id = $row['max_id'];
+    $sort_num = (int) substr($id, 1, 6);
+    $sort_num++;
+    $new_code = sprintf("$kode2%04s", $sort_num);
 
-    $cek = "SELECT * FROM tb_job WHERE nomor_kontrak = :data";
-    $cekData = $conn->runQuery($cek);
-    $cekData->execute(array(
-            ':data' => $kode
-    ));
-    $row = $cekData->fetch(PDO::FETCH_LAZY);
-    $kode_detail = $row['kode_detail_job'];
-    if (empty($kode_detail)) {
-        ?>
-        <div class="col-md-4 col-lg-offset-4">
-            <button class="btn btn-block generateKode" data-id = "<?php echo $kode; ?>">Generate code</button>
-        </div>
-        <?php
-    }else {
-        $kodeDetail = $row['kode_detail_job'];
-        ?>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="x_panel">
-                    <div class="x_title">
-                        <h2 style="text-transform: uppercase;">input data list pekerjaan</h2>
-                        <ul class="nav navbar-right panel_toolbox">
-                            <li><a class="collapse-link"></a>
-                            <li><a class="collapse-link"></a>
-                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                        </ul>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="x_content">
-                        <br>
-                        <form class="form-horizontal" method="post" action = "">
-                            <div class="form-group">
-                                <label for="inputEmail3" class="col-sm-2 control-label">Title</label>
-                                <div class="col-sm-10">
-                                    <input type="text" name ="txt_title" class="form-control" id="inputEmail3" placeholder="nama list pekerjaan" required>
-                                    <input type="hidden" name ="txt_kode" class="form-control" id="inputEmail3" value="<?php echo $kodeDetail; ?>">
-                                    <input type="hidden" name ="txt_admin" class="form-control" id="inputEmail3" value="<?php echo $kd_admin; ?>">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="inputPassword3" class="col-sm-2 control-label">Tugas</label>
-                                <div class="col-sm-10">
-                                    <textarea class="form-control" name = "txt_tugas" rows="3" required></textarea>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="inputPassword3" class="col-sm-2 control-label">Tanggung Jawab</label>
-                                <div class="col-sm-10">
-                                    <textarea class="form-control" name = "txt_tanggungJawab" rows="3" required></textarea>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-sm-offset-2 col-sm-10">
-                                    <button type="submit" name = "addJob" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="add list job"><span class="fa fa-fw fa-plus"></span></button>
-                                </div>
-                            </div>
-                        </form>
+    $query = "SELECT * FROM tb_job WHERE nomor_kontrak = :kode ";
+    $done = $config->runQuery($query);
+    $done->execute(array(':kode' => $kode));
 
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="x_panel">
-                    <div class="x_title">
-                        <h2 style="text-transform: uppercase;">list job </h2>
-                        <ul class="nav navbar-right panel_toolbox">
-                            <li><a class="collapse-link"></a>
-                            <li><a class="collapse-link"></a>
-                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                        </ul>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="x_content">
-                        <br>
-                        <table class="table table-striped">
-                            <thead>
-                            <th>title</th>
-                            <th>tugas</th>
-                            <th>tanggung jawab</th>
-                            <th>#</th>
-                            </thead>
-                            <tbody>
-                            <?php
-                            $sql = "SELECT * FROM tb_list_job WHERE kode_detail_job = :kode";
-                            $stmt = $conn->runQuery($sql);
-                            $stmt->execute(array(
-                                    ':kode' => $kodeDetail
-                            ));
-                            echo $kodeDetail;
-                            while ($row = $stmt->fetch(PDO::FETCH_LAZY)) {
-                                ?>
-                                <tr>
-                                    <td><?php echo $row['nama_job']; ?></td>
-                                    <td><?php echo $row['deskripsi_job']; ?></td>
-                                    <td><?php echo $row['keterangan']; ?></td>
-                                    <td><a href="php/delete-addJob.php?id=<?php echo $row['id']; ?>&kode=<?php echo $kode; ?>" onclick="return confirm('Are you sure you want to delete this item?');"><button class="btn btn-danger btn-xs" data-toggle="tooltip" data-placement="top" title="delete a job"><span class="fa fa-fw fa-trash"></span></button></a></td>
-                                </tr>
-                                <?php
-                            }
-                            ?>
-                            </tbody>
-                        </table>
-                        <button type="button" class="btn btn-default" data-toggle="modal" data-target=".modal-psikolog">finish
-                        </button>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-        <?php
-    }
+    
 ?>
+
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="x_panel">
+      <div class="x_title">
+        <h2>List Job Project
+          <small>Baru</small>
+        </h2>
+
+        <div class="clearfix"></div>
+      </div>
+
+      <div class="x_content" id="formJudul1">
+        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+        <form method="post" id="formJudul" class="form-horizontal" data-parsley-validate="">
+
+          <div class="input-group col-md-12 col-xs-12">
+            <input type="hidden" class="form-control" name="txtSPK" id="txtSPK" value="<?=$kode?>" readonly>
+          </div>
+
+          <div class="input-group col-md-12 col-xs-12">
+            <input type="hidden" class="form-control" name="txtID" id="txtID" value="<?=$new_code?>" readonly>
+          </div>
+          <div class="input-group col-md-12 col-xs-12">
+            <input type="text" class="form-control" name="txtJudul" id="txtJudul" placeholder="Title Jobs" data-parsley-minlength="6" data-parsley-maxlength="100" data-parsley-required-message="Title is required" required autocomplete="off">
+         
+          </div>
+          <div class="from-group">
+          <button type="submit" id="addJudul" class="addJudul from-control btn-block btn btn-info">Add a Job <span class="fa fa-fw fa-plus"></span></button>
+          </div>
+          
+        </form >
+        </div>
+      </div>
+    </div>
+
+    <div class="x_panel">
+      <div class="x_title">
+        <h2>Project</h2>
+        <div class="clearfix"></div>
+      </div>
+
+      <div class="x_content" id="listPanel">
+      <?php  while($row = $done->fetch(PDO::FETCH_LAZY)){ ?>
+
+        <div class="panel-group" role="tablist" id="listDetail">
+          <div class="panel panel-default " >
+          <a href="#<?=$row['kode_detail_job']?>" class="" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="collapseListGroup1">
+              <div class="panel-heading" role="tab" id="collapseListGroupHeading1">
+                  <h4 class="panel-title">
+                       <?=$row['title']?> 
+                       <div class="pull-right" style="display: inline;">
+                    <button class="btn btn-xs btn-default" id="removeTitle" data-id="<?=$row['id']?>" data-toggle="tooltip" data-placement="left" title="Remove Title"><span class="fa fa-fw fa-trash-o"></span></button>
+                      </div> 
+                    </h4>
+                    
+              </div>
+              </a>
+              <div class="panel-collapse collapse" role="tabpanel" id="<?=$row['kode_detail_job']?>" aria-labelledby="collapseListGroupHeading1" aria-expanded="false" style="">
+                <br/>
+              <div class="row">
+                <div class="col-md-8 col-sm-8 col-xs-12 col-md-offset-2 col-sm-offset-2" id="formDetail">
+                  <form class="form-horizontal form-label-left input_mask" id="detailJob" data-parsley-validate="">
+                    <div class="form-group">
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input type="text" class="form-control" name="txtKodeDetail" id="txtKodeDetail" value="<?=$row['kode_detail_job']?>" readonly>
+                          <input type="hidden" class="form-control" name="txtAdmin" id="txtAdmin" value="<?=$admin_id?>" readonly>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input type="text" class="form-control" name="txtKegiatan" id="txtKegiatan" placeholder="Nama Kegiatan" data-parsley-minlength="6" data-parsley-maxlength="100" data-parsley-required-message="This value is required" required autocomplete="off">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="col-md-12 col-sm-12 col-xs-12">
+                      <textarea id="txtDeskripsi" placeholder="Deskripsi Kegiatan/Job" required="required" class="form-control" name="txtDeskripsi" data-parsley-trigger="keyup" data-parsley-minlength="20" data-parsley-maxlength="100" data-parsley-minlength-message="Come on! You need to enter at least a 20 caracters long comment.." data-parsley-validation-threshold="10"></textarea>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="col-md-12 col-sm-12 col-xs-12">
+                        <textarea id="txtKeterangan" placeholder="Keterangan Kegiatan" required="required" class="form-control" name="txtKeterangan" data-parsley-trigger="keyup" data-parsley-minlength="20" data-parsley-maxlength="100" data-parsley-minlength-message="Come on! You need to enter at least a 20 caracters long comment.." data-parsley-validation-threshold="10"></textarea>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3 col-sm-offset-3 col-xs-offset-12">
+                        <button type="submit" name="addDetail" class="btn btn-block btn-info" id="addDetail">Tambah <span class="fa fa-fw fa-plus"></span></button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+                  <br/>
+                  <div class="x_content" style="padding-bottom: 2%; padding-left: 1%; padding-right: 1%;">
+                    <table class="table" id="tableDetail">
+                        <thead>
+                            <tr>
+                                <th width="30%">Kegiatan</th>
+                                <th width="40%">Deskripsi</th>
+                                <th width="40%">Keterangan</th>
+                                <th width="10%">#</th>  
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <?php
+                        $detail = $row['kode_detail_job'];
+                        
+                          $detaildata = "SELECT * FROM tb_list_job where kode_detail_job = :dd";
+                          $sys = $config->runQuery($detaildata);
+                          $sys->execute(array(':dd' => $detail));
+                          
+                          $total = $sys->rowCount();
+                          if($total > 0 ){
+                                  while($data = $sys->fetch(PDO::FETCH_LAZY)){
+                                    ?>
+                                        <tr style="text-transform: capitalize;">
+                                            <td><?=$data['nama_job']?></td>
+                                            <td><?=$data['deskripsi_job']?></td>
+                                            <td><?=$data['keterangan']?></td>
+                                            <td>
+                                              <button type="button" id="removeDetail" data-id="<?=$data['id']?>" data-toggle="tooltip" data-placement="right" title="Remove" class="btn btn-danger btn-xs"><span class="fa fa-fw fa-minus-square"></span></button>
+                                            </td>
+                                        </tr>
+                                      <?php
+                                }
+                           }else{?>
+                              <tr>
+                                  <td colspan="4">Kegiatan belum ada.</td>
+                              </tr>
+
+                           <?php } ?>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="clearfix"></div>
+
+                  <div class="panel-footer">Footer</div>
+              </div>
+          </div>
+      </div>
+      <?php } ?>
+      </div>
+    </div>
+  </div>

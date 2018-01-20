@@ -4,8 +4,11 @@
   include_once 'config/api.php';
   $user_admin = new Login();
   $config = new Admin();
+  
+  if(isset($_SESSION['user_session'])){
+      $admin_id = $_SESSION['user_session'];
+  
 
-  $admin_id = $_SESSION['user_session'];
 
   $stmt = $user_admin->runQuery("SELECT * FROM tb_admin WHERE username=:user_id");
   $stmt->execute(array(":user_id"=>$admin_id));
@@ -44,4 +47,5 @@
        
     <?php
       include_once 'php/footer.php';
+  }
     ?>

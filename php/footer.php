@@ -59,9 +59,11 @@
     <script src="vendors/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js"></script>
     <script src="vendors/jquery.hotkeys/jquery.hotkeys.js"></script>
     <script src="vendors/google-code-prettify/src/prettify.js"></script>
+    <script src="vendors/parsleyjs/dist/parsley.js"></script>
 
     <!-- Custom Theme Scripts --> 
     <script src="build/js/custom.js"></script>
+    <script src="build/js/crud.js"></script>
 
     <script type="text/javascript">
     $(document).on("click", ".tampilData", function(){
@@ -207,18 +209,19 @@
      });
     $(document).on('click', '.generateKode', function(){
         var id = $(this).data('id');
-        $.ajax({
+        alert(id);
+        // $.ajax({
 
-            url: 'php/ajx/insertKode.php',
-            type: 'POST',
-            dataType: 'text',
-            data: {id : id},
+        //     url: 'php/ajx/insertKode.php',
+        //     type: 'POST',
+        //     dataType: 'text',
+        //     data: {id : id},
 
-            success: function(data){
-                alert('' +data+ '')
-                location.reload();
-            }
-        });
+        //     success: function(data){
+        //         alert('' +data+ '')
+        //         location.reload();
+        //     }
+        // });
 
     });
        /* Custom filtering function which will search data in column four between two values */

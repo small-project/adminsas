@@ -36,7 +36,8 @@
 
           $query = "SELECT tb_karyawan.no_ktp, tb_karyawan.no_NIK, tb_karyawan.nama_depan, tb_karyawan.nama_belakang, tb_info_interview.kd_interview, tb_info_interview.date_interview, tb_info_interview.detail, tb_info_interview.status, tb_info_interview.kd_admin, tb_info_interview.create_date
           FROM tb_karyawan
-          LEFT OUTER JOIN tb_info_interview ON tb_info_interview.no_ktp=tb_karyawan.no_ktp WHERE tb_karyawan.no_NIK =''";
+          LEFT OUTER JOIN tb_info_interview ON tb_info_interview.no_ktp=tb_karyawan.no_ktp WHERE tb_karyawan.no_NIK ='' 
+          ORDER BY tb_karyawan.nama_depan ASC";
           $sql = $calon->paging($query, $records_per_page);
           $stmt = $calon->runQuery($sql);
           $stmt->execute();

@@ -1,4 +1,13 @@
 <!-- top navigation -->
+<?php
+$sql = "SELECT tb_push.kd_push, tb_push.subject, tb_push.dari, tb_push.kepada, tb_push.create_date, tb_subject_push.nama_subject, tb_detail_push.read_date, tb_detail_push.pesan FROM tb_push INNER JOIN tb_subject_push ON tb_subject_push.kd_subject = tb_push.subject INNER JOIN tb_detail_push ON tb_detail_push.kd_detail = tb_subject_push.kd_subject WHERE tb_push.dari = :adminId AND tb_detail_push.read_date = '' ";
+$stmt = $config->runQuery($sql);
+$stmt->execute(array(
+        'adminId' => $admin_id
+));
+
+$totalPesan = $stmt->rowCount();
+?>
 <div class="top_nav">
   <div class="nav_menu">
     <nav>
@@ -28,65 +37,33 @@
         <li role="presentation" class="dropdown">
           <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
             <i class="fa fa-envelope-o"></i>
-            <span class="badge bg-green">6</span>
+            <span class="badge bg-green"><?=$totalPesan?></span>
           </a>
           <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
+        <?php while($row = $stmt->fetch(PDO::FETCH_LAZY)) {?>
             <li>
               <a>
                 <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
                 <span>
-                  <span>John Smith</span>
-                  <span class="time">3 mins ago</span>
+                  <span style="font-size: 18px;"><b><?=$row['nama_subject']?></b></span>
+
                 </span>
                 <span class="message">
-                  Film festivals used to be do-or-die moments for movie makers. They were where...
+                  <?php
+                    $pesan = $row['pesan'];
+                    if(strlen($pesan) > 30){
+                        $isiPesan = substr($pesan, 0, -30);
+                    }else{
+                        $isiPesan = $row['pesan'];
+                    }
+
+                    echo $isiPesan;
+                  ?>
                 </span>
+                  <span class="time">Read At: <?=$row['read_date']?></span>
               </a>
             </li>
-            <li>
-              <a>
-                <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                <span>
-                  <span>John Smith</span>
-                  <span class="time">3 mins ago</span>
-                </span>
-                <span class="message">
-                  Film festivals used to be do-or-die moments for movie makers. They were where...
-                </span>
-              </a>
-            </li>
-            <li>
-              <a>
-                <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                <span>
-                  <span>John Smith</span>
-                  <span class="time">3 mins ago</span>
-                </span>
-                <span class="message">
-                  Film festivals used to be do-or-die moments for movie makers. They were where...
-                </span>
-              </a>
-            </li>
-            <li>
-              <a>
-                <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                <span>
-                  <span>John Smith</span>
-                  <span class="time">3 mins ago</span>
-                </span>
-                <span class="message">
-                  Film festivals used to be do-or-die moments for movie makers. They were where...
-                </span>
-              </a>
-            </li>
-            <li>
-              <div class="text-center">
-                <a>
-                  <strong>See All Alerts</strong>
-                  <i class="fa fa-angle-right"></i>
-                </a>
-              </div>
-            </li>
+        <?php } ?>
           </ul>
         </li>
       </ul>
